@@ -1,0 +1,44 @@
+{
+  "name": "watchr",
+  "main": "index.js",
+  "version": "0.0.0",
+  "description": "does stuff",
+  "authors": [
+    "Alan Ayoub"
+  ],
+  "license": "this is not free, don't use it",
+  "homepage": "alanayoub.com",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.0.3",
+    "requirejs": "~2.1.9",
+    "backbone": "~1.1.0",
+    "underscore": "~1.5.2",
+    "requirejs-text": "~2.0.10",
+    "handlebars": "~1.1.2"
+  },
+  "exportsOverride": {
+      "backbone": {
+          "": "backbone.js"
+      },
+      "handlebars": {
+          "": "handlebars.runtime.js"
+      },
+      "requirejs": {
+          "": "require.js"
+      },
+      "requirejs-text": {
+          "": "text.js"
+      },
+      "underscore": {
+          "": "underscore.js"
+      }
+  }
+}

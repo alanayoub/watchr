@@ -1,0 +1,1 @@
+INSERT INTO watchr.user (username, password, salt, creation_date) VALUES ('alan', 'pass', 'somerandomsalt', now());

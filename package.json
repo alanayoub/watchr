@@ -1,0 +1,40 @@
+{
+  "name": "watchr",
+  "version": "0.0.0",
+  "author": {
+    "name": "Alan Ayoub",
+    "email": "alanayoub@gmail.com",
+    "url": "https://alanayoub.com/"
+  },
+  "private": true,
+  "scripts": {
+    "start": "nodemon ."
+  },
+  "description": "does stuff",
+  "main": "index",
+  "dependencies": {
+    "colors": "~0.6.2",
+    "express": "~3.4.4",
+    "jquery": "~1.8.3",
+    "request": "~2.27.0",
+    "random-ua": "0.0.4",
+    "phantomjs": "~1.9.2-3",
+    "node-phantom": "~0.2.5",
+    "express3-handlebars": "~0.5.0",
+    "mysql": "git://github.com/felixge/node-mysql",
+    "passport": "~0.1.17",
+    "connect-redis": "~1.4.6",
+    "passport-local": "~0.1.6",
+    "handlebars-precompiler": "~1.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "*",
+    "grunt": "~0.4.2",
+    "grunt-bower-task": "~0.3.4",
+    "grunt-contrib-handlebars": "~0.6.0",
+    "grunt-contrib-watch": "~0.5.3"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  }
+}

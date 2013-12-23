@@ -1,0 +1,8 @@
+/vendor/*     # ignore all external submodules
+/public/*     # static files
+./README.md   # a specific file
+/renders/*
+/lib/*
+*.css         # ignore any CSS files too
+:(\d)*\.js    # monitor javascript files with only digits in their name
+/.idea/*

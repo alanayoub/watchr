@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Watchr">
+    <title>Watcher</title>
+</head>
+<body>
+{{{body}}}
+<script data-main="scripts/main" src="lib/requirejs/require.js"></script>
+<script type="text/javascript">
+    require.config({
+        baseUrl: './scripts',
+        waitSeconds: 6,
+        paths: {
+            jquery: '/lib/jquery/jquery',
+            backbone: '/lib/backbone/backbone',
+            underscore: '/lib/underscore/underscore',
+            handlebars: '/lib/handlebars/handlebars.runtime',
+            errors: '/services/errors',
+            rest: '/services/rest',
+            text: '/lib/requirejs-text/text',
+            templates: '/scripts/gen-templates'
+        },
+        shim: {
+            backbone: {
+                deps: ['text', 'underscore', 'jquery', 'handlebars', 'templates'],
+                exports: 'Backbone'
+            },
+            templates: {
+                deps: ['handlebars'], exports: 'templates'
+            }
+        }
+    });
+</script>
+</body>
+</html>
