@@ -89,7 +89,6 @@ app.post('/api/login', passport.authenticate('local'), function (req, res) {
 app.post('/api/logout', function (req, res) {
     console.log('try logging out');
     req.logout();
-    console.log('req.user', req.user);
     if (!req.user) {
         res.send('You are logged out');
     }

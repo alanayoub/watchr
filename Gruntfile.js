@@ -1,6 +1,5 @@
 module.exports = function (grunt) {
     grunt.initConfig({
-        /* Copy over required bower files */
         bower: {
             install: {
                 options: {
@@ -9,7 +8,6 @@ module.exports = function (grunt) {
                 }
             }
         },
-        /* Precompile handebars templates */
         handlebars: {
             compile: {
                 options: {

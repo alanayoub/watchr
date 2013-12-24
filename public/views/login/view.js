@@ -15,7 +15,6 @@ define(['jquery', 'backbone'], function ($) {
                     return (acc[val.name] = val.value) && acc;
                 }, {});
                 watchr.rest.login.post({data: data}).then(function (result) {
-                    console.log('login: ', result);
                     document.location.reload();
                 });
             });

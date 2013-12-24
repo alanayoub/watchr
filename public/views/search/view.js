@@ -14,7 +14,6 @@ define(['jquery', 'backbone'], function ($) {
                     return (acc[val.name] = val.value) && acc;
                 }, {});
                 watchr.rest.search.post({data: data}).then(function (result) {
-                    console.log('result for stuff', result);
                     view.$el.find('.w-answer').html(result)
                 });
                 event.preventDefault();

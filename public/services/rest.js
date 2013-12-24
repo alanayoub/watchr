@@ -14,11 +14,10 @@ define(['backbone'], function () {
                 401: function () {}
             },
             success: function (result, status, jqXHR) {
-                console.log('Ajax success:', result, status, jqXHR);
                 $deferred.resolve(result);
             },
             error: function (xhr, status, message) {
-                console.log('Ajax error:', {status: xhr.status, message: message});
+                console.warn('Ajax error:', {status: xhr.status, message: message});
                 $deferred.reject({status: xhr.status, message: message});
             }
         });

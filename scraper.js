@@ -95,12 +95,8 @@ exports.scraper = function (options, callback) {
                 page.settings = {
                     'User-Agent': user_agent
                 };
-                page.onResourceRequested = function (request) {
-//                console.log('Request ' + JSON.stringify(request, undefined, 4));
-                };
-                page.onResourceReceived = function (response) {
-//                console.log('Receive ' + JSON.stringify(response, undefined, 4));
-                };
+                page.onResourceRequested = function (request) {};
+                page.onResourceReceived = function (response) {};
                 page.onError = function (msg, trace) {
                     var msgStack = ['%s'.red, msg];
                     if (trace && trace.length) {
