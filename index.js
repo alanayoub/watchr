@@ -1,21 +1,15 @@
 var express         = require('express'),
-    mysql           = require('mysql'),
     http            = require('http'),
     exphbs          = require('express3-handlebars'),
     colors          = require('colors'),
-    scraper         = require('./scraper'),
     passport        = require('passport'),
     LocalStrategy   = require('passport-local').Strategy,
     RedisStore      = require('connect-redis')(express),
     ipban           = require('./middleware/ipban.js'),
     auth            = require('./middleware/auth.js'),
-    app             = express(),
-    pool            = mysql.createPool({
-        host     : 'localhost',
-        user     : 'alan',
-        password : 'sdfaslkj&sdlkjklsdfjklj"$skldTfjsdklaf',
-        connectionLimit: 10
-    });
+    pool            = require('./pool');
+
+app = express();
 
 passport.use(new LocalStrategy(
     function (username, password, done) {
@@ -75,51 +69,7 @@ app.configure('development', function () {
     app.use(app.router);
 });
 
-app.get('/', function (req, res) {
-    res.render('index');
-});
-
-app.post('/api/login', function (req, res, next) {
-    passport.authenticate('local', function (error, user, info) {
-        var query = 'INSERT INTO watchr.login_attempt (username, ip, success) VALUES (?, ?, ?)',
-            data = [req.body.username, req.connection.remoteAddress, !!user ? 1 : 0];
-        if (error) return next(error);
-        pool.getConnection(function (error, connection) {
-            if (error) throw error;
-            connection.query(query, data, function (error, results) {
-                connection.release();
-            });
-        });
-        if (!user) return res.send('Incorrect credentials: You are NOT logged in');
-        req.logIn(user, function (error) {
-            if (error) return next(error);
-            return res.send('You are logged in');
-        });
-    })(req, res, next);
-});
-
-app.post('/api/logout', function (req, res) {
-    console.log('try logging out');
-    req.logout();
-    if (!req.user) {
-        res.send('You are logged out');
-    }
-});
-
-app.post('/api/search', function (req, res) {
-    console.log('POST: %j'.green, req.body);
-    scraper.scraper(req.body, function (result) {
-        console.log('Result: %s'.green, result);
-        res.send(result);
-    });
-});
-
-app.get('/api/user', function (req, res) {
-    console.log('try to get user details');
-    if (req.user) {
-        res.send({user: req.user});
-    }
-});
+require('./routes');
 
 http.createServer(app).listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
