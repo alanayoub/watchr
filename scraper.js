@@ -128,17 +128,20 @@ exports.scraper = function (options, callback) {
                  * */
                 page.onClosing = function(closing_page) {
                     ph.watchr.scrapping--;
-                    console.log('The page is closing! URL: %s', closing_page.url);
+                    console.log('Phantom page closing. URL: %s', closing_page.url);
                 };
                 page.open(options.url, function (error, status) {
-                    console.log('Phantom status: %s'.green, status);
                     if (error) {
-                        console.error('Error: ', error);
+                        console.error('Error opening phantom page: ', error);
                         ph.watchr.scrapping--;
                         page.close();
                         return
                     }
-                    if (status !== 'success') return console.error('Status: ', status);
+                    if (status !== 'success') {
+                        console.error('Opening phantom page: ', status);
+                        page.close();
+                        return
+                    }
                     /**
                      * Check selector against markup up to x times.
                      * The page may have an unsupported redirect and so the correct markup might not be ready.
@@ -148,7 +151,7 @@ exports.scraper = function (options, callback) {
                      */
                     !function check (tries) {
                         setTimeout(function () {
-                            page.injectJs('bower_components/jquery/jquery.min.js', function () {
+                            page.injectJs('public/lib/jquery/jquery.js', function () {
                                 page.evaluate(
                                     function (options) {
                                         if (options.selector) {return $(options.selector).text();}
@@ -171,14 +174,19 @@ exports.scraper = function (options, callback) {
                                             callback(result);
                                             ph.watchr.scraped++;
                                             ph.watchr.scrapping--;
+                                            console.log('found result, close page. Result = ', result);
                                             page.close();
                                         }
-                                        if (tries === 0) page.close();
+                                        if (tries === 0) {
+                                            console.log('ran out of tries, closing page');
+                                            callback('The selector didn\'t return any result after 10 seconds');
+                                            page.close();
+                                        }
                                         if (tries > 0 && !result) check(tries);
                                     }, options
                                 );
                             });
-                        }, 200);
+                        }, 500);
                     }(20);
                     page.render('renders/lastpage.png');
                 });
