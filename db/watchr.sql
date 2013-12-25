@@ -33,19 +33,13 @@ DROP TABLE IF EXISTS `watchr`.`login_attempt` ;
 
 CREATE  TABLE IF NOT EXISTS `watchr`.`login_attempt` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `user_id` INT NOT NULL ,
   `ip` VARCHAR(45) NULL ,
   `browser` VARCHAR(45) NULL ,
   `success` TINYINT(1) NOT NULL ,
   `timestamp` TIMESTAMP NOT NULL ,
-  PRIMARY KEY (`id`, `user_id`) ,
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC) ,
-  INDEX `fk_login_attempt_user` (`user_id` ASC) ,
-  CONSTRAINT `fk_login_attempt_user`
-    FOREIGN KEY (`user_id` )
-    REFERENCES `watchr`.`user` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  `username` VARCHAR(254) NULL ,
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) )
 ENGINE = InnoDB;
 
 
@@ -93,7 +87,9 @@ CREATE  TABLE IF NOT EXISTS `watchr`.`result` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
 CREATE USER `alan` IDENTIFIED BY 'sdfaslkj&sdlkjklsdfjklj"$skldTfjsdklaf';
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
