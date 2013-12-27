@@ -1,4 +1,5 @@
-var express         = require('express'),
+var config          = require('./config'),
+    express         = require('express'),
     http            = require('http'),
     exphbs          = require('express3-handlebars'),
     colors          = require('colors'),
@@ -45,7 +46,6 @@ passport.deserializeUser(function(id, done) {
 });
 
 app.configure('development', function () {
-    app.set('port', process.env.PORT || 3000);
     app.set('views', __dirname + '/views');
     app.set('view cache', false);
     app.engine('handlebars', exphbs({defaultLayout: 'main'}));
@@ -55,12 +55,12 @@ app.configure('development', function () {
     app.use(express.cookieParser());
     app.use(express.session({
         store: new RedisStore({
-            host: 'localhost',
-            port: 6379,
-            db: 0,
-            pass: 'sfjklarj34%$£%RET£$TSD@:DF%$E£'
+            host: config.get('redis:host'),
+            port: config.get('redis:port'),
+            pass: config.get('redis:pass'),
+            db: config.get('redis:db')
         }),
-        secret: 'sfjklarj34%$£%RET£$TSD@:DF%$E£'
+        secret: config.get('express:secret')
     }));
     app.use(passport.initialize());
     app.use(passport.session());
@@ -71,6 +71,6 @@ app.configure('development', function () {
 
 require('./routes');
 
-http.createServer(app).listen(app.get('port'), function () {
-    console.log('Express server listening on port ' + app.get('port'));
+http.createServer(app).listen(config.get('express:port'), function () {
+    console.log('Express server listening on port ' + config.get('express:port'));
 });
