@@ -25,7 +25,8 @@
     "passport": "~0.1.17",
     "connect-redis": "~1.4.6",
     "passport-local": "~0.1.6",
-    "nconf": "~0.6.9"
+    "nconf": "~0.6.9",
+    "winston": "~0.7.2"
   },
   "devDependencies": {
     "nodemon": "*",

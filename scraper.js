@@ -1,6 +1,7 @@
-var colors = require('colors'),
+var $ = require('jquery'),
+    colors = require('colors'),
     random_ua = require('random-ua'),
-    $ = require('jquery'),
+    logger = require('./services/logger'),
     getphantom = require('./services/phantom');
 
 module.exports = function (options) {
@@ -14,10 +15,14 @@ module.exports = function (options) {
      */
     var $deferred = $.Deferred();
     getphantom().then(function (error, ph) {
+        logger.info('scrape request recieved');
         var user_agent = random_ua.generate();
-        console.log('Generated UserAgent: %s'.green, user_agent);
+        logger.info('Generated UserAgent: %s', user_agent);
         ph.watchr.scrapping++;
-        if (error) return console.log('Error: %s'.red, error);
+        if (error) {
+            logger.error('Error getting phantom instance: %s', error);
+            return
+        }
         ph.createPage(function (error, page) {
             page.customHeaders = {
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -38,40 +43,40 @@ module.exports = function (options) {
                         msgStack.push(' -> ' + t.file + ': ' + t.line + (t.function ? ' (in function "' + t.function + '")' : ''));
                     });
                 }
-                console.error('Error from webpage: %j'.red, msgStack.join('\n'));
+                logger.error('Error from webpage: %j', msgStack.join('\n'));
             };
             page.onLoadStarted = function () {
-                console.log('Start loading...'.green);
+                logger.info('page.onLoadStarted');
             };
             page.onLoadFinished = function (status) {
-                console.log('Loading finished.'.green);
+                logger.info('page.onLoadFinished');
             };
             page.onConsoleMessage = function (msg, line, source) {
                 if (msg.indexOf('Unsafe JavaScript attempt to access frame with URL') > -1) return;
-                console.log('console: %s %s %s'.grey, msg, line, source);
+                logger.info('phantom page console: %s %s %s', msg, line, source);
             };
-            page.onNavigationRequested = function (url, type, willNavigate, main) {
-                console.log('Trying to navigate to: ' + url);
-                console.log('Caused by: ' + type);
-                console.log('Will actually navigate: ' + willNavigate);
-                console.log('Sent from the page\'s main frame: ' + main);
+            page.onNavigationRequested = function (url, type, will_navigate, main) {
+                logger.info('Trying to navigate to: %s', url);
+                logger.info('Caused by: %s', type);
+                logger.info('Will actually navigate: %s', will_navigate);
+                logger.info('Sent from the page\'s main frame: %s', main);
             };
             /**
              * This isnt working for some reason
              * */
             page.onClosing = function(closing_page) {
                 ph.watchr.scrapping--;
-                console.log('Phantom page closing. URL: %s', closing_page.url);
+                logger.info('page.onClosing. URL: %s', closing_page.url);
             };
             page.open(options.url, function (error, status) {
                 if (error) {
-                    console.error('Error opening phantom page: ', error);
+                    logger.error('page.open: ', error);
                     ph.watchr.scrapping--;
                     page.close();
                     return
                 }
                 if (status !== 'success') {
-                    console.error('Opening phantom page: ', status);
+                    logger.error('page.open status: ', status);
                     page.close();
                     return
                 }
@@ -97,7 +102,7 @@ module.exports = function (options) {
                                 },
                                 function (error, result) {
                                     if (error) {
-                                        console.log('Error evaluating: %s'.red, error);
+                                        logger.error('page.evaluate: %s', error);
                                         ph.watchr.scrapping--;
                                         page.close();
                                         return;
@@ -107,11 +112,11 @@ module.exports = function (options) {
                                         $deferred.resolve(result);
                                         ph.watchr.scraped++;
                                         ph.watchr.scrapping--;
-                                        console.log('found result, close page. Result = ', result);
+                                        logger.info('found result, close page. Result = ', result);
                                         page.close();
                                     }
                                     if (tries === 0) {
-                                        console.log('ran out of tries, closing page');
+                                        logger.info('ran out of tries, closing page');
                                         $deferred.reject('The selector didn\'t return any result after 10 seconds');
                                         page.close();
                                     }

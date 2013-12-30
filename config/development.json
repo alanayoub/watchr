@@ -8,5 +8,15 @@
         "port": 6379,
         "pass": "sfjklarj34%$£%RET£$TSD@:DF%$E£",
         "db": 0
+    },
+    "logger": {
+        "file": {
+            "filename": "logs/run.log",
+            "level": "silly"
+        },
+        "console": {
+            "level": "silly"
+        }
+
     }
 }

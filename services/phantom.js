@@ -1,6 +1,9 @@
-var $ = require('jquery'), phantom = require('node-phantom'),
+var $ = require('jquery'),
+    phantom = require('node-phantom'),
+    logger = require('../services/logger'),
     instances = [], max_scrapes_per_instance = 3, instanceid = 0;
 module.exports = function () {
+    logger.info('new phantom instance request received');
     var $deferred = $.Deferred(),
         instance, cloptions = {
             parameters: {
@@ -17,7 +20,7 @@ module.exports = function () {
     var newinstance = function (callback) {
         phantom.create(function (error, ph) {
             var id;
-            if (error) return console.log('Error creating Phantom instance %j'.red, error);
+            if (error) return logger.error('Error creating Phantom instance %j', error);
             id = instances.push(ph);
             instance = instances[id-1];
             instance.watchr = {
@@ -25,7 +28,7 @@ module.exports = function () {
                 scrapping: 0,
                 instanceid: instanceid++
             };
-            console.log('Creating new phantomjs instance: %s'.blue, instance.watchr.instanceid);
+            logger.info('Creating new phantomjs instance: %s', instance.watchr.instanceid);
             callback(error, instance);
         }, cloptions);
     };
@@ -35,32 +38,32 @@ module.exports = function () {
         });
     }
     else {
-        console.log('Number of instances'.blue, instances.length);
+        logger.info('Number of instances', instances.length);
         instances.every(function (val, idx) {
             if (val.watchr.scraped > max_scrapes_per_instance) {
-                console.log('Max scrapes for this instance, try another: %s'.blue, val.watchr.instanceid);
-                console.log('Killing instance %s'.blue, val.watchr.instanceid);
+                logger.info('Max scrapes for this instance, try another: %s', val.watchr.instanceid);
+                logger.info('Killing instance %s', val.watchr.instanceid);
                 instances.splice(idx, 1);
                 val.exit();
                 return true
             }
             else {
-                console.log('Found one with less than max scrapes: %s'.blue, val.watchr.instanceid);
+                logger.info('Found one with less than max scrapes: %s', val.watchr.instanceid);
                 instance = val;
                 return false
             };
         });
         if (!instance) {
-            console.log('No free instances found, need to create new instance'.blue);
+            logger.info('No free instances found, need to create new instance');
             newinstance(function (error, ph) {
-                console.log('Number of scraped pages with this instance'.blue, instance.watchr.scraped);
-                console.log('Instance currently scraping'.blue, instance.watchr.scrapping);
+                logger.info('Number of scraped pages with this instance', instance.watchr.scraped);
+                logger.info('Instance currently scraping', instance.watchr.scrapping);
                 $deferred.resolve(error, ph);
             });
         }
         else {
-            console.log('Scraped pages with instance'.blue, instance.watchr.scraped);
-            console.log('Instance currently scraping'.blue, instance.watchr.scrapping);
+            logger.info('Scraped pages with instance', instance.watchr.scraped);
+            logger.info('Instance currently scraping', instance.watchr.scrapping);
             $deferred.resolve(false, instance);
         }
     }
