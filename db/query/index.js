@@ -25,8 +25,8 @@ module.exports = {
     },
     result: {
         last: function (config) {
-            var query = 'SELECT * FROM watchr.result WHERE task_id = ? ORDER BY asof DESC LIMIT 1',
-                values = [config.task_id, config.value];
+            var query = 'SELECT * FROM watchr.result WHERE task_id = ? ORDER BY asof DESC LIMIT ?',
+                values = [config.task_id, config.amount];
             return common_query(query, values);
         },
         update: function (config) {
