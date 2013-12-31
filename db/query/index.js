@@ -21,6 +21,11 @@ module.exports = {
             var query = 'INSERT INTO watchr.task (user_id, url, css) VALUES (?, ?, ?)',
                 values = [config.id, config.url, config.css];
             return common_query(query, values);
+        },
+        first: function (config) {
+            var query = 'SELECT * FROM watchr.task WHERE active = 1 AND creation_date < DATE_SUB(NOW(), INTERVAL ? HOUR) ORDER BY latest_scrape ASC LIMIT ?',
+                values = [config.hours, config.amount];
+            return common_query(query, values);
         }
     },
     result: {

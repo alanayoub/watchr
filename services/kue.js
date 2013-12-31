@@ -1,5 +1,10 @@
-var kue = require('kue'), jobs = kue.createQueue(), redis = require('redis'),
-    config = require('../config'), logger = require('./logger'), $ = require('jquery');
+var $       = require('jquery'),
+    dbquery = require('../db/query'),
+    config  = require('../config'),
+    kue     = require('kue'),
+    jobs    = kue.createQueue(),
+    logger  = require('./logger'),
+    redis   = require('redis');
 var total_tasks_complete = 0;
 kue.redis.createClient = function () {
     var client = redis.createClient(config.get('redis:port'), config.get('redis:host'));
@@ -13,18 +18,21 @@ jobs.process('scrape', 3, function (job, done) {
 
 });
 module.exports = function () {
-    logger.info('starting kue');
+    logger.info('kue.js: Starting kue');
     var taskleft = 0;
     var gettasks = function () {
-        logger.info('getting tasks');
+        logger.info('kue.js: Getting tasks');
         var $deferred = $.Deferred();
-        setTimeout(function () {
-            $deferred.resolve([
-                {url: 'http:', css: '.css'}, {url: 'http:', css: '.css'}, {url: 'http:', css: '.css'},
-                {url: 'http:', css: '.css'}, {url: 'http:', css: '.css'}, {url: 'http:', css: '.css'},
-                {url: 'http:', css: '.css'}, {url: 'http:', css: '.css'}, {url: 'http:', css: '.css'}
-            ]);
-        }, 500);
+        dbquery.task.first({amount: 5, hours: 10}).then(function (result) {
+            if (result.error) {
+                logger.error('kue.js: Error getting tasks list: %j', result.error);
+                $deferred.reject(result.error);
+            }
+            if (result.data) {
+                logger.info('kue.js: Got %d tasks to add to queue', result.data.length);
+                $deferred.resolve(result.data);
+            }
+        });
         return $deferred.promise();
     };
     var createjobs = function (tasks) {
@@ -46,7 +54,7 @@ module.exports = function () {
                         gettasks().then(function (result) {
                             createjobs(result);
                         });
-                    };
+                    }
                 })
                 .on('failed', function () {
                     logger.warn('Job failed');
@@ -59,7 +67,7 @@ module.exports = function () {
         });
     };
     gettasks().then(function (result) {
-        logger.info('got tasks, now create jobs');
+        logger.info('kue.js: Got tasks, now create jobs');
         createjobs(result);
     });
 };
