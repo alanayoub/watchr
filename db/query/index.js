@@ -24,15 +24,14 @@ module.exports = {
         }
     },
     result: {
-        changed: function (config) {
-            // Change this to only check the latest result
-            var query = 'SELECT 1 FROM watchr.result WHERE task_id = ? AND value = ? ORDER BY id LIMIT 1',
+        last: function (config) {
+            var query = 'SELECT * FROM watchr.result WHERE task_id = ? ORDER BY asof DESC LIMIT 1',
                 values = [config.task_id, config.value];
             return common_query(query, values);
         },
         update: function (config) {
-            var query = 'UPDATE watchr.result SET asof=now() WHERE task_id = ? AND value = ?',
-                values = [config.task_id, config.value];
+            var query = 'UPDATE watchr.result SET asof=now() WHERE id = ? AND value = ?',
+                values = [config.id, config.value];
             return common_query(query, values);
         },
         insert: function (config) {

@@ -23,10 +23,14 @@ app.post('/api/search', function (req, res) {
         }
         if (task_results.data.length) {
             task_id = task_results.data[0].id;
-            dbquery.result.changed({task_id: task_id, value: scrape_results}).then(function (result) {
+            dbquery.result.last({task_id: task_id}).then(function (result) {
                 if (result.error) throw result.error;
-                if (result.data.length) dbquery.result.update({task_id: task_id, value: scrape_results});
-                else dbquery.result.insert({task_id: task_id, value: scrape_results});
+                if (result.data[0].value === scrape_results) {
+                    dbquery.result.update({id: result.data[0].id, value: scrape_results});
+                }
+                else {
+                    dbquery.result.insert({task_id: task_id, value: scrape_results});
+                }
             });
         }
         else dbquery.task.insert({id: req.user.id, url: body.url, css: body.selector}).then(function (result) {
