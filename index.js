@@ -71,6 +71,8 @@ app.configure('development', function () {
 
 require('./routes');
 
+require('./services/kue')();
+
 http.createServer(app).listen(config.get('express:port'), function () {
     console.log('Express server listening on port ' + config.get('express:port'));
 });

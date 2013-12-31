@@ -24,7 +24,8 @@ module.exports = {
         }
     },
     result: {
-        exists: function (config) {
+        changed: function (config) {
+            // Change this to only check the latest result
             var query = 'SELECT 1 FROM watchr.result WHERE task_id = ? AND value = ? ORDER BY id LIMIT 1',
                 values = [config.task_id, config.value];
             return common_query(query, values);

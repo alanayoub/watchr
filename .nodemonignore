@@ -1,6 +1,7 @@
 /vendor/*     # ignore all external submodules
 /public/*     # static files
 ./README.md   # a specific file
+.git
 /renders/*
 /lib/*
 /logs/*
