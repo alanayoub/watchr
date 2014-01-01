@@ -23,7 +23,7 @@ app.post('/api/search', function (req, res) {
         }
         if (task_results.data.length) {
             task_id = task_results.data[0].id;
-            dbquery.result.last({task_id: task_id, amount: 1}).then(function (result) {
+            dbquery.result.last({task_id: task_id, limit: 1}).then(function (result) {
                 if (result.error) throw result.error;
                 if (result.data[0].value === scrape_results) {
                     dbquery.result.update({id: result.data[0].id, value: scrape_results});

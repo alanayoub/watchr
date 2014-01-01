@@ -1,9 +1,13 @@
-var pool = require('../../pool'), $ = require('jquery');
+var pool = require('../../pool'), $ = require('jquery'), logger = require('../../services/logger');
 var common_query = function (query, values) {
     var $deferred = $.Deferred();
     pool.getConnection(function (error, connection) {
-        if (error) throw error;
+        if (error) {
+            logger.error('getting connection error', error);
+            throw error;
+        }
         connection.query(query, values, function (error, result) {
+            connection.release();
             if (error) $deferred.reject({error: error, message: ''});
             else $deferred.resolve({data: result});
         });
@@ -22,16 +26,16 @@ module.exports = {
                 values = [config.id, config.url, config.css];
             return common_query(query, values);
         },
-        first: function (config) {
+        oldest: function (config) {
             var query = 'SELECT * FROM watchr.task WHERE active = 1 AND creation_date < DATE_SUB(NOW(), INTERVAL ? HOUR) ORDER BY latest_scrape ASC LIMIT ?',
-                values = [config.hours, config.amount];
+                values = [config.olderthan || 0, config.limit];
             return common_query(query, values);
         }
     },
     result: {
         last: function (config) {
             var query = 'SELECT * FROM watchr.result WHERE task_id = ? ORDER BY asof DESC LIMIT ?',
-                values = [config.task_id, config.amount];
+                values = [config.task_id, config.limit];
             return common_query(query, values);
         },
         update: function (config) {

@@ -23,7 +23,8 @@ module.exports = function () {
     var gettasks = function () {
         logger.info('kue.js: Getting tasks');
         var $deferred = $.Deferred();
-        dbquery.task.first({amount: 5, hours: 10}).then(function (result) {
+        dbquery.task.oldest({limit: 5}).then(function (result) {
+            logger.info('oldest returned:', result);
             if (result.error) {
                 logger.error('kue.js: Error getting tasks list: %j', result.error);
                 $deferred.reject(result.error);
@@ -61,7 +62,7 @@ module.exports = function () {
                     taskleft--;
                 })
                 .on('progress', function (progress) {
-                    console.info('Job progress');
+                    logger.info('Job progress');
                     //process.stdout.write('\r  job #' + job.id + ' ' + progress + '% complete');
                 });
         });
