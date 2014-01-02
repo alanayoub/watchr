@@ -7,8 +7,8 @@ module.exports = new (winston.Logger)({
         }),
         new (winston.transports.File)({
             filename: config.get('logger:file:filename'),
-            maxsize: 1048576,
-            maxFiles: 3,
+            maxsize: config.get('logger:file:maxsize'),
+            maxFiles: config.get('logger:file:maxFiles'),
             level: config.get('logger:file:level')
         })
     ]

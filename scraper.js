@@ -1,8 +1,11 @@
 var $ = require('jquery'),
     colors = require('colors'),
+    config  = require('./config'),
     random_ua = require('random-ua'),
     logger = require('./services/logger'),
-    getphantom = require('./services/phantom');
+    getphantom = require('./services/phantom'),
+    stall = config.get('app:phantom:wait_inbetween_checks'),
+    times = config.get('app:phantom:check_for_match_times');
 
 module.exports = function (options) {
     /**
@@ -124,8 +127,8 @@ module.exports = function (options) {
                                 }, options
                             );
                         });
-                    }, 500);
-                }(20);
+                    }, stall);
+                }(times);
                 page.render('renders/lastpage.png');
             });
         });

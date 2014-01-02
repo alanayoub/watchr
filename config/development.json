@@ -9,14 +9,33 @@
         "pass": "sfjklarj34%$£%RET£$TSD@:DF%$E£",
         "db": 0
     },
+    "kue": {
+        "ui": {
+            "port": 4000
+        }
+    },
     "logger": {
         "file": {
             "filename": "logs/run.log",
-            "level": "silly"
+            "level": "silly",
+            "maxsize": 1048576,
+            "maxFiles": 3
         },
         "console": {
             "level": "silly"
         }
-
+    },
+    "app": {
+        "kue": {
+            "update": {
+                "interval": 10000,
+                "tasks_older_than_x_hours": 6,
+                "limit_number_of_tasks": 2
+            }
+        },
+        "phantom": {
+            "check_for_match_times": 20,
+            "wait_inbetween_checks": 500
+        }
     }
 }

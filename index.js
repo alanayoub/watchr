@@ -81,7 +81,7 @@ kue.redis.createClient = function () {
 };
 require('./services/kue_processes')();
 require('./services/kue_jobs')();
-kue.app.listen(4000);
+kue.app.listen(config.get('kue:ui:port'));
 
 http.createServer(app).listen(config.get('express:port'), function () {
     console.log('Express server listening on port ' + config.get('express:port'));

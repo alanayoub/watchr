@@ -3,14 +3,15 @@ var $       = require('jquery'),
     config  = require('../config'),
     kue     = require('kue'),
     jobs    = kue.createQueue(),
-    logger  = require('./logger');
-
+    logger  = require('./logger'),
+    hours = config.get('app:kue:update:tasks_older_than_x_hours'),
+    limit = config.get('app:kue:update:limit_number_of_tasks');
 module.exports = function () {
     logger.info('kue.js: Starting kue');
     var gettasks = function () {
         logger.info('kue.js: Getting tasks');
         var $deferred = $.Deferred();
-        dbquery.task.oldest({olderthan: 6, limit: 5}).then(function (result) {
+        dbquery.task.oldest({olderthan: hours, limit: limit}).then(function (result) {
             if (result.error) {
                 logger.error('kue.js: Error getting tasks list: %j', result.error);
                 $deferred.reject(result);
@@ -50,5 +51,5 @@ module.exports = function () {
         //process.stdout.write('\r  job #' + job.id + ' ' + progress + '% complete');
     });
     kuemanager();
-    setInterval(kuemanager, 10000);
+    setInterval(kuemanager, config.get('app:kue:update:interval'));
 };
