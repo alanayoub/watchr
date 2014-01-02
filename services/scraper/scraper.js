@@ -1,9 +1,9 @@
 var $ = require('jquery'),
     colors = require('colors'),
-    config  = require('./config'),
+    config  = require('../../config'),
     random_ua = require('random-ua'),
-    logger = require('./services/logger'),
-    getphantom = require('./services/phantom'),
+    logger = require('./../logger'),
+    getphantom = require('./phantom'),
     stall = config.get('app:phantom:wait_inbetween_checks'),
     times = config.get('app:phantom:check_for_match_times');
 
@@ -46,7 +46,7 @@ module.exports = function (options) {
                         msgStack.push(' -> ' + t.file + ': ' + t.line + (t.function ? ' (in function "' + t.function + '")' : ''));
                     });
                 }
-                logger.error('Error from webpage: %j', msgStack.join('\n'));
+                logger.info('Error from webpage: %j', msgStack.join('\n'));
             };
             page.onLoadStarted = function () {
                 logger.info('page.onLoadStarted');

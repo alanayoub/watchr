@@ -1,6 +1,6 @@
 var $ = require('jquery'),
     phantom = require('node-phantom'),
-    logger = require('../services/logger'),
+    logger = require('../logger'),
     instances = [], max_scrapes_per_instance = 3, instanceid = 0;
 module.exports = function () {
     logger.info('new phantom instance request received');

@@ -1,7 +1,7 @@
 var $       = require('jquery'),
-    dbquery = require('../db/query'),
-    logger  = require('./logger'),
-    pool    = require('../pool');
+    dbquery = require('../../db/query'),
+    logger  = require('./../logger'),
+    pool    = require('../../pool');
 module.exports = function (config) {
     var scrape_results = config.results, $deferred = $.Deferred();
     dbquery.task.exists({selector: config.selector, url: config.url}).then(function (task_results) {

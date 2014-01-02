@@ -1,6 +1,6 @@
 var logger  = require('../services/logger'),
-    scraper = require('../scraper'),
-    scrape_handler = require('../services/scrape_handler');
+    scraper = require('../services/scraper/scraper'),
+    scrape_handler = require('../services/scraper/scrape_handler');
 app.post('/api/search', function (req, res) {
     logger.info('POST: %j'.green, req.body);
     var body = req.body;

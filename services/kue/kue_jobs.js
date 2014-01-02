@@ -1,9 +1,9 @@
 var $       = require('jquery'),
-    dbquery = require('../db/query'),
-    config  = require('../config'),
+    dbquery = require('../../db/query'),
+    config  = require('../../config'),
     kue     = require('kue'),
     jobs    = kue.createQueue(),
-    logger  = require('./logger'),
+    logger  = require('./../logger'),
     hours = config.get('app:kue:update:tasks_older_than_x_hours'),
     limit = config.get('app:kue:update:limit_number_of_tasks');
 module.exports = function () {
