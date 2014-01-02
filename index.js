@@ -4,11 +4,14 @@ var config          = require('./config'),
     exphbs          = require('express3-handlebars'),
     colors          = require('colors'),
     passport        = require('passport'),
+    logger          = require('./services/logger'),
     LocalStrategy   = require('passport-local').Strategy,
     RedisStore      = require('connect-redis')(express),
     ipban           = require('./middleware/ipban.js'),
     auth            = require('./middleware/auth.js'),
-    pool            = require('./pool');
+    pool            = require('./pool'),
+    kue             = require('kue'),
+    redis           = require('redis');
 
 app = express();
 
@@ -71,7 +74,14 @@ app.configure('development', function () {
 
 require('./routes');
 
-require('./services/kue')();
+kue.redis.createClient = function () {
+    var client = redis.createClient(config.get('redis:port'), config.get('redis:host'));
+    client.auth(config.get('redis:pass'));
+    return client;
+};
+require('./services/kue_processes')();
+require('./services/kue_jobs')();
+kue.app.listen(4000);
 
 http.createServer(app).listen(config.get('express:port'), function () {
     console.log('Express server listening on port ' + config.get('express:port'));

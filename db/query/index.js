@@ -22,13 +22,18 @@ module.exports = {
             return common_query(query, values);
         },
         insert: function (config) {
-            var query = 'INSERT INTO watchr.task (user_id, url, css) VALUES (?, ?, ?)',
+            var query = 'INSERT INTO watchr.task (user_id, url, css, latest_scrape) VALUES (?, ?, ?, now())',
                 values = [config.id, config.url, config.css];
             return common_query(query, values);
         },
         oldest: function (config) {
-            var query = 'SELECT * FROM watchr.task WHERE active = 1 AND creation_date < DATE_SUB(NOW(), INTERVAL ? HOUR) ORDER BY latest_scrape ASC LIMIT ?',
+            var query = 'SELECT * FROM watchr.task WHERE active = 1 AND latest_scrape < DATE_SUB(NOW(), INTERVAL ? HOUR) ORDER BY latest_scrape ASC LIMIT ?',
                 values = [config.olderthan || 0, config.limit];
+            return common_query(query, values);
+        },
+        update: function (config) {
+            var query = 'UPDATE watchr.task SET latest_scrape=now() WHERE id = ?',
+                values = [config.id];
             return common_query(query, values);
         }
     },
