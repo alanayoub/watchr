@@ -1,0 +1,18 @@
+.W-masthead {
+    min-height: 40px;
+    background: #29323c;
+    color: #fff;
+    > div {
+        line-height: 40px;
+        margin-right: 10px;
+    }
+    .w-logo {
+        float: left;
+    }
+    .w-username {
+        float: right;
+    }
+    .w-signout {
+        float: right;
+    }
+}

@@ -8,6 +8,17 @@ module.exports = function (grunt) {
                 }
             }
         },
+        compass: {
+            options: {
+                sassDir: 'public/',
+                cssDir: 'public/.gen/'
+            },
+            dev: {
+                options: {
+                    debugInfo: true
+                }
+            }
+        },
         handlebars: {
             compile: {
                 options: {
@@ -22,9 +33,16 @@ module.exports = function (grunt) {
             }
         },
         watch: {
-            scripts: {
+            handlebars: {
                 files: ['./public/views/*/*.handlebars'],
                 tasks: ['handlebars'],
+                options: {
+                    spawn: true
+                }
+            },
+            css: {
+                files: ['./public/**/*.scss'],
+                tasks: ['compass'],
                 options: {
                     spawn: true
                 }
@@ -34,5 +52,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-bower-task');
     grunt.loadNpmTasks('grunt-contrib-handlebars');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.registerTask('dev', ['bower', 'handlebars', 'watch']);
+    grunt.loadNpmTasks('grunt-contrib-compass');
+    grunt.registerTask('dev', ['bower', 'handlebars', 'compass', 'watch']);
 };

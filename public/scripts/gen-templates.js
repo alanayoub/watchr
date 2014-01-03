@@ -16,11 +16,11 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "<div class=\"W-masthead\" style=\"height: 50px\">\n    <div class=\"w-username\" style=\"float: left\">";
+  buffer += "<div class=\"W-masthead\">\n    <div class=\"w-logo\">Watchr</div>\n    <div class=\"w-signout\">Signout</div>\n    <div class=\"w-username\">";
   if (stack1 = helpers.username) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = (depth0 && depth0.username); stack1 = typeof stack1 === functionType ? stack1.call(depth0, {hash:{},data:data}) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</div>\n    <div class=\"w-signout\" style=\"float: right\">Signout</div>\n</div>";
+    + "</div>\n</div>";
   return buffer;
   });
 
