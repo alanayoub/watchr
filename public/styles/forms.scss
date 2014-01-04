@@ -1,0 +1,13 @@
+input {
+    background: $coreColor02;
+    border: 1px solid w-darken($coreColor02, 10%);
+    line-height: 18px;
+}
+input[type=submit] {
+    background: $coreColor03;
+    border: $coreColor03;
+    text-transform: uppercase;
+    min-width: 50px;
+    line-height: 20px;
+    color: #fff;
+}

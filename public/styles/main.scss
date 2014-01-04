@@ -1,3 +1,7 @@
-@import "fonts.scss";
-@import "elements.scss";
+@import "styles/variables.scss";
+@import "styles/functions.scss";
+@import "styles/fonts.scss";
+@import "styles/forms.scss";
+@import "styles/elements.scss";
 @import "views/masthead/style.scss";
+@import "views/search/style.scss";

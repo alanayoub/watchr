@@ -1,0 +1,3 @@
+@function w-darken($color, $amount) {
+    @return desaturate(darken($color, $amount), $amount * 5);
+}

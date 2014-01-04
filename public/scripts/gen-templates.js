@@ -16,7 +16,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "<div class=\"W-masthead\">\n    <div class=\"w-logo\">Watchr</div>\n    <div class=\"w-signout\">Signout</div>\n    <div class=\"w-username\">";
+  buffer += "<div class=\"W-masthead\">\n    <div class=\"w-logo\"><header>Watchr</header></div>\n    <div class=\"w-signout\">Signout</div>\n    <div class=\"w-username\">";
   if (stack1 = helpers.username) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = (depth0 && depth0.username); stack1 = typeof stack1 === functionType ? stack1.call(depth0, {hash:{},data:data}) : stack1; }
   buffer += escapeExpression(stack1)
@@ -30,5 +30,5 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<div class=\"W-search\">\n    <form method=\"post\" action=\"/search\" class=\"w-form\">\n        <label>\n            <span>URL:</span>\n            <input type=\"text\" name=\"url\">\n        </label>\n        <label>\n            <span>Selector:</span>\n            <input type=\"text\" name=\"selector\">\n        </label>\n        <input type=\"submit\">\n    </form>\n    <div class=\"w-answer\"></div>\n</div>";
+  return "<div class=\"W-search\">\n    <form method=\"post\" action=\"/search\" class=\"w-form\">\n        <label>\n            <input type=\"text\" name=\"url\" placeholder=\"url\">\n        </label>\n        <label>\n            <input type=\"text\" name=\"selector\" placeholder=\"selector\">\n        </label>\n        <input type=\"submit\">\n    </form>\n    <div class=\"w-answer\"></div>\n</div>";
   });
