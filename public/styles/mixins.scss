@@ -1,0 +1,8 @@
+@mixin w-right-shadow {
+    box-shadow: inset -5px 0 10px -5px rgba(0, 0, 0, 0.2);
+}
+@mixin ellipsis {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}

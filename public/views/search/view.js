@@ -18,7 +18,6 @@ define(['jquery', 'backbone'], function ($) {
                 });
                 event.preventDefault();
             });
-
         }
     });
 });

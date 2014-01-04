@@ -1,0 +1,9 @@
+.W-task-list-container {
+    position: absolute;
+    background: $defaultBackground;
+    border-right: 1px solid $borderLines;
+    min-width: 250px;
+    max-width: 20%;
+    height: calc(100% - 81px);
+    overflow: auto;
+}

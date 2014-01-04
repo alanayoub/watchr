@@ -2,10 +2,10 @@
 require([
     'jquery',
     'rest',
-    '/views/search/view.js',
+    '/views/dashboard/view.js',
     '/views/masthead/view.js',
     'errors'
-], function ($, rest, SearchView, MastheadView) {
+], function ($, rest, DashboardView, MastheadView) {
     window.watchr = {rest: rest};
     rest.on('logged_out', function () {
         console.log('logged out');
@@ -20,7 +20,7 @@ require([
     }))();
     watchr.router.on('route:home', function () {
         new MastheadView({el: '.JS-masthead'});
-        new SearchView({el: '.JS-body'});
+        new DashboardView({el: '.JS-body'});
     });
     Backbone.history.start({pushStage: true});
 });

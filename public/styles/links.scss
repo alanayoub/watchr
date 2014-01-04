@@ -1,0 +1,13 @@
+:link {
+    color: $primaryLink;
+}
+:visited {
+    color: $primaryLink;
+}
+:link:focus,
+:visited:focus,
+:link:hover,
+:visited:hover {
+    background: $highlight;
+    text-decoration: none;
+}

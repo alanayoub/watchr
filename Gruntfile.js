@@ -34,7 +34,7 @@ module.exports = function (grunt) {
         },
         watch: {
             handlebars: {
-                files: ['./public/views/*/*.handlebars'],
+                files: ['./public/views/**/*.handlebars'],
                 tasks: ['handlebars'],
                 options: {
                     spawn: true

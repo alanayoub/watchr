@@ -1,0 +1,12 @@
+.W-task-list {
+    @include w-right-shadow;
+    .w-listitem {
+        background: #fff;
+        padding: 10px;
+        border-bottom: 1px solid $borderLines;
+    }
+    .w-url {
+        color: $primaryLink;
+        @include ellipsis;
+    }
+}

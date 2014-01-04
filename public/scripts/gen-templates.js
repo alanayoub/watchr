@@ -1,6 +1,15 @@
 this["Handlebars"] = this["Handlebars"] || {};
 this["Handlebars"]["templates"] = this["Handlebars"]["templates"] || {};
 
+this["Handlebars"]["templates"]["dashboard/template"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "<div class=\"JS-search\"></div>\n<div class=\"JS-task-list\"></div>\n<div class=\"JS-gadgets\"></div>";
+  });
+
 this["Handlebars"]["templates"]["login/template"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
@@ -31,4 +40,13 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 
   return "<div class=\"W-search\">\n    <form method=\"post\" action=\"/search\" class=\"w-form\">\n        <label>\n            <input type=\"text\" name=\"url\" placeholder=\"url\">\n        </label>\n        <label>\n            <input type=\"text\" name=\"selector\" placeholder=\"selector\">\n        </label>\n        <input type=\"submit\" value=\"Test\">\n        <input type=\"submit\" value=\"Add\">\n    </form>\n    <div class=\"w-answer\"></div>\n</div>";
+  });
+
+this["Handlebars"]["templates"]["task-list/template"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "<div class=\"W-task-list-container W-task-list\">\n    <div class=\"w-listitem\">\n        <div class=\"w-title\">3TB Hard Drive</div>\n        <div class=\"w-url\"><a href=\"http://www.amazon.co.uk\">http://www.amazon.co.uk/s/ref=nb_sb_ss_i_0_8?url=search</a></div>\n    </div>\n    <div class=\"w-listitem\">\n        <div class=\"w-title\">3TB Hard Drive</div>\n        <div class=\"w-url\"><a href=\"http://www.amazon.co.uk\">http://www.amazon.co.uk/s/ref=nb_sb_ss_i_0_8?url=search</a></div>\n    </div>\n</div>";
   });
