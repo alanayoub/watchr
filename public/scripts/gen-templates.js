@@ -30,5 +30,5 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<div class=\"W-search\">\n    <form method=\"post\" action=\"/search\" class=\"w-form\">\n        <label>\n            <input type=\"text\" name=\"url\" placeholder=\"url\">\n        </label>\n        <label>\n            <input type=\"text\" name=\"selector\" placeholder=\"selector\">\n        </label>\n        <input type=\"submit\">\n    </form>\n    <div class=\"w-answer\"></div>\n</div>";
+  return "<div class=\"W-search\">\n    <form method=\"post\" action=\"/search\" class=\"w-form\">\n        <label>\n            <input type=\"text\" name=\"url\" placeholder=\"url\">\n        </label>\n        <label>\n            <input type=\"text\" name=\"selector\" placeholder=\"selector\">\n        </label>\n        <input type=\"submit\" value=\"Test\">\n        <input type=\"submit\" value=\"Add\">\n    </form>\n    <div class=\"w-answer\"></div>\n</div>";
   });
