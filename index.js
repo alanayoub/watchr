@@ -7,7 +7,8 @@ var config          = require('./config'),
     logger          = require('./services/logger'),
     RedisStore      = require('connect-redis')(express),
     ipban           = require('./middleware/ipban.js'),
-    auth            = require('./middleware/auth.js');
+    auth            = require('./middleware/auth.js'),
+    io, server;
 
 require('./middleware/passport');
 
@@ -39,6 +40,14 @@ app.configure('development', function () {
 require('./routes');
 require('./services/kue');
 
-http.createServer(app).listen(config.get('express:port'), function () {
+server = http.createServer(app).listen(config.get('express:port'), function () {
     console.log('Express server listening on port ' + config.get('express:port'));
+});
+
+io = require('socket.io').listen(server);
+io.sockets.on('connection', function (socket) {
+    socket.emit('news', { hello: 'world' });
+    socket.on('my other event', function (data) {
+        console.log(data);
+    });
 });

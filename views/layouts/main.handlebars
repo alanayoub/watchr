@@ -21,11 +21,12 @@
             errors: '/services/errors',
             rest: '/services/rest',
             text: '/lib/requirejs-text/text',
-            templates: '/scripts/gen-templates'
+            templates: '/scripts/gen-templates',
+            sockets: '/.gen/scripts/socket.io'
         },
         shim: {
             backbone: {
-                deps: ['text', 'underscore', 'jquery', 'handlebars', 'templates'],
+                deps: ['text', 'underscore', 'jquery', 'handlebars', 'templates', 'sockets'],
                 exports: 'Backbone'
             },
             templates: {

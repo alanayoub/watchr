@@ -19,6 +19,18 @@ module.exports = function (grunt) {
                 }
             }
         },
+        copy: {
+            sockets: {
+                files: [
+                    {
+                        src: ['./node_modules/socket.io/node_modules/socket.io-client/dist/socket.io.js'],
+                        dest: './public/.gen/scripts/',
+                        flatten: true,
+                        expand: true
+                    }
+                ]
+            }
+        },
         handlebars: {
             compile: {
                 options: {
@@ -53,5 +65,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-handlebars');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-compass');
-    grunt.registerTask('dev', ['bower', 'handlebars', 'compass', 'watch']);
+    grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.registerTask('dev', ['bower', 'handlebars', 'compass', 'copy:sockets', 'watch']);
 };
