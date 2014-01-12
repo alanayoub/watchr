@@ -7,9 +7,16 @@ app.get('/api/task', function (req, res) {
             logger.error('Error getting user tasks %j', result.error);
             throw result.error;
         }
-        if (result.data) {
-//            logger.info('Result for task.user request', result.data);
-            res.send({result: result.data});
+        if (result.data) res.send({result: result.data});
+    });
+});
+app.get('/api/task/:id', function (req, res) {
+    logger.info('api task/id request');
+    dbquery.task.user({user_id: req.user.id, id: req.params.id}).then(function (result) {
+        if (result.error) {
+            logger.error('Error getting user tasks %j', result.error);
+            throw result.error;
         }
+        if (result.data) res.send({result: result.data});
     });
 });

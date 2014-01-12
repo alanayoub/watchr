@@ -45,8 +45,26 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 this["Handlebars"]["templates"]["task-list/template"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this;
+
+function program1(depth0,data) {
   
+  var buffer = "", stack1;
+  buffer += "\n    <div class=\"w-listitem\">\n        <div class=\"w-title\">title</div>\n        <div class=\"w-url\"><a href=\"";
+  if (stack1 = helpers.url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = (depth0 && depth0.url); stack1 = typeof stack1 === functionType ? stack1.call(depth0, {hash:{},data:data}) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">";
+  if (stack1 = helpers.url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = (depth0 && depth0.url); stack1 = typeof stack1 === functionType ? stack1.call(depth0, {hash:{},data:data}) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "</a></div>\n    </div>\n    ";
+  return buffer;
+  }
 
-
-  return "<div class=\"W-task-list-container W-task-list\">\n    <div class=\"w-listitem\">\n        <div class=\"w-title\">3TB Hard Drive</div>\n        <div class=\"w-url\"><a href=\"http://www.amazon.co.uk\">http://www.amazon.co.uk/s/ref=nb_sb_ss_i_0_8?url=search</a></div>\n    </div>\n    <div class=\"w-listitem\">\n        <div class=\"w-title\">3TB Hard Drive</div>\n        <div class=\"w-url\"><a href=\"http://www.amazon.co.uk\">http://www.amazon.co.uk/s/ref=nb_sb_ss_i_0_8?url=search</a></div>\n    </div>\n</div>";
+  buffer += "<div class=\"W-task-list-container W-task-list\">\n    ";
+  stack1 = helpers.each.call(depth0, (depth0 && depth0.tasks), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n</div>";
+  return buffer;
   });

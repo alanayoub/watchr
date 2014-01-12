@@ -37,8 +37,14 @@ module.exports = {
             return common_query(query, values);
         },
         user: function (config) {
-            var query = 'SELECT url, css, xpath, latest_scrape FROM watchr.task WHERE user_id = ? ORDER BY creation_date DESC',
-                values = [config.user_id];
+            var query_all = 'SELECT url, css, xpath, latest_scrape FROM watchr.task WHERE user_id = ? ORDER BY creation_date DESC',
+                query_one = 'SELECT url, css, xpath, latest_scrape FROM watchr.task WHERE user_id = ? AND id = ? ORDER BY creation_date DESC',
+                values = [], query = query_all;
+            values.push(config.user_id);
+            if (config.id) {
+                values.push(config.id);
+                query = query_one;
+            }
             return common_query(query, values);
         }
     },
