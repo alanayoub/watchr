@@ -35,6 +35,11 @@ module.exports = {
             var query = 'UPDATE watchr.task SET latest_scrape=now() WHERE id = ?',
                 values = [config.id];
             return common_query(query, values);
+        },
+        user: function (config) {
+            var query = 'SELECT url, css, xpath, latest_scrape FROM watchr.task WHERE user_id = ? ORDER BY creation_date DESC',
+                values = [config.user_id];
+            return common_query(query, values);
         }
     },
     result: {

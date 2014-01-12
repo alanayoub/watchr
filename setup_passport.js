@@ -1,6 +1,6 @@
 var passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
-    pool = require('../pool');
+    pool = require('./pool');
 passport.use(new LocalStrategy(
     function (username, password, done) {
         var query = 'SELECT * FROM watchr.user WHERE username = ? AND password = ? AND confirmed = 1 AND active = 1';

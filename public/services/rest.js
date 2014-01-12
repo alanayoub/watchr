@@ -6,7 +6,7 @@ define(['backbone'], function () {
         $.ajax({
             type: config.meta.method,
             url: config.meta.url,
-            data: config.data,
+            data: config.data || null,
             dataType: 'text',
             statusCode: {
                 404: function() {},
@@ -47,7 +47,7 @@ define(['backbone'], function () {
                 method: 'POST',
                 url: '/api/logout'
             };
-            return rest.request({data: '', meta: meta});
+            return rest.request({meta: meta});
         }
     };
     rest.user = {
@@ -56,7 +56,16 @@ define(['backbone'], function () {
                 method: 'GET',
                 url: '/api/user'
             };
-            return rest.request({data: '', meta: meta});
+            return rest.request({meta: meta});
+        }
+    };
+    rest.task = {
+        get: function (config) {
+            var meta = {
+                method: 'GET',
+                url: '/api/task'
+            };
+            return rest.request({meta: meta});
         }
     };
     return rest;

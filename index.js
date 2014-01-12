@@ -1,16 +1,26 @@
-var config          = require('./config'),
-    express         = require('express'),
-    http            = require('http'),
-    exphbs          = require('express3-handlebars'),
-    colors          = require('colors'),
-    passport        = require('passport'),
-    logger          = require('./services/logger'),
-    RedisStore      = require('connect-redis')(express),
-    ipban           = require('./middleware/ipban.js'),
-    auth            = require('./middleware/auth.js'),
-    io, server;
+var config             = require('./config'),
+    express            = require('express'),
+    http               = require('http'),
+    exphbs             = require('express3-handlebars'),
+    colors             = require('colors'),
+    passport           = require('passport'),
+    logger             = require('./services/logger'),
+    ipban              = require('./middleware/ipban.js'),
+    auth               = require('./middleware/auth.js'),
+    RedisStore         = require('connect-redis')(express),
+    session_store      = new RedisStore({
+        host: config.get('redis:host'),
+        port: config.get('redis:port'),
+        pass: config.get('redis:pass'),
+        db: config.get('redis:db')
+    }),
+    session_options = {
+        store: session_store,
+        secret: config.get('express:secret')
+    },
+    server;
 
-require('./middleware/passport');
+require('./setup_passport');
 
 app = express();
 app.configure('development', function () {
@@ -21,15 +31,7 @@ app.configure('development', function () {
     app.use(express.static(__dirname + '/public'));
     app.use(express.bodyParser());
     app.use(express.cookieParser());
-    app.use(express.session({
-        store: new RedisStore({
-            host: config.get('redis:host'),
-            port: config.get('redis:port'),
-            pass: config.get('redis:pass'),
-            db: config.get('redis:db')
-        }),
-        secret: config.get('express:secret')
-    }));
+    app.use(express.session(session_options));
     app.use(passport.initialize());
     app.use(passport.session());
     app.use(auth());
@@ -37,17 +39,10 @@ app.configure('development', function () {
     app.use(app.router);
 });
 
-require('./routes');
-require('./services/kue');
-
 server = http.createServer(app).listen(config.get('express:port'), function () {
     console.log('Express server listening on port ' + config.get('express:port'));
 });
 
-io = require('socket.io').listen(server);
-io.sockets.on('connection', function (socket) {
-    socket.emit('news', { hello: 'world' });
-    socket.on('my other event', function (data) {
-        console.log(data);
-    });
-});
+require('./routes');
+require('./services/kue');
+require('./services/sockets')({server: server, session_options: session_options});
