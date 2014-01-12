@@ -40,7 +40,7 @@ module.exports = function (grunt) {
                     }
                 },
                 files: {
-                    './public/scripts/gen-templates.js': './public/views/*/*.handlebars'
+                    './public/.gen/scripts/templates.js': './public/views/*/*.handlebars'
                 }
             }
         },
