@@ -1,5 +1,5 @@
 'use strict';
-define(['jquery', 'backbone'], function ($) {
+define(['jquery', 'socket', 'backbone'], function ($, socket) {
     return Backbone.View.extend({
         initialize: function () {
             var view = this;
@@ -15,6 +15,7 @@ define(['jquery', 'backbone'], function ($) {
                 }, {});
                 watchr.rest.search.post({data: data}).then(function (result) {
                     view.$el.find('.w-answer').html(+new Date + ': ' + result);
+                    socket.emit('tasks');
                 });
                 event.preventDefault();
             });

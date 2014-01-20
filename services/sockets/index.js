@@ -22,15 +22,14 @@ module.exports = function (config) {
         fail: fail
     }));
     io.sockets.on('connection', function (socket) {
-        socket.on('init_task', function () {
-            console.log('init_task');
-            dbquery.task.user({user_id: user.id}).then(function (result) {
+        socket.on('tasks', function () {
+            dbquery.task.all({user_id: user.id}).then(function (result) {
                 if (result.error) {
                     logger.error('Error getting user tasks %j', result.error);
                     throw result.error;
                 }
                 if (result.data) {
-                    socket.emit('task', {result: result.data});
+                    socket.emit('tasks', {result: result.data});
                 }
             });
         });

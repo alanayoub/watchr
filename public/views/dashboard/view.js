@@ -11,11 +11,7 @@ define([
             var view = this;
             view.template = Handlebars.templates['dashboard/template'];
             view.render();
-            socket.emit('init_task', {my: 'data'});
-//            socket.on('task', function (data) {
-//                console.log(data);
-////                socket.emit('my other event', {my: 'data'});
-//            });
+            socket.emit('tasks');
         },
         render: function () {
             var view = this;

@@ -36,15 +36,22 @@ module.exports = {
                 values = [config.id];
             return common_query(query, values);
         },
-        user: function (config) {
-            var query_all = 'SELECT url, css, xpath, latest_scrape FROM watchr.task WHERE user_id = ? ORDER BY creation_date DESC',
-                query_one = 'SELECT url, css, xpath, latest_scrape FROM watchr.task WHERE user_id = ? AND id = ? ORDER BY creation_date DESC',
-                values = [], query = query_all;
-            values.push(config.user_id);
-            if (config.id) {
-                values.push(config.id);
-                query = query_one;
-            }
+        all: function (config) {
+            var query = 'SELECT * FROM (\
+                            SELECT watchr.task.url, watchr.task.creation_date, watchr.result.*\
+                            FROM watchr.result\
+                            LEFT JOIN watchr.task\
+                            ON watchr.task.id=watchr.result.task_id\
+                            WHERE watchr.task.user_id = 1\
+                        ) AS tmp\
+                        WHERE id IN (SELECT MAX(id) FROM watchr.result GROUP BY task_id)\
+                        ORDER BY creation_date DESC;',
+                values = [config.user_id];
+            return common_query(query, values);
+        },
+        one: function (config) {
+            var query = 'SELECT url, css, xpath, latest_scrape FROM watchr.task WHERE user_id = ? AND id = ? ORDER BY creation_date DESC',
+                values = [config.user_id, config.id];
             return common_query(query, values);
         }
     },

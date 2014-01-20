@@ -1,20 +1,17 @@
 'use strict';
-define([
-    'jquery',
-    '/collections/task.js',
-    'backbone'
-], function ($, TaskCollection) {
+define(['jquery', 'socket', 'backbone'], function ($, socket) {
     return Backbone.View.extend({
         initialize: function () {
             var view = this;
             view.template = Handlebars.templates['task-list/template'];
-            view.collection = new TaskCollection();
-            view.listenTo(view.collection, 'sync', view.render);
-            view.collection.fetch();
+            socket.on('tasks', function (data) {
+                console.log('data', data);
+                view.render(data);
+            });
         },
-        render: function () {
+        render: function (data) {
             var view = this;
-            view.$el.html(view.template({tasks: view.collection.toJSON()[0].result}));
+            view.$el.html(view.template({tasks: data.result}));
         }
     });
 });
