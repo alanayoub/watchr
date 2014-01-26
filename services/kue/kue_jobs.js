@@ -31,14 +31,24 @@ module.exports = function () {
         });
     };
     var Kuemanager = function () {
-        var last_active, lastupdated = +new Date, stale_milliseconds = 1000 * 30;
-        return {
+        var last_active, lastupdated = +new Date, stale_milliseconds = 1000 * 30, kuemanager;
+        return kuemanager = {
             update: function () {
                 jobs.activeCount(function (error, result) {
                     if (error) logger.error('kue.js: jobs.activeCount: %j', error);
-                    logger.info('kue.js: jobs.activeCount: %d', result);
                     if (kuemanager.is_stale(result)) {
-                        logger.info('Kue is stale, need to clean this shizzle up yo');
+                        jobs.active(function (error, ids) {
+                            logger.warn('typeof ids', typeof ids, ids);
+                            ids.forEach(function (id) {
+                                kue.Job.get(id, function (err, job) {
+                                    if (err || !job) return;
+                                    job.remove(function (err) {
+                                        if (err) throw err;
+                                        logger.info('removed stale job #%d', job.id);
+                                    });
+                                });
+                            });
+                        });
                     }
                     if (result === 0) gettasks().then(function (result) {
                         if (result.error) logger.error('kue.js: Error getting tasks: %j', result.error);
@@ -50,6 +60,9 @@ module.exports = function () {
             is_stale: function (active) {
                 var stale = (last_active === active && +new Date - lastupdated > stale_milliseconds) ? true : false;
                 last_active = active;
+                if (stale) {
+                    logger.warn('STALE - last_active, active, +new Date - lastupdated > stale_milliseconds: ', last_active, active, +new Date - lastupdated > stale_milliseconds);
+                }
                 return stale;
             }
         }
