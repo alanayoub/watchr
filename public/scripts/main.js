@@ -15,12 +15,16 @@ require([
     });
     watchr.router = new (Backbone.Router.extend({
         routes: {
-            '': 'home'
+            '': 'home',
+            'g/:id': 'gadget'
         }
     }))();
     watchr.router.on('route:home', function () {
         new MastheadView({el: '.JS-masthead'});
         new DashboardView({el: '.JS-body'});
     });
-    Backbone.history.start({pushStage: true});
+    watchr.router.on('route:gadget', function (id) {
+        if (id) console.log('id');
+    });
+    Backbone.history.start({pushState: true});
 });

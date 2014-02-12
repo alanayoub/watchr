@@ -3,9 +3,10 @@ define([
     'jquery',
     '/views/search/view.js',
     '/views/task-list/view.js',
+    '/views/gadget-list/view.js',
     'socket',
     'backbone'
-], function ($, SearchView, TaskListView, socket) {
+], function ($, SearchView, TaskListView, GadgetListView, socket) {
     return Backbone.View.extend({
         initialize: function () {
             var view = this;
@@ -18,6 +19,7 @@ define([
             view.$el.html(view.template());
             new SearchView({el: '.JS-search'});
             new TaskListView({el: '.JS-task-list'});
+            new GadgetListView({el: '.JS-gadget-list'});
         }
     });
 });
