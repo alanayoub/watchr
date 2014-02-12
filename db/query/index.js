@@ -22,8 +22,8 @@ module.exports = {
             return common_query(query, values);
         },
         insert: function (config) {
-            var query = 'INSERT INTO watchr.task (user_id, url, css, latest_scrape) VALUES (?, ?, ?, now())',
-                values = [config.id, config.url, config.css];
+            var query = 'INSERT INTO watchr.task (user_id, title, url, css, latest_scrape) VALUES (?, ?, ?, ?, now())',
+                values = [config.id, config.title, config.url, config.css];
             return common_query(query, values);
         },
         oldest: function (config) {
