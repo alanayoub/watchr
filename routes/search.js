@@ -15,6 +15,7 @@ app.post('/api/search', function (req, res) {
             results: result,
             selector: body.selector,
             url: body.url,
+            title: body.title || 'Untitled',
             user_id: req.user.id
         });
     });

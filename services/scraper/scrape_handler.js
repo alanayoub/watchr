@@ -32,7 +32,8 @@ module.exports = function (config) {
             });
         }
         else if (config.user_id) {
-            dbquery.task.insert({id: config.user_id, url: config.url, css: config.selector}).then(function (result) {
+            var options = {id: config.user_id, url: config.url, css: config.selector, title: config.title};
+            dbquery.task.insert(options).then(function (result) {
                 if (result.error) {
                     logger.error('dbquery.task.insert %j', result.error);
                     $deferred.reject(result.error);

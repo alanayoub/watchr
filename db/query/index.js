@@ -38,7 +38,7 @@ module.exports = {
         },
         all: function (config) {
             var query = 'SELECT * FROM (\
-                            SELECT watchr.task.url, watchr.task.creation_date, watchr.result.*\
+                            SELECT watchr.task.url, watchr.task.creation_date, watchr.task.title, watchr.result.*\
                             FROM watchr.result\
                             LEFT JOIN watchr.task\
                             ON watchr.task.id=watchr.result.task_id\

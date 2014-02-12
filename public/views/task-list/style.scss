@@ -9,4 +9,7 @@
         color: $primaryLink;
         @include ellipsis;
     }
+    .w-title {
+        font-weight: bold;
+    }
 }
