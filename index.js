@@ -44,5 +44,5 @@ server = http.createServer(app).listen(config.get('express:port'), function () {
 });
 
 require('./routes');
-require('./services/kue');
+require('./services/que');
 require('./services/sockets')({server: server, session_options: session_options});
