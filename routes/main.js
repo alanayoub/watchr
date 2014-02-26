@@ -1,3 +1,3 @@
-app.get('/', function (req, res) {
+app.get('/|g/:id', function (req, res) {
     res.render('index');
 });
