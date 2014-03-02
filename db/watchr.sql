@@ -54,10 +54,13 @@ CREATE  TABLE IF NOT EXISTS `watchr`.`task` (
   `url` VARCHAR(2083) NOT NULL ,
   `css` VARCHAR(255) NULL ,
   `xpath` VARCHAR(255) NULL ,
-  `creation_date` TIMESTAMP NULL DEFAULT now() ,
+  `creation_date` TIMESTAMP NOT NULL DEFAULT now() ,
   `active` TINYINT(1) NOT NULL DEFAULT 1 ,
+  `latest_scrape` TIMESTAMP NULL ,
+  `title` VARCHAR(100) NULL ,
+  `type` VARCHAR(6) NULL ,
   PRIMARY KEY (`id`, `user_id`) ,
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC) ,
+  UNIQUE INDEX `task_UNIQUE` (`id` ASC) ,
   INDEX `fk_task_user1` (`user_id` ASC) ,
   CONSTRAINT `fk_task_user1`
     FOREIGN KEY (`user_id` )
@@ -74,7 +77,7 @@ DROP TABLE IF EXISTS `watchr`.`result` ;
 
 CREATE  TABLE IF NOT EXISTS `watchr`.`result` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `value` VARCHAR(45) NULL ,
+  `value` VARCHAR(1024) NULL ,
   `asof` TIMESTAMP NULL DEFAULT now() ,
   `task_id` INT NOT NULL ,
   PRIMARY KEY (`id`, `task_id`) ,

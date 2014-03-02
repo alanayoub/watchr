@@ -1,5 +1,6 @@
 var passport_socket_io = require('passport.socketio'),
     express = require('express'),
+    $ = require('jquery'),
     logger = require('../../services/logger'),
     dbquery = require('../../db/query');
 module.exports = function (config) {
@@ -21,6 +22,22 @@ module.exports = function (config) {
         success: success,
         fail: fail
     }));
+    var formatter = function (data, type) {
+        if (type === 'Number') {
+            return data.slice().reduce(function (acc, val) {
+                val.asof = Date.parse(val.asof);
+                acc.push([val.asof, val.value.replace(/[^\d]*([\d.]+)[^\d]*/, '$1')]);
+                return acc;
+            }, []);
+        }
+        if (!type || type === 'String') {
+            return data.slice().reduce(function (acc, val) {
+                val.asof = Date.parse(val.asof);
+                acc.push([val.asof, val.value]);
+                return acc;
+            }, []);
+        }
+    };
     io.sockets.on('connection', function (socket) {
         socket.on('tasks', function () {
             dbquery.task.all({user_id: user.id}).then(function (result) {
@@ -35,26 +52,24 @@ module.exports = function (config) {
         });
         socket.on('result', function (params) {
             logger.error('Socket request for result with params ', params);
-            dbquery.result.last({task_id: params.id}).then(function (result) {
+            $.when(
+                dbquery.result.last({task_id: params.id}),
+                dbquery.task.type({id: params.id})
+            ).then(function (result, type) {
                 if (result.error) {
                     logger.error('Error getting user result %j', result.error);
                     throw result.error;
                 }
-                if (result.data) {
-                    var testdata = {
-                        set: {
-                            label: 'test',
-                            data: result.data.reduce(function (acc, val) {
-                                val.asof = Date.parse(val.asof);
-                                acc.push([val.asof, val.value.replace(/[^\d]*([\d.]+)[^\d]*/, '$1')]);
-                                return acc;
-                            }, [])
-                        },
-                        format: 'Number',
-                        original: result.data
-                    };
-                    socket.emit('result', testdata);
-                }
+                if (!result.data) return;
+                var type = type.data && type.data[0] && type.data[0].type;
+                socket.emit('result', {
+                    set: {
+                        label: 'test',
+                        data: formatter(result.data, type)
+                    },
+                    format: type || 'String',
+                    original: result.data
+                });
             });
         });
     });

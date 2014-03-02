@@ -38,7 +38,7 @@ module.exports = {
         },
         all: function (config) {
             var query = 'SELECT * FROM (\
-                            SELECT watchr.task.url, watchr.task.creation_date, watchr.task.title, watchr.result.*\
+                            SELECT watchr.task.url, watchr.task.creation_date, watchr.task.title, watchr.task.type, watchr.result.*\
                             FROM watchr.result\
                             LEFT JOIN watchr.task\
                             ON watchr.task.id=watchr.result.task_id\
@@ -52,6 +52,11 @@ module.exports = {
         one: function (config) {
             var query = 'SELECT url, css, xpath, latest_scrape FROM watchr.task WHERE user_id = ? AND id = ? ORDER BY creation_date DESC',
                 values = [config.user_id, config.id];
+            return common_query(query, values);
+        },
+        type: function (config) {
+            var query = 'SELECT type FROM watchr.task WHERE id = ?',
+                values = [config.id];
             return common_query(query, values);
         }
     },
