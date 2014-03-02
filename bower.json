@@ -22,23 +22,27 @@
     "backbone": "~1.1.0",
     "underscore": "~1.5.2",
     "requirejs-text": "~2.0.10",
-    "handlebars": "~1.1.2"
+    "handlebars": "~1.1.2",
+    "flot": "~0.8.2"
   },
   "exportsOverride": {
-      "backbone": {
-          "": "backbone.js"
-      },
-      "handlebars": {
-          "": "handlebars.runtime.js"
-      },
-      "requirejs": {
-          "": "require.js"
-      },
-      "requirejs-text": {
-          "": "text.js"
-      },
-      "underscore": {
-          "": "underscore.js"
-      }
+    "backbone": {
+      "": "backbone.js"
+    },
+    "handlebars": {
+      "": "handlebars.runtime.js"
+    },
+    "requirejs": {
+      "": "require.js"
+    },
+    "requirejs-text": {
+      "": "text.js"
+    },
+    "underscore": {
+      "": "underscore.js"
+    },
+    "flot": {
+      "": ["jquery.flot.js", "jquery.flot.time.js"]
+    }
   }
 }

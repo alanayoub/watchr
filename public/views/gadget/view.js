@@ -1,5 +1,5 @@
 'use strict';
-define(['jquery', 'socket', 'backbone'], function ($, socket) {
+define(['jquery', 'socket', 'flot', 'flottime', 'backbone'], function ($, socket) {
     return Backbone.View.extend({
         initialize: function (options) {
             var view = this;
@@ -13,6 +13,10 @@ define(['jquery', 'socket', 'backbone'], function ($, socket) {
             var view = this;
             console.log('result', result);
             view.$el.html(view.template(result));
+            $.plot($("#placeholder"), [result.set], {
+//                yaxis: { min: 0 },
+                xaxis: {mode: 'time'}
+            });
         }
     });
 });

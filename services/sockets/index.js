@@ -41,7 +41,19 @@ module.exports = function (config) {
                     throw result.error;
                 }
                 if (result.data) {
-                    socket.emit('result', {result: result.data});
+                    var testdata = {
+                        set: {
+                            label: 'test',
+                            data: result.data.reduce(function (acc, val) {
+                                val.asof = Date.parse(val.asof);
+                                acc.push([val.asof, val.value.replace(/[^\d]*([\d.]+)[^\d]*/, '$1')]);
+                                return acc;
+                            }, [])
+                        },
+                        format: 'Number',
+                        original: result.data
+                    };
+                    socket.emit('result', testdata);
                 }
             });
         });
