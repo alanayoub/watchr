@@ -2,6 +2,7 @@ var passport_socket_io = require('passport.socketio'),
     express = require('express'),
     $ = require('jquery'),
     logger = require('../../services/logger'),
+    formatter = require('../../services/formatter'),
     dbquery = require('../../db/query');
 module.exports = function (config) {
     var io = require('socket.io').listen(config.server), user;
@@ -22,22 +23,6 @@ module.exports = function (config) {
         success: success,
         fail: fail
     }));
-    var formatter = function (data, type) {
-        if (type === 'Number') {
-            return data.slice().reduce(function (acc, val) {
-                val.asof = Date.parse(val.asof);
-                acc.push([val.asof, val.value.replace(/[^\d]*([\d.]+)[^\d]*/, '$1')]);
-                return acc;
-            }, []);
-        }
-        if (!type || type === 'String') {
-            return data.slice().reduce(function (acc, val) {
-                val.asof = Date.parse(val.asof);
-                acc.push([val.asof, val.value]);
-                return acc;
-            }, []);
-        }
-    };
     io.sockets.on('connection', function (socket) {
         socket.on('tasks', function () {
             dbquery.task.all({user_id: user.id}).then(function (result) {
@@ -71,9 +56,7 @@ module.exports = function (config) {
                         title: task.title,
                         url: task.url
                     },
-                    format: task.type || 'String',
-                    original: result.data,
-                    originalTask: task
+                    format: task.type || 'String'
                 });
             });
         });
