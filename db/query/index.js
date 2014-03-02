@@ -50,13 +50,8 @@ module.exports = {
             return common_query(query, values);
         },
         one: function (config) {
-            var query = 'SELECT url, css, xpath, latest_scrape FROM watchr.task WHERE user_id = ? AND id = ? ORDER BY creation_date DESC',
+            var query = 'SELECT title, url, css, xpath, latest_scrape, type FROM watchr.task WHERE user_id = ? AND id = ? ORDER BY creation_date DESC',
                 values = [config.user_id, config.id];
-            return common_query(query, values);
-        },
-        type: function (config) {
-            var query = 'SELECT type FROM watchr.task WHERE id = ?',
-                values = [config.id];
             return common_query(query, values);
         }
     },

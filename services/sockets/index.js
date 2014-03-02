@@ -54,21 +54,26 @@ module.exports = function (config) {
             logger.error('Socket request for result with params ', params);
             $.when(
                 dbquery.result.last({task_id: params.id}),
-                dbquery.task.type({id: params.id})
-            ).then(function (result, type) {
+                dbquery.task.one({user_id: user.id, id: params.id})
+            ).then(function (result, task) {
                 if (result.error) {
                     logger.error('Error getting user result %j', result.error);
                     throw result.error;
                 }
                 if (!result.data) return;
-                var type = type.data && type.data[0] && type.data[0].type;
+                var task = task.data[0];
                 socket.emit('result', {
                     set: {
                         label: 'test',
-                        data: formatter(result.data, type)
+                        data: formatter(result.data, task.type)
                     },
-                    format: type || 'String',
-                    original: result.data
+                    meta: {
+                        title: task.title,
+                        url: task.url
+                    },
+                    format: task.type || 'String',
+                    original: result.data,
+                    originalTask: task
                 });
             });
         });
