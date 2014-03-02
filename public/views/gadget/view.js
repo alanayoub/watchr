@@ -1,15 +1,18 @@
 'use strict';
-define(['jquery', 'backbone'], function ($) {
+define(['jquery', 'socket', 'backbone'], function ($, socket) {
     return Backbone.View.extend({
-        initialize: function () {
+        initialize: function (options) {
             var view = this;
             view.template = Handlebars.templates['gadget/template'];
-            console.log('view', view);
-            view.render();
+            socket.emit('result', {id: options.resultId});
+            socket.on('result', function (data) {
+                view.render(data);
+            });
         },
-        render: function () {
+        render: function (result) {
             var view = this;
-            view.$el.html(view.template({id: view.id}));
+            console.log('result', result);
+            view.$el.html(view.template(result));
         }
     });
 });

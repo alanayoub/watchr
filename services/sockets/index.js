@@ -33,5 +33,17 @@ module.exports = function (config) {
                 }
             });
         });
+        socket.on('result', function (params) {
+            logger.error('Socket request for result with params ', params);
+            dbquery.result.last({task_id: params.id}).then(function (result) {
+                if (result.error) {
+                    logger.error('Error getting user result %j', result.error);
+                    throw result.error;
+                }
+                if (result.data) {
+                    socket.emit('result', {result: result.data});
+                }
+            });
+        });
     });
 };

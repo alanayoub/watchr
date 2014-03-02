@@ -27,7 +27,7 @@ require([
             new DashboardView({el: '.JS-body'});
             initialized = true;
         }
-        if (id) new GadgetView({el: '.W-gadget-list', id: id});
+        if (id) new GadgetView({el: '.W-gadget-list', resultId: id});
     });
     Backbone.history.start({pushState: true});
 });
