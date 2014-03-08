@@ -8,10 +8,6 @@ module.exports = function (data, type) {
         }, []);
     }
     if (!type || type === 'String') {
-        return data.slice().reduce(function (acc, val) {
-            val.asof = Date.parse(val.asof);
-            acc.push([val.asof, val.value]);
-            return acc;
-        }, []);
+        return data;
     }
 }
