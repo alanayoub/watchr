@@ -11,13 +11,17 @@ SELECT url, css, xpath, latest_scrape FROM watchr.task WHERE user_id = 1 ORDER B
 SELECT EXISTS(SELECT * FROM watchr.task WHERE css = '#interestingId' AND url = 'http://google.com');
 SELECT id FROM watchr.task WHERE css = '.someval' AND url = 'https://www.google.com/' ORDER BY id LIMIT 1;
 SELECT * FROM watchr.task;
+SELECT type FROM watchr.task WHERE id = 5;
+SELECT * FROM watchr.task WHERE active = 1 AND latest_scrape < date_sub(now(), interval 3 hour) order by latest_scrape asc limit 999;
+UPDATE watchr.task SET failed = 1 WHERE id = 5;
+SELECT * FROM watchr.task WHERE watchr.task.failed is null or watchr.task.failed != 1;
 
 SELECT * FROM (
-    SELECT watchr.task.url, watchr.task.creation_date, watchr.result.*
+    SELECT watchr.task.url, watchr.task.creation_date, watchr.task.title, watchr.task.type, watchr.result.*
     FROM watchr.result
     LEFT JOIN watchr.task
     ON watchr.task.id=watchr.result.task_id
-    WHERE watchr.task.user_id = 1
+    WHERE (watchr.task.user_id = 1) AND (watchr.task.failed != 1 OR watchr.task.failed IS NULL)
 ) AS tmp
 WHERE id IN (SELECT MAX(id) FROM watchr.result GROUP BY task_id)
 ORDER BY creation_date DESC;
@@ -32,6 +36,7 @@ SELECT 1 FROM watchr.result WHERE task_id = 4 AND value = 'somevalue' ORDER BY i
 SELECT * FROM watchr.result;
 UPDATE watchr.result SET asof=now() WHERE task_id = 4 AND value = '';
 SELECT * FROM watchr.result WHERE task_id = 9 ORDER BY asof DESC LIMIT 1;
+SELECT * FROM watchr.result WHERE task_id = 19 ORDER BY asof DESC;
 SELECT * FROM watchr.result;
 
 SET PASSWORD FOR 'alan'@'localhost' = PASSWORD('sdfaslkj&sdlkjklsdfjklj"$skldTfjsdklafuser');

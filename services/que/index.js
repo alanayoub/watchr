@@ -29,21 +29,29 @@ var gettasks = function () {
 var createjobs = function (tasks) {
     logger.info('Create jobs');
     tasks.forEach(function (val) {
-        var options = {title: 'Scrape: ' + val.url, selector: val.css, url: val.url};
+        var options = {title: 'Scrape: ' + val.url, selector: val.css, url: val.url, id: val.id};
         q.job.add('scrape', options);
     });
 };
 
 q.process.add('scrape', function (options, done) {
     logger.info('doing a scrape job', options);
-    scraper(options).then(function (results) {
-        scrape_handler({
-            results: results,
-            selector: options.selector,
-            url: options.url
-        }).then(done);
-    });
-
+    scraper(options).then(
+        function (results) {
+            logger.info('results', results);
+            scrape_handler({
+                results: results,
+                selector: options.selector,
+                url: options.url
+            }).then(done);
+        }, 
+        function (error) {
+            logger.error('error', error);
+            dbquery.task.fail({id: options.id}).then(function () {
+                logger.warn('set job %d to failed', options.id);
+            });
+        }
+    );
 });
 
 setInterval(function () {

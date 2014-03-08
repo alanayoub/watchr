@@ -59,6 +59,7 @@ CREATE  TABLE IF NOT EXISTS `watchr`.`task` (
   `latest_scrape` TIMESTAMP NULL ,
   `title` VARCHAR(100) NULL ,
   `type` VARCHAR(6) NULL ,
+  `failed` TINYINT(1) NULL ,
   PRIMARY KEY (`id`, `user_id`) ,
   UNIQUE INDEX `task_UNIQUE` (`id` ASC) ,
   INDEX `fk_task_user1` (`user_id` ASC) ,

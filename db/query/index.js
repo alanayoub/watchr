@@ -36,13 +36,18 @@ module.exports = {
                 values = [config.id];
             return common_query(query, values);
         },
+        fail: function (config) {
+            var query = 'UPDATE watchr.task SET failed = 1 WHERE id = ?',
+                values = [config.id];
+            return common_query(query, values);
+        },
         all: function (config) {
             var query = 'SELECT * FROM (\
                             SELECT watchr.task.url, watchr.task.creation_date, watchr.task.title, watchr.task.type, watchr.result.*\
                             FROM watchr.result\
                             LEFT JOIN watchr.task\
                             ON watchr.task.id=watchr.result.task_id\
-                            WHERE watchr.task.user_id = 1\
+                            WHERE (watchr.task.user_id = 1) AND (watchr.task.failed !=1 OR watchr.task.failed IS NULL)\
                         ) AS tmp\
                         WHERE id IN (SELECT MAX(id) FROM watchr.result GROUP BY task_id)\
                         ORDER BY creation_date DESC;',

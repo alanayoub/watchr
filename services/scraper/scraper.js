@@ -135,34 +135,3 @@ module.exports = function (options) {
     });
     return $deferred.promise();
 };
-
-//var url = 'https://www.mtgox.com/';
-//var sel = '#lastPrice';
-
-//var url = 'http://www.rentmychest.com/';
-//var sel = 'center a';
-
-//var url = 'http://uk.hotels.com/hotel/details.html?pa=3&pn=1&ps=3&tab=description&destinationId=556293&searchDestination=Towcester&hotelId=219421&arrivalDate=30-11-2013&departureDate=01-12-2013&rooms[0].numberOfAdults=2&roomno=1&validate=false&previousDateful=false&reviewOrder=date_newest_first';
-//var sel = '.dateful.green';
-
-//var url = 'http://uk.hotels.com/';
-//var sel = '.footer-bar .trust .text strong';
-
-//var url = 'http://www.expedia.co.uk/';
-//var sel = '.whyBookExp h2';
-
-//var url = 'http://www.bbc.co.uk/news/';
-//var sel = '.top-story-header';
-//var xpa = '//*[@id="top-story"]/h2/a';
-
-//watchr(url, sel, function (result) {
-//    console.log('result', result);
-//});
-
-//watchr({url: url, selector: sel}, function (result) {
-//    console.log('Result: %s'.green, result);
-//});
-
-//watchr({url: 'http://www.bbc.co.uk/news/', selector: '.top-story-header '}, function (result) {
-//    console.log('Result: %s'.green, result);
-//});

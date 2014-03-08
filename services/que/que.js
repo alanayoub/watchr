@@ -1,6 +1,6 @@
 var $ = require('jquery'), logger = require('./../logger');
 module.exports = function () {
-    var que = this, backlog = [], process = {}, maxconcurrent = 2, inprogress = 0;
+    var que = this, backlog = [], process = {}, maxconcurrent = 2, inprogress = 0, retries = 3, purgatory = [];
     setInterval(function () {
         if (!backlog.length) return;
         logger.info('there is stuff in the backlog', backlog);
