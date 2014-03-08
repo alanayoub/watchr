@@ -16,9 +16,37 @@ define(['jquery', 'socket', 'flot', 'flottime', 'backbone'], function ($, socket
             console.log('result', result);
             view.$el.html(Handlebars.templates['gadget/' + result.format.toLowerCase()](result));
             if (result.format === 'Number') {
-                $.plot($("#placeholder"), [result.set], {
+                $.plot($(".w-flot"), [result.set], {
 //                yaxis: { min: 0 },
-                    xaxis: {mode: 'time'}
+                    colors: ['#30A0EB'],
+                    legend: {
+                        show: false
+                    },
+                    xaxis: {
+                        mode: 'time',
+                        tickColor: '#F9F9F9'
+                    },
+                    yaxis: {
+                        tickColor: '#F9F9F9'
+                    },
+                    series: {
+                        points: {
+                            show: true,
+                            radius: 3,
+                            lineWidth: 1
+                        },
+                        lines: {
+                            lineWidth: 1,
+                            show: true
+                        },
+                        shadowSize: null
+                    },
+                    grid: {
+                        show: true,
+                        color: '#F9F9F9',
+                        backgroundColor: null,
+                        borderWidth: 2
+                    }
                 });
             }
             if (result.format === 'String') {
