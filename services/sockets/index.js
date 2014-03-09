@@ -36,7 +36,7 @@ module.exports = function (config) {
             });
         });
         socket.on('result', function (params) {
-            logger.error('Socket request for result with params ', params);
+            logger.info('Socket request for result with params ', params);
             $.when(
                 dbquery.result.last({task_id: params.id}),
                 dbquery.task.one({user_id: user.id, id: params.id})
