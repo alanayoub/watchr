@@ -27,7 +27,12 @@ module.exports = {
             return common_query(query, values);
         },
         oldest: function (config) {
-            var query = 'SELECT * FROM watchr.task WHERE active = 1 AND latest_scrape < DATE_SUB(NOW(), INTERVAL ? HOUR) ORDER BY latest_scrape ASC LIMIT ?',
+            var query = 'SELECT * FROM watchr.task\
+                    WHERE active = 1\
+                    AND (watchr.task.failed IS NULL OR watchr.task.failed !=1)\
+                    AND latest_scrape < DATE_SUB(NOW(), INTERVAL ? HOUR)\
+                    ORDER BY latest_scrape\
+                    ASC LIMIT ?',
                 values = [config.olderthan || 0, config.limit];
             return common_query(query, values);
         },
@@ -47,7 +52,7 @@ module.exports = {
                             FROM watchr.result\
                             LEFT JOIN watchr.task\
                             ON watchr.task.id=watchr.result.task_id\
-                            WHERE (watchr.task.user_id = 1) AND (watchr.task.failed !=1 OR watchr.task.failed IS NULL)\
+                            WHERE (watchr.task.user_id = 1)\
                         ) AS tmp\
                         WHERE id IN (SELECT MAX(id) FROM watchr.result GROUP BY task_id)\
                         ORDER BY creation_date DESC;',

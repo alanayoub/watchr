@@ -11,7 +11,6 @@ module.exports = function () {
                 process[val.type](val.options, function () {
                     logger.info('this gets called when done');
                     que.job.del(val);
-                    inprogress--;
                 });
                 val.inprogress = true;
                 inprogress++;
@@ -24,16 +23,22 @@ module.exports = function () {
             backlog.push({type: type, options: options});
         },
         del: function (item) {
+            var item = item;
             if (typeof item === 'number') {
-                logger.info('is number');
-                backlog.splice(item, 1);
-                return backlog;
+                // getting object from id
+                item = backlog.filter(function (val) {
+                    logger.info('val', val);
+                    return val.options.id === item
+                })[0];
             }
             if (typeof item === 'object') {
+                item.inprogress = true; // needed to match the backlog
                 var index = backlog.indexOf(item);
                 if (!!~index) backlog.splice(index, 1);
                 logger.info('removing object');
             }
+            inprogress--;
+            return backlog;
         },
         get: function () {
             return backlog;

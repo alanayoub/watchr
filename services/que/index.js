@@ -49,6 +49,7 @@ q.process.add('scrape', function (options, done) {
             logger.error('error', error);
             dbquery.task.fail({id: options.id}).then(function () {
                 logger.warn('set job %d to failed', options.id);
+                q.job.del(options.id);
             });
         }
     );
