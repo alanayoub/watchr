@@ -27,6 +27,8 @@
   },
   "devDependencies": {
       "nodejs-cookbook": "git@github.com:mdxp/nodejs-cookbook.git",
+      "build-essential": "git@github.com:opscode-cookbooks/build-essential.git",
+      "yum": "git@github.com:opscode-cookbooks/yum.git",
       "apt": "git@github.com:opscode-cookbooks/apt.git"
   },
   "exportsOverride": {

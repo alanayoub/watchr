@@ -117,12 +117,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #
   #   chef.validation_client_name = "ORGNAME-validator"
 
-
   # Watchr
-  
-  # config.vm.provision :shell, :path => "bootstrap.sh"
-  # config.vm.provision :puppet
-    
+  config.omnibus.chef_version = :latest
   config.vm.provision :chef_solo do |chef|
       chef.add_recipe "nodejs"
       chef.json = {

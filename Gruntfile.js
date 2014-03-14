@@ -36,14 +36,24 @@ module.exports = function (grunt) {
                         src: ['**'],
                         dest: './cookbooks/nodejs',
                         cwd: './bower_components/nodejs-cookbook',
-                        flatten: true,
                         expand: true
                     },
                     {
                         src: ['**'],
                         dest: './cookbooks/apt',
                         cwd: './bower_components/apt',
-                        flatten: true,
+                        expand: true
+                    },
+                    {
+                        src: ['**'],
+                        dest: './cookbooks/build-essential',
+                        cwd: './bower_components/build-essential',
+                        expand: true
+                    },
+                    {
+                        src: ['**'],
+                        dest: './cookbooks/yum',
+                        cwd: './bower_components/yum',
                         expand: true
                     }
                 ] 
