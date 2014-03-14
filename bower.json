@@ -25,6 +25,10 @@
     "handlebars": "~1.1.2",
     "flot": "~0.8.2"
   },
+  "devDependencies": {
+      "nodejs-cookbook": "git@github.com:mdxp/nodejs-cookbook.git",
+      "apt": "git@github.com:opscode-cookbooks/apt.git"
+  },
   "exportsOverride": {
     "backbone": {
       "": "backbone.js"

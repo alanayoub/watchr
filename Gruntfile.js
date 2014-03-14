@@ -29,6 +29,24 @@ module.exports = function (grunt) {
                         expand: true
                     }
                 ]
+            },
+            cookbooks: {
+                files: [
+                    {
+                        src: ['**'],
+                        dest: './cookbooks/nodejs',
+                        cwd: './bower_components/nodejs-cookbook',
+                        flatten: true,
+                        expand: true
+                    },
+                    {
+                        src: ['**'],
+                        dest: './cookbooks/apt',
+                        cwd: './bower_components/apt',
+                        flatten: true,
+                        expand: true
+                    }
+                ] 
             }
         },
         handlebars: {
@@ -66,5 +84,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.registerTask('dev', ['bower', 'handlebars', 'compass', 'copy:sockets', 'watch']);
+    grunt.registerTask('dev', ['bower', 'handlebars', 'compass', 'copy:sockets', 'copy:cookbooks', 'watch']);
 };
