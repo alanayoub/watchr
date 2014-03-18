@@ -55,6 +55,72 @@ module.exports = function (grunt) {
                         dest: './cookbooks/yum',
                         cwd: './bower_components/yum',
                         expand: true
+                    },
+                    {
+                        src: ['**'],
+                        dest: './cookbooks/openssl',
+                        cwd: './bower_components/openssl',
+                        expand: true
+                    },
+                    {
+                        src: ['**'],
+                        dest: './cookbooks/mysql',
+                        cwd: './bower_components/mysql',
+                        expand: true
+                    },
+                    {
+                        src: ['**'],
+                        dest: './cookbooks/database',
+                        cwd: './bower_components/database',
+                        expand: true
+                    },
+                    {
+                        src: ['**'],
+                        dest: './cookbooks/redisio',
+                        cwd: './bower_components/redisio',
+                        expand: true
+                    },
+                    {
+                        src: ['**'],
+                        dest: './cookbooks/homebrew',
+                        cwd: './bower_components/homebrew',
+                        expand: true
+                    },
+                    {
+                        src: ['**'],
+                        dest: './cookbooks/chef_handler',
+                        cwd: './bower_components/chef_handler',
+                        expand: true
+                    },
+                    {
+                        src: ['**'],
+                        dest: './cookbooks/ulimit',
+                        cwd: './bower_components/chef-ulimit',
+                        expand: true
+                    },
+                    {
+                        src: ['**'],
+                        dest: './cookbooks/aws',
+                        cwd: './bower_components/aws',
+                        expand: true
+                    },
+                    {
+                        src: ['**'],
+                        dest: './cookbooks/postgresql',
+                        cwd: './bower_components/postgresql',
+                        expand: true
+                    },
+                    {
+                        src: ['**'],
+                        dest: './cookbooks/xfs',
+                        cwd: './bower_components/xfs',
+                        expand: true
+                    },
+                    {
+                        src: ['**'],
+                        dest: './cookbooks/windows',
+                        cwd: './bower_components/windows',
+                        expand: true
                     }
                 ] 
             }

@@ -120,11 +120,28 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Watchr
   config.omnibus.chef_version = :latest
   config.vm.provision :chef_solo do |chef|
+      chef.add_recipe "apt::default"
       chef.add_recipe "nodejs"
+      chef.add_recipe "mysql::server"
+      chef.add_recipe "database::mysql"
+      chef.add_recipe "watchr::setup"
+      #chef.add_recipe "redisio::install"
       chef.json = {
           "nodejs" => {
               "version" => "0.10.22"
-          }
+          },
+          "mysql" => {
+              "server_root_password" => "sdfaslkjsdlkjklsdfjkljskldTfjsdklaf",
+              "server_repl_password" => "sdfaslkjsdlkjklsdfjkljskldTfjsdklaf",
+              "server_debian_password" => "sdfaslkjsdlkjklsdfjkljskldTfjsdklaf"
+          },
+          "redisio" => {
+              "servers" => [{
+                    'name' => 'master', 
+                    'port' => '6379'
+              }]
+          },
+          "run_list" => ["recipe[mysql::server]"]
       }
   end
 

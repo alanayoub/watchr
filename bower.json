@@ -28,6 +28,17 @@
   "devDependencies": {
       "nodejs-cookbook": "git@github.com:mdxp/nodejs-cookbook.git",
       "build-essential": "git@github.com:opscode-cookbooks/build-essential.git",
+      "mysql": "git@github.com:opscode-cookbooks/mysql.git",
+      "database": "git@github.com:opscode-cookbooks/database.git",
+      "homebrew": "git@github.com:opscode-cookbooks/homebrew.git",
+      "windows": "git@github.com:opscode-cookbooks/windows.git",
+      "chef_handler": "git@github.com:opscode-cookbooks/chef_handler.git",
+      "redisio": "git@github.com:brianbianco/redisio.git",
+      "chef-ulimit": "git@github.com:bmhatfield/chef-ulimit.git",
+      "openssl": "git@github.com:opscode-cookbooks/openssl.git",
+      "postgresql": "git@github.com:hw-cookbooks/postgresql.git",
+      "xfs": "git@github.com:opscode-cookbooks/xfs.git",
+      "aws": "git@github.com:opscode-cookbooks/aws.git",
       "yum": "git@github.com:opscode-cookbooks/yum.git",
       "apt": "git@github.com:opscode-cookbooks/apt.git"
   },
