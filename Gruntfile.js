@@ -34,8 +34,20 @@ module.exports = function (grunt) {
                 files: [
                     {
                         src: ['**'],
+                        dest: './cookbooks/watchr',
+                        cwd: './watchr_cookbooks/watchr',
+                        expand: true
+                    },
+                    {
+                        src: ['**'],
                         dest: './cookbooks/nodejs',
                         cwd: './bower_components/nodejs-cookbook',
+                        expand: true
+                    },
+                    {
+                        src: ['**'],
+                        dest: './cookbooks/npm',
+                        cwd: './bower_components/chef-npm',
                         expand: true
                     },
                     {
@@ -54,6 +66,12 @@ module.exports = function (grunt) {
                         src: ['**'],
                         dest: './cookbooks/yum',
                         cwd: './bower_components/yum',
+                        expand: true
+                    },
+                    {
+                        src: ['**'],
+                        dest: './cookbooks/yum-epel',
+                        cwd: './bower_components/yum-epel',
                         expand: true
                     },
                     {
@@ -78,6 +96,24 @@ module.exports = function (grunt) {
                         src: ['**'],
                         dest: './cookbooks/redisio',
                         cwd: './bower_components/redisio',
+                        expand: true
+                    },
+                    {
+                        src: ['**'],
+                        dest: './cookbooks/runit',
+                        cwd: './bower_components/runit',
+                        expand: true
+                    },
+                    {
+                        src: ['**'],
+                        dest: './cookbooks/dmg',
+                        cwd: './bower_components/dmg',
+                        expand: true
+                    },
+                    {
+                        src: ['**'],
+                        dest: './cookbooks/git',
+                        cwd: './bower_components/git',
                         expand: true
                     },
                     {
