@@ -62,7 +62,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       chef.add_recipe "npm"
       chef.add_recipe "watchr::npmrebuild"
       chef.add_recipe "watchr::setup"
-      chef.add_recipe "redisio::install"
+      chef.add_recipe "redisio"
       chef.json = {
           "apt" => {"compiletime" => true},
           "nodejs" => {
@@ -85,6 +85,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           "recipe[build-essential]", 
           "recipe[watchr::apt]",
           "recipe[mysql::server]",
+          "recipe[redisio::install]",
+          "recipe[redisio::enable]",
           "recipe[git]",
           "recipe[nodejs]", 
           "recipe[npm]", 
