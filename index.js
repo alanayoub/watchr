@@ -23,7 +23,7 @@ var config             = require('./config'),
 require('./setup_passport');
 
 app = express();
-app.configure('development', function () {
+app.configure('development', 'production', function () {
     app.set('views', __dirname + '/views');
     app.set('view cache', false);
     app.engine('handlebars', exphbs({defaultLayout: 'main'}));
@@ -46,3 +46,4 @@ server = http.createServer(app).listen(config.get('express:port'), function () {
 require('./routes');
 require('./services/que');
 require('./services/sockets')({server: server, session_options: session_options});
+

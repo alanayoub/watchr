@@ -136,6 +136,24 @@ module.exports = function (grunt) {
                     },
                     {
                         src: ['**'],
+                        dest: './cookbooks/ms_dotnet45',
+                        cwd: './bower_components/ms_dotnet4',
+                        expand: true
+                    },
+                    {
+                        src: ['**'],
+                        dest: './cookbooks/ms_dotnet4',
+                        cwd: './bower_components/ms_dotnet4',
+                        expand: true
+                    },
+                    {
+                        src: ['**'],
+                        dest: './cookbooks/ms_dotnet2',
+                        cwd: './bower_components/ms_dotnet2',
+                        expand: true
+                    },
+                    {
+                        src: ['**'],
                         dest: './cookbooks/aws',
                         cwd: './bower_components/aws',
                         expand: true
@@ -144,6 +162,24 @@ module.exports = function (grunt) {
                         src: ['**'],
                         dest: './cookbooks/postgresql',
                         cwd: './bower_components/postgresql',
+                        expand: true
+                    },
+                    {
+                        src: ['**'],
+                        dest: './cookbooks/phantomjs',
+                        cwd: './bower_components/phantomjs',
+                        expand: true
+                    },
+                    {
+                        src: ['**'],
+                        dest: './cookbooks/powershell',
+                        cwd: './bower_components/powershell',
+                        expand: true
+                    },
+                    {
+                        src: ['**'],
+                        dest: './cookbooks/chocolatey',
+                        cwd: './bower_components/chocolatey',
                         expand: true
                     },
                     {

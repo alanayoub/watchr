@@ -34,22 +34,23 @@ var createjobs = function (tasks) {
     });
 };
 
-q.process.add('scrape', function (options, done) {
+q.process.add('scrape', function (options, success, fail) {
     logger.info('doing a scrape job', options);
     scraper(options).then(
-        function (results) {
-            logger.info('results', results);
+        function (result) {
+            logger.info('result', result);
             scrape_handler({
-                results: results,
+                results: result,
                 selector: options.selector,
                 url: options.url
-            }).then(done);
+            }).then(success);
         }, 
         function (error) {
             logger.error('error', error);
-            dbquery.task.fail({id: options.id}).then(function () {
+            dbquery.task.fail({id: options.id}).then(function (result) {
                 logger.warn('set job %d to failed', options.id);
                 q.job.del(options.id);
+                fail(result);
             });
         }
     );

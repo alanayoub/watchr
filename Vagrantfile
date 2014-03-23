@@ -60,6 +60,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       chef.add_recipe "git"
       chef.add_recipe "nodejs"
       chef.add_recipe "npm"
+      chef.add_recipe "phantomjs"
       chef.add_recipe "watchr::npmrebuild"
       chef.add_recipe "watchr::setup"
       chef.add_recipe "redisio"
@@ -90,6 +91,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           "recipe[git]",
           "recipe[nodejs]", 
           "recipe[npm]", 
+          "recipe[phantomjs::default]", 
           "recipe[watchr::npmrebuild]",
           "recipe[watchr::setup]"
       ]

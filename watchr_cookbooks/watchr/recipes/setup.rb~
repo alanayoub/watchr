@@ -6,6 +6,10 @@ execute "mysql-import-data" do
     command "sudo mysql -u root -p#{node['mysql']['server_root_password']} < /vagrant/db/data/bootstrap.sql"      
 end
 
-execute "start-server" do
-    command "cd /vagrant && npm start"      
+execute "set-node-env" do
+    command "echo export NODE_ENV=production >> ~/.profile"      
 end
+
+#execute "start-server" do
+#    command "cd /vagrant && npm start"      
+#end

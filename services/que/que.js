@@ -8,10 +8,17 @@ module.exports = function () {
             logger.info('status', maxconcurrent, inprogress);
             if (maxconcurrent <= inprogress) return;
             if (!val.inprogress) {
-                process[val.type](val.options, function () {
-                    logger.info('this gets called when done');
-                    que.job.del(val);
-                });
+                process[val.type](
+                    val.options, 
+                    function () {
+                        logger.info('this gets called when success');
+                        que.job.del(val);
+                    }, 
+                    function () {
+                        logger.info('this gets called when fail');
+                        que.job.del(val);
+                    }
+                );
                 val.inprogress = true;
                 inprogress++;
             }
