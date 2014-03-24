@@ -1,0 +1,11 @@
+<div class="A-gadget A-gadget-string">
+    <header>
+        <h1>{{meta.title}}</h1>
+        <div>{{meta.url}}</div>
+    </header>
+    <ul>
+        {{#each set.data}}
+        <li>{{asof}} <strong>{{value}}</strong></li>
+        {{/each}}
+    </ul>
+</div>

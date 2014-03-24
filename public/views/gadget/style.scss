@@ -1,0 +1,23 @@
+.W-gadget {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    header {
+        margin-bottom: 20px;
+    }
+    .w-meta {
+        color: $secondaryLink;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    .w-flot {
+        position: absolute;
+        top: 50px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+}
