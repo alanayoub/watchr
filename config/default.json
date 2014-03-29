@@ -9,6 +9,12 @@
         "pass": "sfjklarj34%$£%RET£$TSD@:DF%$E£",
         "db": 0
     },
+    "mysql": {
+        "host": "localhost",
+        "user": "root",
+        "password": "sdfaslkjsdlkjklsdfjkljskldTfjsdklafuser",
+        "connectionLimit": 10
+    },
     "logger": {
         "file": {
             "filename": "logs/run.log",

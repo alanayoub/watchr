@@ -1,6 +1,7 @@
+var config = require('./config');
 module.exports = require('mysql').createPool({
-    host: 'localhost',
-    user: 'root',
-    password: 'sdfaslkjsdlkjklsdfjkljskldTfjsdklafuser',
-    connectionLimit: 10
+    host: config.get('mysql:host'),
+    user: config.get('mysql:user'),
+    password: config.get('mysql:password'),
+    connectionLimit: config.get('mysql:connectionLimit')
 });
