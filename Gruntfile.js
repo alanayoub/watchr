@@ -1,3 +1,4 @@
+var config = require('./config');
 module.exports = function (grunt) {
     grunt.initConfig({
         bower: {
@@ -210,6 +211,19 @@ module.exports = function (grunt) {
                 }
             }
         },
+        db_dump: {
+            local: {
+                options: {
+                    title: "Local DB",
+                    database: config.get('mysql:database'),
+                    user: config.get('mysql:user'),
+                    pass: config.get('mysql:password'),
+                    host: config.get('mysql:host'),
+                    user: config.get('mysql:user'),
+                    backup_to: "./db/backups/local" + Date.now()  + ".sql"
+                }
+            }
+        },
         watch: {
             handlebars: {
                 files: ['./public/views/**/*.handlebars'],
@@ -232,5 +246,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-mysql-dump');
     grunt.registerTask('dev', ['bower', 'handlebars', 'compass', 'copy:sockets', 'copy:cookbooks', 'watch']);
 };

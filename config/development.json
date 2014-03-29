@@ -10,6 +10,7 @@
         "db": 0
     },
     "mysql": {
+        "database": "watchr",
         "host": "localhost",
         "user": "root",
         "password": "sdfaslkjsdlkjklsdfjkljskldTfjsdklafuser",
