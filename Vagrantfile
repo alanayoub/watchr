@@ -75,9 +75,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
               "version" => "0.10.26"
           },
           "mysql" => {
-              "server_root_password" => "sdfaslkjsdlkjklsdfjkljskldTfjsdklaf",
-              "server_repl_password" => "sdfaslkjsdlkjklsdfjkljskldTfjsdklaf",
-              "server_debian_password" => "sdfaslkjsdlkjklsdfjkljskldTfjsdklaf"
+              "server_root_password" => "sdfaslkjsdlkjklsdfjkljskldTfjsdklafuser",
+              "server_repl_password" => "sdfaslkjsdlkjklsdfjkljskldTfjsdklafuser",
+              "server_debian_password" => "sdfaslkjsdlkjklsdfjkljskldTfjsdklafuser"
           },
           "redisio" => {
               "servers" => [{

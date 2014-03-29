@@ -1,6 +1,6 @@
 module.exports = require('mysql').createPool({
     host: 'localhost',
     user: 'root',
-    password: 'sdfaslkjsdlkjklsdfjkljskldTfjsdklaf',
+    password: 'sdfaslkjsdlkjklsdfjkljskldTfjsdklafuser',
     connectionLimit: 10
 });

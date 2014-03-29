@@ -12,8 +12,15 @@ SELECT EXISTS(SELECT * FROM watchr.task WHERE css = '#interestingId' AND url = '
 SELECT id FROM watchr.task WHERE css = '.someval' AND url = 'https://www.google.com/' ORDER BY id LIMIT 1;
 SELECT * FROM watchr.task;
 SELECT type FROM watchr.task WHERE id = 5;
-SELECT * FROM watchr.task WHERE active = 1 AND latest_scrape < date_sub(now(), interval 3 hour) order by latest_scrape asc limit 999;
-UPDATE watchr.task SET failed = 1 WHERE id = 5;
+
+SELECT * FROM watchr.task 
+    WHERE active = 1 
+    AND (watchr.task.failed IS NULL OR watchr.task.failed != 1) 
+    AND latest_scrape < date_sub(now(), INTERVAL 1 HOUR) 
+    ORDER BY latest_scrape 
+    ASC LIMIT 999;
+
+UPDATE watchr.task SET failed = 0 WHERE id = 5;
 SELECT * FROM watchr.task WHERE watchr.task.failed is null or watchr.task.failed != 1;
 
 SELECT * FROM (
@@ -39,6 +46,6 @@ SELECT * FROM watchr.result WHERE task_id = 9 ORDER BY asof DESC LIMIT 1;
 SELECT * FROM watchr.result WHERE task_id = 19 ORDER BY asof DESC;
 SELECT * FROM watchr.result;
 
-SET PASSWORD FOR 'alan'@'localhost' = PASSWORD('sdfaslkj&sdlkjklsdfjklj"$skldTfjsdklafuser');
+SET PASSWORD FOR 'root'@'localhost' = PASSWORD('sdfaslkjsdlkjklsdfjkljskldTfjsdklafuser');
 ALTER TABLE watchr.task ADD UNIQUE INDEX(user_id, url, css, xpath);
 
