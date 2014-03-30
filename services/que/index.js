@@ -4,11 +4,15 @@ var $       = require('jquery'),
     dbquery = require('../../db/query'),
     Que     = require('./que'),
     scraper = require('../scraper/scraper'),
-    scrape_handler = require('../scraper/scrape_handler'),
+    ScrapeHandler = require('../scraper/scrape_handler'),
     hours = config.get('app:que:update:tasks_older_than_x_hours'),
     limit = config.get('app:que:update:limit_number_of_tasks');
 
 var q = new Que();
+
+var scrape_handler = (new ScrapeHandler()).on('data', function (data) {
+    console.log('recieved data: ', data);
+});
 
 var gettasks = function () {
     logger.info('Getting tasks');
@@ -39,7 +43,7 @@ q.process.add('scrape', function (options, success, fail) {
     scraper(options).then(
         function (result) {
             logger.info('result', result);
-            scrape_handler({
+            scrape_handler.handle({
                 results: result,
                 selector: options.selector,
                 url: options.url

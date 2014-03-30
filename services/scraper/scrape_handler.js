@@ -1,8 +1,18 @@
 var $       = require('jquery'),
     dbquery = require('../../db/query'),
     logger  = require('./../logger'),
-    pool    = require('../../pool');
-module.exports = function (config) {
+    pool    = require('../../pool'),
+    util = require('util'),
+    events = require('events');
+
+var ScrapeHandler = module.exports = function () {
+    events.EventEmitter.call(this);
+}
+
+util.inherits(ScrapeHandler, events.EventEmitter);
+
+ScrapeHandler.prototype.handle = function (config) {
+    var module = this;
     var scrape_results = config.results, $deferred = $.Deferred();
     dbquery.task.exists({selector: config.selector, url: config.url}).then(function (task_results) {
         var task_id;
@@ -22,6 +32,7 @@ module.exports = function (config) {
                 }
                 logger.info('result.data', result.data);
                 if (result.data && result.data[0] && result.data[0].value === scrape_results) {
+                    module.emit('data', result.data);
                     dbquery.result.update({id: result.data[0].id, value: scrape_results});
                 }
                 else {
@@ -47,4 +58,4 @@ module.exports = function (config) {
         }
     });
     return $deferred.promise();
-};
+}
