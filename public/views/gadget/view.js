@@ -8,7 +8,7 @@ define(['jquery', 'socket', 'flot', 'flottime', 'backbone'], function ($, socket
         initialize: function (options) {
             view = this;
             view.template = Handlebars.templates['gadget/template'];
-            console.log('setting up emit');
+            console.log('setting up emit for', options.resultId);
             socket.emit('result', {id: options.resultId});
         },
         render: function (result) {

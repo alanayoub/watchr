@@ -11,6 +11,7 @@ define(['jquery', 'socket', 'backbone'], function ($, socket) {
             var view = this;
             view.template = Handlebars.templates['task-list/template'];
             socket.on('tasks', function (data) {
+                console.log('recieved tasks', data);
                 view.render(data);
             });
         },

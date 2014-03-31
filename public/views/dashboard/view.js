@@ -13,6 +13,9 @@ define([
             view.template = Handlebars.templates['dashboard/template'];
             view.render();
             socket.emit('tasks');
+            socket.on('update', function (update) {
+                console.log('update', update);
+            });
         },
         render: function () {
             var view = this;
