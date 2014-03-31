@@ -6,6 +6,7 @@ module.exports = function () {
         logger.info('there is stuff in the backlog', backlog);
         backlog.forEach(function (val) {
             logger.info('status (max/inprogress)', maxconcurrent, inprogress);
+            if ((+new Date - val.inprogress) > 60 * 1000) que.job.del(val);
             if (maxconcurrent <= inprogress) return;
             if (!val.inprogress) {
                 process[val.type](
@@ -19,7 +20,7 @@ module.exports = function () {
                         que.job.del(val);
                     }
                 );
-                val.inprogress = true;
+                val.inprogress = +new Date;
                 inprogress++;
             }
         })
