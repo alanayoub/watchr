@@ -5,7 +5,7 @@ module.exports = function () {
         if (!backlog.length) return;
         logger.info('there is stuff in the backlog', backlog);
         backlog.forEach(function (val) {
-            logger.info('status', maxconcurrent, inprogress);
+            logger.info('status (max/inprogress)', maxconcurrent, inprogress);
             if (maxconcurrent <= inprogress) return;
             if (!val.inprogress) {
                 process[val.type](
