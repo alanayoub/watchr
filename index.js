@@ -18,7 +18,7 @@ var config             = require('./config'),
         store: session_store,
         secret: config.get('express:secret')
     },
-    server;
+    server, io;
 
 require('./setup_passport');
 
@@ -45,5 +45,5 @@ server = http.createServer(app).listen(config.get('express:port'), function () {
 
 require('./routes');
 require('./services/que');
-require('./services/sockets')({server: server, session_options: session_options});
-
+io = require('./services/sockets')({server: server, io: io, session_options: session_options});
+require('./services/sockets/listeners')(io);
