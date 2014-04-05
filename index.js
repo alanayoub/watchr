@@ -46,7 +46,7 @@ server = http.createServer(app).listen(config.get('express:port'), function () {
 require('./routes');
 
 require('./services/sockets')(server, session_options).then(function (io, user) {
-    require('./services/que')(io);
+    require('./services/que/scrapeque')(io);
     require('./services/sockets/listeners')(io, user);
 });
 
