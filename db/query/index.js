@@ -30,7 +30,7 @@ module.exports = {
             var query = 'SELECT * FROM watchr.task\
                     WHERE active = 1\
                     AND (watchr.task.failed IS NULL OR watchr.task.failed !=1)\
-                    AND latest_scrape < DATE_SUB(NOW(), INTERVAL ? HOUR)\
+                    AND latest_scrape < DATE_SUB(NOW(), INTERVAL ? MINUTE)\
                     ORDER BY latest_scrape\
                     ASC LIMIT ?',
                 values = [config.olderthan || 0, config.limit];
@@ -52,11 +52,11 @@ module.exports = {
                             FROM watchr.result\
                             LEFT JOIN watchr.task\
                             ON watchr.task.id=watchr.result.task_id\
-                            WHERE (watchr.task.user_id = 1)\
+                            WHERE (watchr.task.user_id = 1) AND (watchr.task.failed != 1 OR watchr.task.failed IS NULL) AND (watchr.task.id LIKE ?)\
                         ) AS tmp\
                         WHERE id IN (SELECT MAX(id) FROM watchr.result GROUP BY task_id)\
                         ORDER BY creation_date DESC;',
-                values = [config.user_id];
+                values = [config.task_id || '%'];
             return common_query(query, values);
         },
         one: function (config) {

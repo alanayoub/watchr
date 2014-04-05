@@ -1,5 +1,10 @@
-var $ = require('jquery'), logger = require('./../logger');
-module.exports = function () {
+var $ = require('jquery'), 
+    logger = require('./../logger'),
+    util = require('util'),
+    events = require('events');
+
+var Que = module.exports = function () {
+    events.EventEmitter.call(this);
     var que = this, backlog = [], process = {}, maxconcurrent = 2, inprogress = 0, retries = 3, purgatory = [];
     setInterval(function () {
         if (!backlog.length) return;
@@ -58,4 +63,7 @@ module.exports = function () {
             process[type] = handler;
         }
     }
-};
+    return que;
+}
+
+util.inherits(Que, events.EventEmitter);

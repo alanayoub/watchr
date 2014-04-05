@@ -28,7 +28,7 @@ SELECT * FROM (
     FROM watchr.result
     LEFT JOIN watchr.task
     ON watchr.task.id=watchr.result.task_id
-    WHERE (watchr.task.user_id = 1) AND (watchr.task.failed != 1 OR watchr.task.failed IS NULL)
+    WHERE (watchr.task.user_id = 1) AND (watchr.task.failed != 1 OR watchr.task.failed IS NULL) AND (watchr.task.id LIKE '%')
 ) AS tmp
 WHERE id IN (SELECT MAX(id) FROM watchr.result GROUP BY task_id)
 ORDER BY creation_date DESC;

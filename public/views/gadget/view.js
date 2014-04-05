@@ -7,9 +7,14 @@ define(['jquery', 'socket', 'flot', 'flottime', 'backbone'], function ($, socket
     return Backbone.View.extend({
         initialize: function (options) {
             view = this;
+            view.id = options.resultId;
             view.template = Handlebars.templates['gadget/template'];
             console.log('setting up emit for', options.resultId);
-            socket.emit('result', {id: options.resultId});
+            socket.emit('result', {id: view.id});
+//            socket.on('task:update', function (data) {
+//                var id = data[0].task_id;
+//                if (id === view.id) socket.emit('result', {id: id});
+//            });
         },
         render: function (result) {
             var view = this;

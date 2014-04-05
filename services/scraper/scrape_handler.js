@@ -32,7 +32,7 @@ ScrapeHandler.prototype.handle = function (config) {
                 }
                 logger.info('result.data', result.data);
                 if (result.data && result.data[0] && result.data[0].value === scrape_results) {
-                    module.emit('data', result.data);
+                    module.emit('data', {type: 'task:update', data: result.data});
                     dbquery.result.update({id: result.data[0].id, value: scrape_results});
                 }
                 else {

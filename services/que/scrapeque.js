@@ -9,11 +9,11 @@ var $       = require('jquery'),
     limit = config.get('app:que:update:limit_number_of_tasks');
 
 module.exports = function (io) {
+    var $deferred = $.Deferred();
     io.sockets.on('connection', function (socket) {
         var q = new Que();
         var scrape_handler = (new ScrapeHandler()).on('data', function (result) {
-            if (socket) socket.emit('update', {result: result});
-            console.log('recieved result: ', result);
+            q.emit('data', result);
         });
         var gettasks = function () {
             logger.info('Getting tasks');
@@ -58,7 +58,6 @@ module.exports = function (io) {
                 }
             );
         });
-
         setInterval(function () {
             if (!q.job.get().length) {
                 gettasks().then(function (result) {
@@ -67,5 +66,7 @@ module.exports = function (io) {
                 });
             }
         }, config.get('app:que:update:interval'));
+        $deferred.resolve(q);
     });
+    return $deferred.promise();
 }
