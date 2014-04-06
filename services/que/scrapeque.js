@@ -5,7 +5,7 @@ var $       = require('jquery'),
     Que     = require('./que'),
     scraper = require('../scraper/scraper'),
     ScrapeHandler = require('../scraper/scrape_handler'),
-    hours = config.get('app:que:update:tasks_older_than_x_hours'),
+    hours = config.get('app:que:update:tasks_older_than_x_minutes'),
     limit = config.get('app:que:update:limit_number_of_tasks');
 
 module.exports = function (io) {
