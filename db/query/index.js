@@ -47,21 +47,35 @@ module.exports = {
             return common_query(query, values);
         },
         all: function (config) {
-            var query = 'SELECT * FROM (\
-                            SELECT watchr.task.url, watchr.task.creation_date, watchr.task.title, watchr.task.type, watchr.result.*\
-                            FROM watchr.result\
-                            LEFT JOIN watchr.task\
-                            ON watchr.task.id=watchr.result.task_id\
-                            WHERE (watchr.task.user_id = 1) AND (watchr.task.failed != 1 OR watchr.task.failed IS NULL) AND (watchr.task.id LIKE ?)\
-                        ) AS tmp\
-                        WHERE id IN (SELECT MAX(id) FROM watchr.result GROUP BY task_id)\
-                        ORDER BY creation_date DESC;',
+            var query = '\
+                SELECT * \
+                FROM (SELECT watchr.task.url, \
+                             watchr.task.creation_date, \
+                             watchr.task.title, \
+                             watchr.task.type, \
+                             watchr.result.* \
+                      FROM   watchr.result \
+                             LEFT JOIN watchr.task \
+                                    ON watchr.task.id=watchr.result.task_id \
+                      WHERE (watchr.task.user_id = 1) \
+                             AND (watchr.task.failed != 1 OR watchr.task.failed IS NULL) \
+                             AND (watchr.task.id LIKE ?) \
+                             AND (watchr.task.active = 1)) AS tmp \
+                WHERE id IN (SELECT MAX(id) \
+                             FROM watchr.result \
+                             GROUP BY task_id)\
+                ORDER BY creation_date DESC;',
                 values = [config.task_id || '%'];
             return common_query(query, values);
         },
         one: function (config) {
             var query = 'SELECT title, url, css, xpath, latest_scrape, type FROM watchr.task WHERE user_id = ? AND id = ? ORDER BY creation_date DESC',
                 values = [config.user_id, config.id];
+            return common_query(query, values);
+        },
+        disable: function (config) {
+            var query = 'UPDATE watchr.task SET active = 0 WHERE id = ?',
+                values = [config.id];
             return common_query(query, values);
         }
     },

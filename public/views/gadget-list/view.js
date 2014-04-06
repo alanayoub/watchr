@@ -8,6 +8,7 @@ define(['jquery', 'backbone'], function ($) {
         },
         render: function () {
             var view = this;
+            console.log('rending gadget list view');
             view.$el.html(view.template({}));
         }
     });

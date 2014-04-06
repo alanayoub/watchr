@@ -5,6 +5,11 @@ define(['jquery', 'socket', '/collections/task.js', 'backbone'], function ($, so
             'click .w-listitem': function (event) {
                 var id = $(event.target).closest('.w-listitem').data('id');
                 watchr.router.navigate('g/' + id, {trigger: true});
+            },
+            'click .w-delete': function (event) {
+                event.stopPropagation();
+                var id = $(event.target).closest('.w-listitem').data('id');
+                socket.emit('deletetask', id);
             }
         },
         initialize: function () {
@@ -20,7 +25,12 @@ define(['jquery', 'socket', '/collections/task.js', 'backbone'], function ($, so
             socket.on('tasks', function (data) {
                 view.collection.set(data.result);
             });
-            view.collection.on('change add', function () {
+            socket.on('taskdeleted', function (data) {
+                if (data.error) return console.log('taskdeleted.error: ', data.error);
+                var model = view.collection.get(data.id);
+                view.collection.remove(model);
+            });
+            view.collection.on('change add remove', function () {
                 view.render();
             });
         },

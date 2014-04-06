@@ -2,11 +2,13 @@
 require([
     'jquery',
     'rest',
+    'socket',
     '/views/dashboard/view.js',
     '/views/masthead/view.js',
     '/views/gadget/view.js',
+    '/views/gadget-list/view.js',
     'errors'
-], function ($, rest, DashboardView, MastheadView, GadgetView) {
+], function ($, rest, socket, DashboardView, MastheadView, GadgetView, GadgetListView) {
     var initialized;
     window.watchr = {rest: rest};
     rest.on('logged_out', function () {
@@ -27,7 +29,14 @@ require([
             new DashboardView({el: '.JS-body'});
             initialized = true;
         }
-        if (id) new GadgetView({el: '.W-gadget-list', resultId: id});
+        if (id) {
+            new GadgetView({el: '.W-gadget-list', resultId: id});
+            watchr.currentgadgetid = +id;
+        }
+    });
+    socket.on('taskdeleted', function (data) {
+        if (data.id !== watchr.currentgadgetid) return;
+        new GadgetListView({el: '.JS-gadget-list'});
     });
     Backbone.history.start({pushState: true});
 });

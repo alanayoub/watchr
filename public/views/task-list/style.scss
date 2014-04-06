@@ -4,11 +4,27 @@
         background: #fff;
         padding: 10px;
         border-bottom: 1px solid $borderLines;
+        position: relative;
         &:hover {
             background: #f1f1f1;
         }
         &.w-updated {
             background: #fee;
+        }
+        .w-delete {
+            display: none;
+            background: #f00;
+            color: #fff;
+            width: 16px;
+            height: 16px;
+            position: absolute;
+            text-align: center;
+            vertical-align: middle;
+            top: 10px;
+            right: 10px;
+        }
+        &:hover .w-delete {
+            display: block;
         }
     }
     .w-url {

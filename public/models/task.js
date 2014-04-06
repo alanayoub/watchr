@@ -1,3 +1,5 @@
 define(['backbone'], function () {
-    return Backbone.Model.extend({});
+    return Backbone.Model.extend({
+        idAttribute: 'task_id'
+    });
 });
