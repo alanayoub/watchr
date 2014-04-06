@@ -15,26 +15,16 @@ define(['jquery', 'socket', '/collections/task.js', 'backbone'], function ($, so
             };
             view.template = Handlebars.templates['task-list/template'];
             socket.on('task:update', function (data) {
-                console.log('task:update', data);
-                var id = data[0] && data[0].task_id;
-                if (id) view.$el.find('[data-id=' + id + ']').addClass('w-updated');
                 view.collection.set(data[0], {remove: false});
-                console.log('task:update after - collection -', view.collection);
             });
             socket.on('tasks', function (data) {
-                console.log('tasks', data);
-                //var model = view.collection.get(data[0].task_id);
                 view.collection.set(data.result);
-                console.log('task after - collection - ', view.collection);
-                //view.render();
             });
             view.collection.on('change add', function () {
-                console.log('CHANGE ADD');
                 view.render();
             });
         },
         render: function (data) {
-            console.log('RENDER');
             var view = this;
             view.$el.html(view.template({tasks: view.collection.toJSON()}));
         }
