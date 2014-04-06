@@ -9,11 +9,11 @@ define(['jquery', 'socket', '/collections/task.js', 'backbone'], function ($, so
         },
         initialize: function () {
             var view = this;
+            view.template = Handlebars.templates['task-list/template'];
             view.collection = new TaskCollection();
-            view.collection.comparator = function(model) {
+            view.collection.comparator = function (model) {
                 return -(new Date(model.get('asof')).getTime());
             };
-            view.template = Handlebars.templates['task-list/template'];
             socket.on('task:update', function (data) {
                 view.collection.set(data[0], {remove: false});
             });
