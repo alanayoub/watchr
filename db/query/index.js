@@ -46,6 +46,7 @@ module.exports = {
                 values = [config.id];
             return common_query(query, values);
         },
+        // Get all or one tasks
         all: function (config) {
             var query = '\
                 SELECT * \

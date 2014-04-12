@@ -7,11 +7,14 @@ app.post('/api/search', function (req, res) {
     if (!(body.url && body.selector)) return; // TODO: send some error
     scraper(req.body).then(function (result) {
         if (result.error) {
-            logger.error('Error scraping %j', result.error);
+            logger.error(__filename, ': Scraping : %j', result.error);
             throw result.error;
         }
+        logger.info(__filename, ': Scrape successful');
         res.send(result);
-        scrape_handler({
+        logger.info(__filename, ': Calling scrape handler');
+        return
+        scrape_handler.handle({
             results: result,
             selector: body.selector,
             url: body.url,

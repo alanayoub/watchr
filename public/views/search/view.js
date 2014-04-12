@@ -13,9 +13,10 @@ define(['jquery', 'socket', 'backbone'], function ($, socket) {
                 var data = $(this).serializeArray().reduce(function (acc, val) {
                     return (acc[val.name] = val.value) && acc;
                 }, {});
-                watchr.rest.search.post({data: data}).then(function (result) {
-                    socket.emit('tasks');
-                });
+                socket.emit('search', data);
+                //watchr.rest.search.post({data: data}).then(function (result) {
+                //    socket.emit('tasks');
+                //});
                 event.preventDefault();
             });
         }

@@ -19,7 +19,13 @@ define(['jquery', 'socket', '/collections/task.js', 'backbone'], function ($, so
             view.collection.comparator = function (model) {
                 return -(new Date(model.get('asof')).getTime());
             };
+            socket.on('task:new', function (data) {
+                console.log('task:new', data);
+                //view.collection.set(data[0], {remove: false});
+            });
             socket.on('task:update', function (data) {
+                console.log('task:update', data);
+                debugger;
                 view.collection.set(data[0], {remove: false});
             });
             socket.on('tasks', function (data) {
