@@ -6,24 +6,21 @@ define(['jquery', 'socket', 'flot', 'flottime', 'backbone'], function ($, socket
             view = this;
             view.id = options.resultId;
             view.template = Handlebars.templates['gadget/template'];
-            console.log('setting up emit for', options.resultId);
             socket.emit('result', {id: view.id});
             socket.on('task:update', function (data) {
-                console.log('gadget task update', data);
+                console.log('socket: task:update', data);
                 var id = data[0].task_id;
                 if (id === view.id) {
-                    console.log('ids are equal, emit result');
                     socket.emit('result', {id: id});
                 }
             });
             socket.on('result', function (data) {
-                console.log('gadget result data', data);
+                console.log('socket: result', data);
                 view.render(data);
             });
         },
         render: function (result) {
             var view = this;
-            console.log('Gadget data', result);
             view.$el.html(Handlebars.templates['gadget/' + result.format.toLowerCase()](result));
             if (result.format === 'Number') {
                 $.plot($(".w-flot"), [result.set], {
@@ -62,6 +59,10 @@ define(['jquery', 'socket', 'flot', 'flottime', 'backbone'], function ($, socket
             if (result.format === 'String') {
 
             }
+        },
+        destroy: function () {
+            socket.removeAllListeners('task:update');
+            socket.removeAllListeners('result');
         }
     });
 });

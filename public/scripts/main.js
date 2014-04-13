@@ -9,7 +9,7 @@ require([
     '/views/gadget-list/view.js',
     'errors'
 ], function ($, rest, socket, DashboardView, MastheadView, GadgetView, GadgetListView) {
-    var initialized;
+    var initialized, gadgetview;
     window.watchr = {rest: rest};
     rest.on('logged_out', function () {
         console.log('logged out');
@@ -30,7 +30,8 @@ require([
             initialized = true;
         }
         if (id) {
-            new GadgetView({el: '.W-gadget-list', resultId: id});
+            if (gadgetview) gadgetview.destroy();
+            gadgetview = new GadgetView({el: '.W-gadget-list', resultId: id});
             watchr.currentgadgetid = +id;
         }
     });
