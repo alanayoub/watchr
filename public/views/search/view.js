@@ -10,13 +10,11 @@ define(['jquery', 'socket', 'backbone'], function ($, socket) {
             var view = this;
             view.$el.html(view.template());
             view.$el.find('.w-form').submit(function (event) {
+                $(event.target).find('input[value=Add]').attr('disabled', 'disabled');
                 var data = $(this).serializeArray().reduce(function (acc, val) {
                     return (acc[val.name] = val.value) && acc;
                 }, {});
                 socket.emit('search', data);
-                //watchr.rest.search.post({data: data}).then(function (result) {
-                //    socket.emit('tasks');
-                //});
                 event.preventDefault();
             });
         }

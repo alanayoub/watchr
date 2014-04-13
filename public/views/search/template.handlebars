@@ -1,15 +1,15 @@
 <div class="W-search">
     <form method="post" action="/search" class="w-form">
         <label>
-            <input type="text" name="title" placeholder="name">
+            <input type="text" name="title" placeholder="name" required>
         </label>
         <label>
-            <input type="text" name="url" placeholder="url">
+            <input type="url" name="url" placeholder="url" required>
         </label>
         <label>
-            <input type="text" name="selector" placeholder="selector">
+            <input type="text" name="selector" placeholder="selector" required>
         </label>
-        <input type="submit" value="Test">
+        <input type="submit" value="Test" style="display: none">
         <input type="submit" value="Add">
     </form>
 </div>
