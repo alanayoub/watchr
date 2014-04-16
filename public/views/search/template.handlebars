@@ -1,13 +1,16 @@
 <div class="W-search">
     <form method="post" action="/search" class="w-form">
         <label>
-            <input type="text" name="title" placeholder="name" title="Please enter a name for this task" required>
+            <input type="text" name="title" placeholder="Name" title="Please enter a name for this task" required>
         </label>
         <label>
-            <input type="url" name="url" placeholder="url" title="You need to supply a valid URL to scrape" required>
+            <input type="url" name="url" placeholder="URL" title="You need to supply a valid URL to scrape" required>
         </label>
         <label>
-            <input type="text" name="selector" placeholder="selector" title="You need to supply a CSS selector" required>
+            <input type="text" name="selector" placeholder="Selector" title="You need to supply a CSS selector" required>
+        </label>
+        <label>
+            <input type="text" name="selector" placeholder="Regular Expression" title="Optional: Apply a regular expression to the result">
         </label>
         <input type="submit" value="Test" style="display: none">
         <input type="submit" value="Add">

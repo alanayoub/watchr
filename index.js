@@ -7,6 +7,9 @@ var config             = require('./config'),
     logger             = require('./services/logger'),
     ipban              = require('./middleware/ipban.js'),
     auth               = require('./middleware/auth.js'),
+    sockets            = require('./services/sockets'),
+    scrapeque          = require('./services/que/scrapeque')(),
+    listeners          = require('./services/sockets/listeners'),
     RedisStore         = require('connect-redis')(express),
     session_store      = new RedisStore({
         host: config.get('redis:host'),
@@ -45,9 +48,6 @@ server = http.createServer(app).listen(config.get('express:port'), function () {
 
 require('./routes');
 
-require('./services/sockets')(server, session_options).then(function (io, user) {
-    require('./services/que/scrapeque')(io).then(function (scrapeque) {
-        require('./services/sockets/listeners')(io, user, scrapeque);
-    });
+sockets(server, session_options).then(function (io, user) {
+    listeners(io, user, scrapeque);
 });
-
