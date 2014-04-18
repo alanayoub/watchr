@@ -70,7 +70,7 @@ module.exports = {
             return common_query(query, values);
         },
         one: function (config) {
-            var query = 'SELECT title, url, css, xpath, latest_scrape, type FROM watchr.task WHERE user_id = ? AND id = ? ORDER BY creation_date DESC',
+            var query = 'SELECT title, url, regex, css, xpath, latest_scrape, type FROM watchr.task WHERE user_id = ? AND id = ? ORDER BY creation_date DESC',
                 values = [config.user_id, config.id];
             return common_query(query, values);
         },
@@ -81,6 +81,9 @@ module.exports = {
         }
     },
     result: {
+        /**
+         * Get the results for the TASK with ID x
+         */
         last: function (config) {
             var query = 'SELECT * FROM watchr.result WHERE task_id = ? ORDER BY asof DESC LIMIT ?',
                 values = [config.task_id, config.limit || 999999999];

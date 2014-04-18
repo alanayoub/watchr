@@ -1,10 +1,19 @@
 'use strict';
-define(['jquery', 'socket', 'flot', 'flottime', 'backbone'], function ($, socket) {
+define([
+    'jquery',
+    'socket',
+    '/views/format/view.js',
+    '/models/formatoptions.js',
+    'flot',
+    'flottime',
+    'backbone'
+], function ($, socket, FormatView, FormatModel) {
     var view;
     return Backbone.View.extend({
         initialize: function (options) {
             view = this;
             view.id = options.resultId;
+            view.formatModel = new FormatModel();
             view.template = Handlebars.templates['gadget/template'];
             socket.emit('result', {id: view.id});
             socket.on('task:update', function (data) {
@@ -20,8 +29,12 @@ define(['jquery', 'socket', 'flot', 'flottime', 'backbone'], function ($, socket
             });
         },
         render: function (result) {
-            var view = this;
+            var view = this,
+                formatModel = view.formatModel.setSelected(result.format || 'String'),
+                formatView = new FormatView({model: formatModel.toJSON()});
+            console.log('render');
             view.$el.html(Handlebars.templates['gadget/' + result.format.toLowerCase()](result));
+            view.$el.find('.w-format').append(formatView.el);
             if (result.format === 'Number') {
                 $.plot($(".w-flot"), [result.set], {
 //                yaxis: { min: 0 },
