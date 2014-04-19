@@ -1,5 +1,26 @@
+$masthead-height: 40px;
+$search-height: 41px;
+$fixed-height: $search-height + $masthead-height;
+
+.W-masthead-container {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.W-search-container {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    top: $masthead-height;
+    background: #fff;
+}
+
 .W-task-list-container {
-    position: absolute;
+    position: fixed;
+    top: $fixed-height;
     background: $defaultBackground;
     border-right: 1px solid $borderLines;
     min-width: 325px;
