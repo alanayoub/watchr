@@ -12,3 +12,6 @@ input[type=submit] {
     color: #fff;
     padding: 0 15px;
 }
+input[disabled] {
+    background: #ccc;
+}

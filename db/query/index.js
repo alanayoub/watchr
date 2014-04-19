@@ -50,6 +50,11 @@ module.exports = {
                 values = [config.type, config.id];
             return common_query(query, values);
         },
+        updateRegex: function () {
+            var query = 'UPDATE watchr.task SET regex = ? WHERE id = ?',
+                values = [config.regex, config.id];
+            return common_query(query, values);
+        },
         fail: function (config) {
             var query = 'UPDATE watchr.task SET failed = 1 WHERE id = ?',
                 values = [config.id];
