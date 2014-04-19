@@ -10,7 +10,7 @@ module.exports = function (data, type, regex) {
             val.asof = Date.parse(val.asof);
             var newval = regex
                 ? val.value.replace(new RegExp(regex), "$1")
-                : val.value.replace(/[^\d]*([\d.]+)[^\d]*/, '$1'); // default Number regex
+                : val.value.replace(/[^0-9\.]/g, ''); // default Number regex
             acc.push([val.asof, newval]);
             return acc;
         }, []);

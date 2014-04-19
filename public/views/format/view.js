@@ -3,12 +3,13 @@ define(['jquery', 'socket', 'backbone'], function ($, socket) {
     return Backbone.View.extend({
         events: {
             'change select': function (event) {
-                var id = $(event.target).closest('[data-id]').data('id');
-                socket.emit('format', {id: id, format: $(event.target).val()});
+                var view = this;
+                socket.emit('update:type', {id: view.getId(), type: $(event.target).val()});
             },
             'submit form': function (event) {
+                var view = this;
                 event.preventDefault();
-                console.log('event', event.target);
+                socket.emit('update:regex', {id: view.getId(), regex: event.target.regex.value});
             },
             'keyup input': function () {
                 this.setFormState();
@@ -29,8 +30,11 @@ define(['jquery', 'socket', 'backbone'], function ($, socket) {
                 $input = view.$el.find('.w-regex'),
                 $submit = view.$el.find('[type=submit]');
             val = $input.val();
-            if (!val || val === view.model.regex) $submit.attr('disabled', 'disabled');
+            if (val === view.model.regex) $submit.attr('disabled', 'disabled');
             else $submit.removeAttr('disabled');
+        },
+        getId: function () {
+            return this.$el.find('[data-id]').data('id');
         }
     });
 });
