@@ -33,7 +33,6 @@ define([
             var view = this,
                 formatModel = view.formatModel.setSelected(result.format || 'String'),
                 formatView = new FormatView({model: formatModel.toJSON()});
-            console.log('render');
             view.$el.html(Handlebars.templates['gadget/' + result.format.toLowerCase()](result));
             view.$el.find('.w-format').append(formatView.el);
             if (result.format === 'Number') {
