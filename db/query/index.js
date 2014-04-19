@@ -36,9 +36,18 @@ module.exports = {
                 values = [config.olderthan || 0, config.limit];
             return common_query(query, values);
         },
+        /**
+         * Update latest_scrape to now
+         * TODO: change the name of this
+         */
         update: function (config) {
             var query = 'UPDATE watchr.task SET latest_scrape=now() WHERE id = ?',
                 values = [config.id];
+            return common_query(query, values);
+        },
+        updateType: function (config) {
+            var query = 'UPDATE watchr.task SET type = ? WHERE id = ?',
+                values = [config.type, config.id];
             return common_query(query, values);
         },
         fail: function (config) {

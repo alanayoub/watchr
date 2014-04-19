@@ -1,5 +1,7 @@
-<select>
-    {{#each options}}
-    <option value="{{type}}"{{#if selected}} selected{{/if}}>{{type}}</option>
-    {{/each}}
-</select>
+<div class="W-format-gadget" data-id="{{id}}">
+    <select>
+        {{#each options}}
+        <option value="{{type}}"{{#if selected}} selected{{/if}}>{{type}}</option>
+        {{/each}}
+    </select>
+</div>

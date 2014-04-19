@@ -16,6 +16,10 @@ define(['jquery', 'socket', 'backbone'], function ($, socket) {
                     return (acc[val.name] = val.value) && acc;
                 }, {});
                 socket.emit('search', data);
+                socket.on('searchsuccess', function () {
+                    $(event.target).find('input[value=Add]').removeAttr('disabled');
+                    // TODO: should probably clear the form here too
+                });
                 event.preventDefault();
             });
         }

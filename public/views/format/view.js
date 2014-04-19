@@ -4,12 +4,13 @@ define(['jquery', 'socket', 'backbone'], function ($, socket) {
     return Backbone.View.extend({
         events: {
             'change select': function (event) {
-                socket.emit('format', {newvalue: $(event.target).val()});
+                var id = $(event.target).closest('[data-id]').data('id');
+                socket.emit('format', {id: id, format: $(event.target).val()});
             }
         },
         initialize: function () {
             view = this;
-            view.template = Handlebars.templates['togglebutton/template'];
+            view.template = Handlebars.templates['format/template'];
             view.render();
         },
         render: function () {
