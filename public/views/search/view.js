@@ -12,6 +12,7 @@ define(['jquery', 'socket', 'backbone'], function ($, socket) {
             view.$el.find('.w-form').submit(function (event) {
                 $(event.target).find('input[value=Add]').attr('disabled', 'disabled');
                 var data = $(this).serializeArray().reduce(function (acc, val) {
+                    if (!val.name || !val.value) return acc;
                     return (acc[val.name] = val.value) && acc;
                 }, {});
                 socket.emit('search', data);

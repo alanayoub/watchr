@@ -8,20 +8,20 @@ var Que = module.exports = function () {
     var que = this, backlog = [], process = {}, maxconcurrent = 2, inprogress = 0, retries = 3, purgatory = [];
     setInterval(function () {
         if (!backlog.length) return;
-        logger.info('there is stuff in the backlog', backlog);
+        logger.info(__filename, 'There is stuff in the backlog', backlog);
         backlog.forEach(function (val) {
-            logger.info('status (max/inprogress)', maxconcurrent, inprogress);
+            logger.info(__filename, 'Status (max/inprogress)', maxconcurrent, inprogress);
             if ((+new Date - val.inprogress) > 60 * 1000) que.job.del(val);
             if (maxconcurrent <= inprogress) return;
             if (!val.inprogress) {
                 process[val.type](
                     val.options, 
                     function () {
-                        logger.info('this gets called when success');
+                        logger.info(__filename, 'This gets called when success');
                         que.job.del(val);
                     }, 
                     function () {
-                        logger.info('this gets called when fail');
+                        logger.info(__filename, 'This gets called when fail');
                         que.job.del(val);
                     }
                 );
@@ -32,7 +32,7 @@ var Que = module.exports = function () {
     }, 2000);
     que.job = {
         add: function (type, options) {
-            logger.info('adding job');
+            logger.info(__filename, 'que.job.add');
             backlog.push({type: type, options: options});
         },
         del: function (item) {
@@ -40,7 +40,7 @@ var Que = module.exports = function () {
             if (typeof item === 'number') {
                 // getting object from id
                 item = backlog.filter(function (val) {
-                    logger.info('val', val);
+                    logger.info(__filename, 'que.job.del', val);
                     return val.options.id === item
                 })[0];
             }
@@ -48,7 +48,7 @@ var Que = module.exports = function () {
                 item.inprogress = true; // needed to match the backlog
                 var index = backlog.indexOf(item);
                 if (!!~index) backlog.splice(index, 1);
-                logger.info('removing object');
+                logger.info(__filename, 'que.job.del', item);
             }
             inprogress--;
             return backlog;
@@ -59,7 +59,7 @@ var Que = module.exports = function () {
     };
     que.process = {
         add: function (type, handler) {
-            logger.info('creating process', type);
+            logger.info(__filename, 'que.process.add: ', type);
             process[type] = handler;
         }
     }

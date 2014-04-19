@@ -8,6 +8,7 @@ var $ = require('jquery'),
     times = config.get('app:phantom:check_for_match_times');
 
 module.exports = function (options) {
+    logger.info(__filename, 'options: ', options);
     /**
      * TODO: Need to make sure the headers are more random. Find out what else I can do to prevent requests looking similar
      * TODO: Pass headers through from client
@@ -18,12 +19,12 @@ module.exports = function (options) {
      */
     var $deferred = $.Deferred();
     getphantom().then(function (error, ph) {
-        logger.info('scrape request recieved');
+        logger.info(__filename, 'Scrape request received');
         var user_agent = random_ua.generate();
-        logger.info('Generated UserAgent: %s', user_agent);
+        logger.info(__filename, 'Generated UserAgent: %s', user_agent);
         ph.watchr.scrapping++;
         if (error) {
-            logger.error('Error getting phantom instance: %s', error);
+            logger.error(__filename, 'Error getting phantom instance: %s', error);
             return
         }
         ph.createPage(function (error, page) {
@@ -46,40 +47,40 @@ module.exports = function (options) {
                         msgStack.push(' -> ' + t.file + ': ' + t.line + (t.function ? ' (in function "' + t.function + '")' : ''));
                     });
                 }
-                logger.info('Error from webpage: %j', msgStack.join('\n'));
+                logger.info(__filename, 'Error from webpage: %j', msgStack.join('\n'));
             };
             page.onLoadStarted = function () {
-                logger.info('page.onLoadStarted');
+                logger.info(__filename, 'page.onLoadStarted');
             };
-            page.onLoadFinished = function (status) {
-                logger.info('page.onLoadFinished');
+            page.onLoadFinished = function () {
+                logger.info(__filename, 'page.onLoadFinished');
             };
             page.onConsoleMessage = function (msg, line, source) {
                 if (msg.indexOf('Unsafe JavaScript attempt to access frame with URL') > -1) return;
-                logger.info('phantom page console: %s %s %s', msg, line, source);
+                logger.info(__filename, 'Phantom page console: %s %s %s', msg, line, source);
             };
             page.onNavigationRequested = function (url, type, will_navigate, main) {
-                logger.info('Trying to navigate to: %s', url);
-                logger.info('Caused by: %s', type);
-                logger.info('Will actually navigate: %s', will_navigate);
-                logger.info('Sent from the page\'s main frame: %s', main);
+                logger.info(__filename, 'Trying to navigate to: %s', url);
+                logger.info(__filename, 'Caused by: %s', type);
+                logger.info(__filename, 'Will actually navigate: %s', will_navigate);
+                logger.info(__filename, 'Sent from the page\'s main frame: %s', main);
             };
             /**
-             * This isnt working for some reason
-             * */
+             * This isn't working for some reason
+             */
             page.onClosing = function(closing_page) {
                 ph.watchr.scrapping--;
-                logger.info('page.onClosing. URL: %s', closing_page.url);
+                logger.info(__filename, 'Page.onClosing. URL: %s', closing_page.url);
             };
             page.open(options.url, function (error, status) {
                 if (error) {
-                    logger.error('page.open: ', error);
+                    logger.error(__filename, 'page.open: ', error);
                     ph.watchr.scrapping--;
                     page.close();
                     return
                 }
                 if (status !== 'success') {
-                    logger.error('page.open status: ', status);
+                    logger.error(__filename, 'page.open status: ', status);
                     page.close();
                     return
                 }
@@ -105,7 +106,7 @@ module.exports = function (options) {
                                 },
                                 function (error, result) {
                                     if (error) {
-                                        logger.error('page.evaluate: %s', error);
+                                        logger.error(__filename, 'page.evaluate: %s', error);
                                         ph.watchr.scrapping--;
                                         page.close();
                                         return;
@@ -115,11 +116,11 @@ module.exports = function (options) {
                                         $deferred.resolve(result);
                                         ph.watchr.scraped++;
                                         ph.watchr.scrapping--;
-                                        logger.info('found result, close page. Result = ', result);
+                                        logger.info(__filename, 'found result, close page. Result = ', result);
                                         page.close();
                                     }
                                     if (tries === 0) {
-                                        logger.info('ran out of tries, closing page');
+                                        logger.info(__filename, 'ran out of tries, closing page');
                                         $deferred.reject('The selector didn\'t return any result after 10 seconds');
                                         page.close();
                                     }
