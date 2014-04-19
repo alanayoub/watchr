@@ -1,8 +1,11 @@
 <div class="W-format-gadget" data-id="{{id}}">
+    <form action=".">
     <select>
         {{#each options}}
         <option value="{{type}}"{{#if selected}} selected{{/if}}>{{type}}</option>
         {{/each}}
     </select>
-    <input class="w-regex" type="text">
+    <input class="w-regex" type="text" placeholder="Regular Expression" value="{{regex}}">
+    <input type="submit" value="Apply">
+    </form>
 </div>

@@ -3,17 +3,14 @@ define(['backbone'], function () {
         defaults: {
             options: [{type: 'String'}, {type: 'Number'}]
         },
-        initialize: function (id) {
+        initialize: function (config) {
             var model = this;
-            model.set('id', id);
-        },
-        setSelected: function (selected) {
-            var model = this;
+            model.set('id', config.id);
+            model.set('regex', config.regex);
             model.get('options').forEach(function (val) {
-                if (val.type === selected) val.selected = true;
+                if (val.type === config.selected) val.selected = true;
                 else {delete val.selected}
             });
-            return model
         }
     });
 });

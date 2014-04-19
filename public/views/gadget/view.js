@@ -30,11 +30,16 @@ define([
             });
         },
         render: function (result) {
-            var view = this,
-                formatModel = view.formatModel.setSelected(result.format || 'String'),
-                formatView = new FormatView({model: formatModel.toJSON()});
+            var view = this;
+            view.formatModel = new FormatModel({
+                id: view.id,
+                selected: result.format || 'String',
+                regex: result.meta.regex
+
+            });
+            view.formatView = new FormatView({model: view.formatModel.toJSON()});
             view.$el.html(Handlebars.templates['gadget/' + result.format.toLowerCase()](result));
-            view.$el.find('.w-format').append(formatView.el);
+            view.$el.find('.w-format').append(view.formatView.el);
             if (result.format === 'Number') {
                 $.plot($(".w-flot"), [result.set], {
 //                yaxis: { min: 0 },
