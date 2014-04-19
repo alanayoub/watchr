@@ -1,6 +1,5 @@
 'use strict';
 define(['jquery', 'socket', 'backbone'], function ($, socket) {
-    var view;
     return Backbone.View.extend({
         events: {
             'change select': function (event) {
@@ -16,7 +15,7 @@ define(['jquery', 'socket', 'backbone'], function ($, socket) {
             }
         },
         initialize: function () {
-            view = this;
+            var view = this;
             view.template = Handlebars.templates['format/template'];
             view.render();
         },
