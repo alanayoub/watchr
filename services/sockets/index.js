@@ -3,7 +3,6 @@ var $ = require('jquery'),
     passport_socket_io = require('passport.socketio'),
     logger = require('../../services/logger'),
     formatter = require('../../services/formatter'),
-    dbquery = require('../../db/query'),
     socketio = require('socket.io');
 module.exports = function (server, session_options) {
     var $deferred = $.Deferred(),
