@@ -20,7 +20,8 @@ require([
     watchr.router = new (Backbone.Router.extend({
         routes: {
             '': 'home',
-            'g/:id': 'home'
+            'g/:id': 'home',
+            '*404': '404'
         }
     }))();
     watchr.router.on('route:home', function (id) {
@@ -34,6 +35,9 @@ require([
             gadgetview = new GadgetView({el: '.W-gadget-list', resultId: id});
             watchr.currentgadgetid = +id;
         }
+    });
+    watchr.router.on('route:404', function () {
+        console.log('404')
     });
     socket.on('taskdeleted', function (data) {
         if (data.id !== watchr.currentgadgetid) return;
