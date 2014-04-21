@@ -1,4 +1,6 @@
-var pool = require('../../pool'), $ = require('jquery'), logger = require('../../services/logger');
+var $ = require('jquery'),
+    pool = require('../../pool'),
+    logger = require('../../services/logger');
 var common_query = function (query, values) {
     var $deferred = $.Deferred();
     pool.getConnection(function (error, connection) {
@@ -16,52 +18,23 @@ var common_query = function (query, values) {
 };
 module.exports = {
     task: {
+        /**
+         * Check if task exists
+         */
         exists: function (config) {
-            var query = 'SELECT id FROM watchr.task WHERE css = ? AND url = ? ORDER BY id LIMIT 1',
+            var query = '\
+                SELECT id \
+                FROM watchr.task \
+                WHERE css = ? \
+                      AND url = ? \
+                ORDER BY id LIMIT 1',
                 values = [config.selector, config.url];
             return common_query(query, values);
         },
-        insert: function (config) {
-            var query = 'INSERT INTO watchr.task (user_id, title, url, css, latest_scrape) VALUES (?, ?, ?, ?, now())',
-                values = [config.id, config.title, config.url, config.css];
-            return common_query(query, values);
-        },
-        oldest: function (config) {
-            var query = 'SELECT * FROM watchr.task\
-                    WHERE active = 1\
-                    AND (watchr.task.failed IS NULL OR watchr.task.failed !=1)\
-                    AND latest_scrape < DATE_SUB(NOW(), INTERVAL ? MINUTE)\
-                    ORDER BY latest_scrape\
-                    ASC LIMIT ?',
-                values = [config.olderthan || 0, config.limit];
-            return common_query(query, values);
-        },
         /**
-         * Update latest_scrape to now
-         * TODO: change the name of this
+         * Get all or just one task for display
          */
-        update: function (config) {
-            var query = 'UPDATE watchr.task SET latest_scrape=now() WHERE id = ?',
-                values = [config.id];
-            return common_query(query, values);
-        },
-        updateType: function (config) {
-            var query = 'UPDATE watchr.task SET type = ? WHERE id = ?',
-                values = [config.type, config.id];
-            return common_query(query, values);
-        },
-        updateRegex: function (config) {
-            var query = 'UPDATE watchr.task SET regex = ? WHERE id = ?',
-                values = [config.regex, config.id];
-            return common_query(query, values);
-        },
-        fail: function (config) {
-            var query = 'UPDATE watchr.task SET failed = 1 WHERE id = ?',
-                values = [config.id];
-            return common_query(query, values);
-        },
-        // Get all or one tasks
-        all: function (config) {
+        getDisplayTasks: function (config) {
             var query = '\
                 SELECT * \
                 FROM (SELECT watchr.task.url, \
@@ -83,14 +56,73 @@ module.exports = {
                 values = [config.task_id || '%'];
             return common_query(query, values);
         },
-        one: function (config) {
-            var query = 'SELECT title, url, regex, css, xpath, latest_scrape, type FROM watchr.task WHERE user_id = ? AND id = ? ORDER BY creation_date DESC',
+        getOneTask: function (config) {
+            var query = '\
+                SELECT title, url, regex, css, xpath, latest_scrape, type \
+                FROM watchr.task \
+                WHERE user_id = ? \
+                      AND id = ? \
+                ORDER BY creation_date DESC',
                 values = [config.user_id, config.id];
             return common_query(query, values);
         },
-        disable: function (config) {
-            var query = 'UPDATE watchr.task SET active = 0 WHERE id = ?',
+        getScrapeTasks: function (config) {
+            var query = '\
+                SELECT * \
+                FROM watchr.task \
+                WHERE active = 1 \
+                      AND (watchr.task.failed IS NULL OR watchr.task.failed !=1) \
+                      AND latest_scrape < DATE_SUB(NOW(), INTERVAL ? MINUTE) \
+                ORDER BY latest_scrape \
+                ASC LIMIT ?',
+                values = [config.olderthan || 0, config.limit];
+            return common_query(query, values);
+        },
+        new: function (config) {
+            var query = '\
+                INSERT INTO watchr.task (user_id, title, url, css, latest_scrape) \
+                VALUES (?, ?, ?, ?, now())',
+                values = [config.id, config.title, config.url, config.css];
+            return common_query(query, values);
+        },
+        updateTimestamp: function (config) {
+            var query = '\
+                UPDATE watchr.task \
+                SET latest_scrape=now() \
+                WHERE id = ?',
                 values = [config.id];
+            return common_query(query, values);
+        },
+        updateType: function (config) {
+            var query = '\
+                UPDATE watchr.task \
+                SET type = ? \
+                WHERE id = ?',
+                values = [config.value, config.id];
+            return common_query(query, values);
+        },
+        updateRegex: function (config) {
+            var query = '\
+                UPDATE watchr.task \
+                SET regex = ? \
+                WHERE id = ?',
+                values = [config.value, config.id];
+            return common_query(query, values);
+        },
+        updateFailed: function (config) {
+            var query = '\
+                UPDATE watchr.task \
+                SET failed = ? \
+                WHERE id = ?',
+                values = [config.value, config.id];
+            return common_query(query, values);
+        },
+        updateActive: function (config) {
+            var query = '\
+                UPDATE watchr.task \
+                SET active = ? \
+                WHERE id = ?',
+                values = [config.value, config.id];
             return common_query(query, values);
         }
     },
@@ -98,19 +130,30 @@ module.exports = {
         /**
          * Get the results for the TASK with ID x
          */
-        last: function (config) {
-            var query = 'SELECT * FROM watchr.result WHERE task_id = ? ORDER BY asof DESC LIMIT ?',
+        get: function (config) {
+            var query = '\
+                SELECT * \
+                FROM watchr.result \
+                WHERE task_id = ? \
+                ORDER BY asof DESC \
+                LIMIT ?',
                 values = [config.task_id, config.limit || 999999999];
             return common_query(query, values);
         },
-        update: function (config) {
-            var query = 'UPDATE watchr.result SET asof=now() WHERE id = ? AND value = ?',
-                values = [config.id, config.value];
+        new: function (config) {
+            var query = '\
+                INSERT INTO watchr.result (task_id, value) \
+                VALUES (?, ?)',
+                values = [config.task_id, config.value];
             return common_query(query, values);
         },
-        insert: function (config) {
-            var query = 'INSERT INTO watchr.result (task_id, value) VALUES (?, ?)',
-                values = [config.task_id, config.value];
+        update: function (config) {
+            var query = '\
+                UPDATE watchr.result \
+                SET asof=now() \
+                WHERE id = ? \
+                      AND value = ?',
+                values = [config.id, config.value];
             return common_query(query, values);
         }
     }

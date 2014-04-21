@@ -17,7 +17,7 @@ module.exports = function () {
     var gettasks = function () {
         logger.info(__filename, 'Getting tasks');
         var $deferred = $.Deferred();
-        dbquery.task.oldest({olderthan: hours, limit: limit}).then(function (result) {
+        dbquery.task.getScrapeTasks({olderthan: hours, limit: limit}).then(function (result) {
             if (result.error) {
                 logger.error(__filename, 'Getting tasks list: %j', result.error);
                 $deferred.reject(result);
@@ -49,7 +49,7 @@ module.exports = function () {
             },
             function (error) {
                 logger.error(__filename, 'error', error);
-                dbquery.task.fail({id: options.id}).then(function (result) {
+                dbquery.task.updateFailed({id: options.id, value: 1}).then(function (result) {
                     logger.warn('set job %d to failed', options.id);
                     q.job.del(options.id);
                     fail(result);

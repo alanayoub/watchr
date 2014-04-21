@@ -6,10 +6,13 @@
     bottom: 20px;
     header {
         margin-bottom: 20px;
+        h1 {
+            margin-bottom: 0;
+        }
         .w-format {
             position: absolute;
             right: 0;
-            top: 0;
+            top: 34px;
         }
     }
     .w-meta {
@@ -17,12 +20,18 @@
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
+        max-width: 50%;
     }
     .w-flot {
         position: absolute;
-        top: 50px;
+        top: 75px;
         bottom: 0;
         left: 0;
         right: 0;
+    }
+    .W-gadget-string {
+        li:first-child {
+            font-size: 14px;
+        }
     }
 }

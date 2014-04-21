@@ -2,7 +2,7 @@ var dbquery = require('../db/query'), logger = require('../services/logger');
 app.get('/api/task', function (req, res) {
     logger.info('api task request');
     // move the query to somewhere common
-    dbquery.task.all({user_id: req.user.id}).then(function (result) {
+    dbquery.task.getDisplayTasks({user_id: req.user.id}).then(function (result) {
         if (result.error) {
             logger.error('Error getting user tasks %j', result.error);
             throw result.error;
@@ -12,7 +12,7 @@ app.get('/api/task', function (req, res) {
 });
 app.get('/api/task/:id', function (req, res) {
     logger.info('api task/id request');
-    dbquery.task.one({user_id: req.user.id, id: req.params.id}).then(function (result) {
+    dbquery.task.getOneTask({user_id: req.user.id, id: req.params.id}).then(function (result) {
         if (result.error) {
             logger.error('Error getting user tasks %j', result.error);
             throw result.error;

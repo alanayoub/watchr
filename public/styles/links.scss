@@ -1,5 +1,7 @@
 :link {
     color: $primaryLink;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
 }
 :visited {
     color: $primaryLink;
@@ -8,6 +10,7 @@
 :visited:focus,
 :link:hover,
 :visited:hover {
-    background: $highlight;
+    //background: $highlight;
     text-decoration: none;
+    border-bottom-color: $primaryLink;
 }
