@@ -8,8 +8,6 @@ USE `watchr` ;
 -- -----------------------------------------------------
 -- Table `watchr`.`user`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `watchr`.`user` ;
-
 CREATE  TABLE IF NOT EXISTS `watchr`.`user` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `username` VARCHAR(254) NOT NULL ,
@@ -29,8 +27,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `watchr`.`login_attempt`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `watchr`.`login_attempt` ;
-
 CREATE  TABLE IF NOT EXISTS `watchr`.`login_attempt` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `ip` VARCHAR(45) NULL ,
@@ -46,13 +42,12 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `watchr`.`task`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `watchr`.`task` ;
-
 CREATE  TABLE IF NOT EXISTS `watchr`.`task` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `user_id` INT NOT NULL ,
   `url` VARCHAR(2083) NOT NULL ,
   `css` VARCHAR(255) NULL ,
+  `regex` VARCHAR(100) NULL ,
   `xpath` VARCHAR(255) NULL ,
   `creation_date` TIMESTAMP NOT NULL DEFAULT now() ,
   `active` TINYINT(1) NOT NULL DEFAULT 1 ,
@@ -74,8 +69,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `watchr`.`result`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `watchr`.`result` ;
-
 CREATE  TABLE IF NOT EXISTS `watchr`.`result` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `value` VARCHAR(1024) NULL ,
