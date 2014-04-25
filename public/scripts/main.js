@@ -21,6 +21,7 @@ require([
         routes: {
             '': 'home',
             'g/:id': 'home',
+            'p/:id': 'public',
             '*404': '404'
         }
     }))();
@@ -37,7 +38,18 @@ require([
         }
     });
     watchr.router.on('route:404', function () {
-        console.log('404')
+        console.log('404');
+    });
+    watchr.router.on('route:public', function (id) {
+        if (id) {
+            if (gadgetview) gadgetview.destroy();
+            gadgetview = new GadgetView({el: '.JS-body', resultId: id});
+        }
+        //var publicSocket = io.connect(window.location.origin + '/public');
+        //publicSocket.on('test', function (data) {
+        //    console.log('test', data);
+        //});
+        console.log('public');
     });
     socket.on('taskdeleted', function (data) {
         if (data.id !== watchr.currentgadgetid) return;

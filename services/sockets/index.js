@@ -18,10 +18,10 @@ module.exports = function (server, session_options) {
             logger.info('Socket auth success');
             $deferred.resolve(io, data.user);
         },
-        fail: function (data, message, error, accept) {
-            logger.error('Socket auth failed', error);
-            if (error) throw new Error(message);
-            else accept(null, false);
+        fail: function (data, message, critical, accept) {
+            logger.error(__filename, 'Auth failed');
+            $deferred.resolve(io, data.user);
+            accept(null, true);
         }
     }));
     return $deferred.promise();

@@ -48,6 +48,31 @@ server = http.createServer(app).listen(config.get('express:port'), function () {
 
 require('./routes');
 
-sockets(server, session_options).then(function (io, user) {
-    listeners(io, user, scrapeque);
-});
+var $ = require('jquery'),
+    express = require('express'),
+    passport_socket_io = require('passport.socketio'),
+    socketio = require('socket.io');
+
+    var io = socketio.listen(server);
+    logger.info('setting authorization');
+    io.set('authorization', passport_socket_io.authorize({
+        cookieParser: express.cookieParser,
+        secret: session_options.secret,
+        store: session_options.store,
+        success: function (data, accept) {
+            accept(null, true);
+            io.user = data.user;
+            logger.info('Socket auth success');
+        },
+        fail: function (data, message, critical, accept) {
+            logger.error(__filename, 'Auth failed');
+            accept(null, true);
+        }
+    }));
+
+listeners(io, scrapeque);
+
+//sockets(server, session_options).then(function (io, user) {
+//    listeners(io, user, scrapeque);
+//});
+
