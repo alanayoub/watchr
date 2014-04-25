@@ -45,7 +45,7 @@ module.exports = {
                       FROM   watchr.result \
                              LEFT JOIN watchr.task \
                                     ON watchr.task.id=watchr.result.task_id \
-                      WHERE (watchr.task.user_id = 1) \
+                      WHERE (watchr.task.user_id = ?) \
                              AND (watchr.task.failed != 1 OR watchr.task.failed IS NULL) \
                              AND (watchr.task.id LIKE ?) \
                              AND (watchr.task.active = 1)) AS tmp \
@@ -53,7 +53,7 @@ module.exports = {
                              FROM watchr.result \
                              GROUP BY task_id)\
                 ORDER BY creation_date DESC;',
-                values = [config.task_id || '%'];
+                values = [config.user_id, config.task_id || '%'];
             return common_query(query, values);
         },
         getOneTask: function (config) {
