@@ -23,34 +23,35 @@
     "underscore": "~1.5.2",
     "requirejs-text": "~2.0.10",
     "handlebars": "~1.1.2",
-    "flot": "~0.8.2"
+    "flot": "~0.8.2",
+    "momentjs": "~2.6.0"
   },
   "devDependencies": {
-      "nodejs-cookbook": "git@github.com:mdxp/nodejs-cookbook.git",
-      "chef-npm": "git@github.com:balbeko/chef-npm.git",
-      "build-essential": "git@github.com:opscode-cookbooks/build-essential.git",
-      "mysql": "git@github.com:opscode-cookbooks/mysql.git",
-      "database": "git@github.com:opscode-cookbooks/database.git",
-      "homebrew": "git@github.com:opscode-cookbooks/homebrew.git",
-      "windows": "git@github.com:opscode-cookbooks/windows.git",
-      "chef_handler": "git@github.com:opscode-cookbooks/chef_handler.git",
-      "redisio": "git@github.com:brianbianco/redisio.git",
-      "chef-ulimit": "git@github.com:bmhatfield/chef-ulimit.git",
-      "openssl": "git@github.com:opscode-cookbooks/openssl.git",
-      "postgresql": "git@github.com:hw-cookbooks/postgresql.git",
-      "phantomjs": "git@github.com:customink-webops/phantomjs.git",
-      "chocolatey": "git@github.com:chocolatey/chocolatey-cookbook.git",
-      "ms_dotnet2": "git@github.com:juliandunn/ms_dotnet2.git",
-      "ms_dotnet4": "git@github.com:webtrends/Cookbooks.git",
-      "powershell": "git@github.com:opscode-cookbooks/powershell.git",
-      "runit": "git@github.com:hw-cookbooks/runit.git",
-      "dmg": "git@github.com:opscode-cookbooks/dmg.git",
-      "git": "git@github.com:jssjr/git.git",
-      "xfs": "git@github.com:opscode-cookbooks/xfs.git",
-      "aws": "git@github.com:opscode-cookbooks/aws.git",
-      "yum": "git@github.com:opscode-cookbooks/yum.git",
-      "yum-epel": "git@github.com:opscode-cookbooks/yum-epel.git",
-      "apt": "git@github.com:opscode-cookbooks/apt.git"
+    "nodejs-cookbook": "git@github.com:mdxp/nodejs-cookbook.git",
+    "chef-npm": "git@github.com:balbeko/chef-npm.git",
+    "build-essential": "git@github.com:opscode-cookbooks/build-essential.git",
+    "mysql": "git@github.com:opscode-cookbooks/mysql.git",
+    "database": "git@github.com:opscode-cookbooks/database.git",
+    "homebrew": "git@github.com:opscode-cookbooks/homebrew.git",
+    "windows": "git@github.com:opscode-cookbooks/windows.git",
+    "chef_handler": "git@github.com:opscode-cookbooks/chef_handler.git",
+    "redisio": "git@github.com:brianbianco/redisio.git",
+    "chef-ulimit": "git@github.com:bmhatfield/chef-ulimit.git",
+    "openssl": "git@github.com:opscode-cookbooks/openssl.git",
+    "postgresql": "git@github.com:hw-cookbooks/postgresql.git",
+    "phantomjs": "git@github.com:customink-webops/phantomjs.git",
+    "chocolatey": "git@github.com:chocolatey/chocolatey-cookbook.git",
+    "ms_dotnet2": "git@github.com:juliandunn/ms_dotnet2.git",
+    "ms_dotnet4": "git@github.com:webtrends/Cookbooks.git",
+    "powershell": "git@github.com:opscode-cookbooks/powershell.git",
+    "runit": "git@github.com:hw-cookbooks/runit.git",
+    "dmg": "git@github.com:opscode-cookbooks/dmg.git",
+    "git": "git@github.com:jssjr/git.git",
+    "xfs": "git@github.com:opscode-cookbooks/xfs.git",
+    "aws": "git@github.com:opscode-cookbooks/aws.git",
+    "yum": "git@github.com:opscode-cookbooks/yum.git",
+    "yum-epel": "git@github.com:opscode-cookbooks/yum-epel.git",
+    "apt": "git@github.com:opscode-cookbooks/apt.git"
   },
   "exportsOverride": {
     "backbone": {
@@ -68,8 +69,14 @@
     "underscore": {
       "": "underscore.js"
     },
+    "momentjs": {
+      "": "moment.js"
+    },
     "flot": {
-      "": ["jquery.flot.js", "jquery.flot.time.js"]
+      "": [
+        "jquery.flot.js",
+        "jquery.flot.time.js"
+      ]
     }
   }
 }

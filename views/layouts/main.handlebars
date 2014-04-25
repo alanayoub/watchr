@@ -20,6 +20,8 @@
             backbone: '/lib/backbone/backbone',
             underscore: '/lib/underscore/underscore',
             handlebars: '/lib/handlebars/handlebars.runtime',
+            moment: '/lib/momentjs/moment',
+            helpers: '/services/helpers',
             errors: '/services/errors',
             socket: '/services/socket',
             rest: '/services/rest',
@@ -29,7 +31,7 @@
         },
         shim: {
             backbone: {
-                deps: ['text', 'underscore', 'jquery', 'handlebars', 'templates', 'sockets'],
+                deps: ['text', 'underscore', 'jquery', 'handlebars', 'helpers', 'templates', 'sockets'],
                 exports: 'Backbone'
             },
             templates: {
