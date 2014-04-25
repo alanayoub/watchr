@@ -156,5 +156,26 @@ module.exports = {
                 values = [config.id, config.value];
             return common_query(query, values);
         }
+    },
+    user: {
+        get: function (config) {
+            var query = '\
+                SELECT * \
+                FROM watchr.user \
+                WHERE id = ?',
+                values = [config.user_id];
+            return common_query(query, values);
+        },
+        authenticate: function (config) {
+            var query = '\
+                SELECT * \
+                FROM watchr.user \
+                WHERE username = ? \
+                      AND password = ? \
+                      AND confirmed = 1 \
+                      AND active = 1',
+                values = [config.username, config.password];
+            return common_query(query, values);
+        }
     }
 };
