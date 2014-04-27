@@ -162,8 +162,8 @@ module.exports = {
             var query = '\
                 SELECT * \
                 FROM watchr.user \
-                WHERE id = ?',
-                values = [config.user_id];
+                WHERE uuid = ?',
+                values = [config.uuid];
             return common_query(query, values);
         },
         authenticate: function (config) {
@@ -175,6 +175,13 @@ module.exports = {
                       AND confirmed = 1 \
                       AND active = 1',
                 values = [config.username, config.password];
+            return common_query(query, values);
+        },
+        newGoogleUser: function (config) {
+            var query = '\
+                INSERT INTO watchr.user (username, password, salt, creation_date, uuid, active, confirmed) \
+                VALUES (?, "Google", "somerandomsalt", now(), ?, 1, 1)',
+                values = [config.username, config.uuid];
             return common_query(query, values);
         }
     }

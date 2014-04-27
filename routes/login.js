@@ -1,6 +1,9 @@
-var passport = require('passport'), pool = require('../pool');
+var passport = require('passport'),
+    logger = require('../services/logger'),
+    pool = require('../pool');
 app.post('/api/login', function (req, res, next) {
     passport.authenticate('local', function (error, user, info) {
+        logger.info(__filename, 'Authenticate local');
         var query = 'INSERT INTO watchr.login_attempt (username, ip, success) VALUES (?, ?, ?)',
             data = [req.body.username, req.connection.remoteAddress, !!user ? 1 : 0];
         if (error) return next(error);
@@ -17,3 +20,10 @@ app.post('/api/login', function (req, res, next) {
         });
     })(req, res, next);
 });
+
+app.post('/auth/google', passport.authenticate('google'));
+
+app.get('/auth/google/return', passport.authenticate('google', {
+    successRedirect: '/',
+    failureRedirect: '/'
+}));
