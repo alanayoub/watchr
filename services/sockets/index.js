@@ -5,6 +5,7 @@ var $ = require('jquery'),
     formatter = require('../../services/formatter'),
     socketio = require('socket.io');
 module.exports = function (server, session_options) {
+    /*
     var $deferred = $.Deferred(),
         io = socketio.listen(server);
     logger.info('setting authorization');
@@ -20,9 +21,11 @@ module.exports = function (server, session_options) {
         },
         fail: function (data, message, critical, accept) {
             logger.error(__filename, 'Auth failed');
+            logger.info(__filename, 'Failed login data', data);
+            accept(null, false);
             $deferred.resolve(io, data.user);
-            accept(null, true);
         }
     }));
     return $deferred.promise();
+    */
 };

@@ -60,10 +60,9 @@ module.exports = {
             var query = '\
                 SELECT title, url, regex, css, xpath, latest_scrape, type \
                 FROM watchr.task \
-                WHERE user_id = ? \
-                      AND id = ? \
+                WHERE id = ? \
                 ORDER BY creation_date DESC',
-                values = [config.user_id, config.id];
+                values = [config.id];
             return common_query(query, values);
         },
         getScrapeTasks: function (config) {
@@ -97,8 +96,9 @@ module.exports = {
             var query = '\
                 UPDATE watchr.task \
                 SET type = ? \
-                WHERE id = ?',
-                values = [config.value, config.id];
+                WHERE id = ? \
+                      AND user_id = ?',
+                values = [config.value, config.id, config.user_id];
             return common_query(query, values);
         },
         updateRegex: function (config) {
