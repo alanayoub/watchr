@@ -1,0 +1,28 @@
+{
+    "name": "Watchr",
+    "version": "1.0",
+    "manifest_version": 2,
+    "description": "",
+    "permissions": [
+        "background",
+        "tabs",
+        "http://*/*/",
+        "https://*/*/"
+    ],
+    "background": {
+        "page": "background.html"
+    },
+    "content_scripts": [
+        {
+            "matches": ["http://*/*", "https://*/*"],
+            "js": ["jquery.js", "content.js"],
+            "run_at": "document_end",
+            "all_frames": true
+        }
+    ],
+    "content_security_policy": "frame-src http://*/*/; script-src; object-src",
+    "browser_action": {
+        "default_title": "Watchr",
+        "default_icon": "icon.png"
+    }
+}
