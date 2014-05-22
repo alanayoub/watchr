@@ -8,6 +8,7 @@
   },
   "private": true,
   "scripts": {
+    "debug": "nodemon --debug .",
     "start": "nodemon ."
   },
   "description": "does stuff",

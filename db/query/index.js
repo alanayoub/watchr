@@ -184,5 +184,14 @@ module.exports = {
                 values = [config.username, config.uuid];
             return common_query(query, values);
         }
+    },
+    login_attempt: {
+        new: function (config) {
+            var query = '\
+                INSERT INTO watchr.login_attempt (username, ip, success)\
+                VALUES (?, ?, ?)',
+                values = [config.username, config.ip, config.success];
+            return common_query(query, values);
+        }
     }
 };

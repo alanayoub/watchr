@@ -32,6 +32,17 @@ passport.use(new GoogleStrategy({
             if (result.error) {
                 logger.info(__filename, 'Error querying for user');
             }
+            if (!result.error) {
+                dbquery.login_attempt.new({
+                    username: profile.displayName,
+                    ip: 'Google',
+                    success: 1,
+                }).then(function (result) {
+                    if (result.error) {
+                        logger.error(__filename, 'Error storing login attempt info %j', result.error);
+                    }
+                });
+            }
             if (result.data[0]) {
                 logger.info(__filename, 'User exists');
                 profile.uuid = identifier;

@@ -11,3 +11,10 @@ update database with latest .sql file in ./db/backups. mysql watchr < [name].sql
 
 cd /vagrant
 npm start
+
+-------
+
+Start node:
+
+* npm start
+* npm run-script debug
