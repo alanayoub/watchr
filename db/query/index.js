@@ -188,9 +188,9 @@ module.exports = {
     login_attempt: {
         new: function (config) {
             var query = '\
-                INSERT INTO watchr.login_attempt (username, ip, success)\
-                VALUES (?, ?, ?)',
-                values = [config.username, config.ip, config.success];
+                INSERT INTO watchr.login_attempt (username, ip, success, user_uuid)\
+                VALUES (?, ?, ?, ?)',
+                values = [config.username, config.ip, config.success, config.user_uuid];
             return common_query(query, values);
         }
     }

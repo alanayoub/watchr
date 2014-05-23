@@ -37,6 +37,7 @@ passport.use(new GoogleStrategy({
                     username: profile.displayName,
                     ip: 'Google',
                     success: 1,
+                    user_uuid: identifier
                 }).then(function (result) {
                     if (result.error) {
                         logger.error(__filename, 'Error storing login attempt info %j', result.error);

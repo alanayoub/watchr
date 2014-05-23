@@ -16,7 +16,7 @@ CREATE  TABLE IF NOT EXISTS `watchr`.`user` (
   `creation_date` VARCHAR(45) NOT NULL DEFAULT 'now()' ,
   `confirmed` TINYINT(1) NOT NULL DEFAULT 0 ,
   `active` TINYINT(1) NOT NULL DEFAULT 0 ,
-  `uuid` CHAR(32) NOT NULL ,
+  `uuid` CHAR(100) NOT NULL ,
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `iduser_UNIQUE` (`id` ASC) ,
   UNIQUE INDEX `email_UNIQUE` (`username` ASC) ,
@@ -34,6 +34,7 @@ CREATE  TABLE IF NOT EXISTS `watchr`.`login_attempt` (
   `success` TINYINT(1) NOT NULL ,
   `timestamp` TIMESTAMP NOT NULL DEFAULT now() ,
   `username` VARCHAR(254) NULL ,
+  `user_uuid` CHAR(100) NOT NULL ,
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) )
 ENGINE = InnoDB;
