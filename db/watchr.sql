@@ -86,6 +86,31 @@ CREATE  TABLE IF NOT EXISTS `watchr`.`result` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `watchr`.`botnet`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `watchr`.`botnet` (
+  `id` INT NOT NULL ,
+  `value` VARCHAR(1024) NULL ,
+  `valueon` TIMESTAMP NOT NULL ,
+  `valueby` CHAR(100) NOT NULL ,
+  `value2` VARCHAR(1024) NULL ,
+  `value2on` TIMESTAMP NULL ,
+  `value2by` CHAR(100) NULL ,
+  `confirmed` TINYINT(1) NULL ,
+  `task_id` INT NOT NULL ,
+  `task_user_id` INT NOT NULL ,
+  PRIMARY KEY (`id`, `task_id`, `task_user_id`) ,
+  UNIQUE INDEX `idbotnet_UNIQUE` (`id` ASC) ,
+  INDEX `fk_botnet_task1` (`task_id` ASC, `task_user_id` ASC) ,
+  CONSTRAINT `fk_botnet_task1`
+    FOREIGN KEY (`task_id` , `task_user_id` )
+    REFERENCES `watchr`.`task` (`id` , `user_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
 CREATE USER `alan` IDENTIFIED BY 'sdfaslkj&sdlkjklsdfjklj"$skldTfjsdklaf';
 
 
