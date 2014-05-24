@@ -20,7 +20,7 @@
             "all_frames": true
         }
     ],
-    "content_security_policy": "frame-src http://*/*/; script-src; object-src",
+    "content_security_policy": "frame-src http://*/*/; script-src 'self'; object-src 'self';",
     "browser_action": {
         "default_title": "Watchr",
         "default_icon": "icon.png"
