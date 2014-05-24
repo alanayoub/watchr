@@ -1,0 +1,43 @@
+{
+    "express": {
+        "port": 3000,
+        "secret": "sfjklarj34%$£%RET£$TSD@:DF%$E£"
+    },
+    "redis": {
+        "host": "localhost",
+        "port": 6379,
+        "pass": "sfjklarj34%$£%RET£$TSD@:DF%$E£",
+        "db": 0
+    },
+    "mysql": {
+        "database": "watchr",
+        "host": "localhost",
+        "user": "root",
+        "password": "sdfaslkjsdlkjklsdfjkljskldTfjsdklafuser",
+        "connectionLimit": 10
+    },
+    "logger": {
+        "file": {
+            "filename": "logs/run.log",
+            "level": "silly",
+            "maxsize": 1048576,
+            "maxFiles": 3
+        },
+        "console": {
+            "level": "silly"
+        }
+    },
+    "app": {
+        "que": {
+            "update": {
+                "interval": 10000,
+                "tasks_older_than_x_minutes": 5,
+                "limit_number_of_tasks": 2
+            }
+        },
+        "phantom": {
+            "check_for_match_times": 20,
+            "wait_inbetween_checks": 500
+        }
+    }
+}
