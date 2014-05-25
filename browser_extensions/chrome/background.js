@@ -6,22 +6,42 @@ socket.on('connect', function () {
     socket.emit('chromeGetTasks', {});
     socket.on('chromeTasks', function (data) {
         console.log('updatearino', data);
-        source = null;
-        task = data[0];
-        task.css = '.s9TitleText:first';
-        task.url = 'http://www.amazon.co.uk';
-        tryIframe()
-            .done(extractResult)
-            .fail(tryAsync()
-                .done(extractResult)
-                .fail(function () {
-                    console.log('failed both');
-                })
-            );
+        tasks = data;
+        scrape();
     });
 });
 
+var scrape = function () {
+    console.log('scrape');
+    source = null;
+    task = tasks.filter(function (val) {
+        return val.status !== 0 && val.status !== 1;
+    })[0];
+    if (!task) {
+        console.log('emit', tasks);
+        return;
+    };
+
+    tryIframe().then(
+        function (response) {
+            extractResult();
+        },
+        function (error) {
+            tryAsync().then(
+                function (response) {
+                    extractResult();
+                },
+                function (error) {
+                    console.log('failed both');
+                    task.status = 0;
+                }
+            )
+        }
+    )
+}
+
 var tryIframe = function () {
+    console.log('tryIframe');
     var $deferred = $.Deferred();
     frame.src = task.url;
     setTimeout(function () {
@@ -30,21 +50,24 @@ var tryIframe = function () {
             $deferred.reject();
         }
         else $deferred.resolve();
-    }, 2000);
+    }, 10000);
     return $deferred.promise();
 }
 
 var tryAsync = function (data) {
+    console.log('tryAsync');
     var $deferred = $.Deferred();
     $.ajax({
         url: task.url,
         type: 'GET'
     }).done(function (result) {
         console.log('Ajax worked');
+        debugger;
         source = result;
         $deferred.resolve();
     }).fail(function (error) {
         console.log('Ajax didn\'t work', error);
+        debugger;
         source = result;
         $deferred.reject();
     });
@@ -52,7 +75,11 @@ var tryAsync = function (data) {
 };
 
 var extractResult = function () {
-    console.log('result', $(source).find(task.css).text());
+    debugger;
+    console.log('extractResult', $(source).find(task.css).text());
+    task.result = $(source).find(task.css).text();
+    task.status = 1;
+    scrape();
 }
 
 chrome.extension.onMessage.addListener(function (request, sender, sendResponse) {
