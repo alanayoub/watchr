@@ -161,11 +161,6 @@ var scrape = function (socket, options, scrape_handler, userid) {
 module.exports = function (io, scrapeque) {
     scrapeque.then(function (scrapeque) {
         io.sockets.on('connection', function (socket) {
-            socket.on('chromeGetTasks', function () {
-                gettodotasklist(0.1, 3).then(function (result) {
-                    socket.emit('chromeTasks', result);
-                });
-            });
             var user = io.user;
             var scrape_handler = (new ScrapeHandler()).on('data', function (result) {
                 logger.info(__filename, ': data : ', result);
@@ -176,12 +171,29 @@ module.exports = function (io, scrapeque) {
                     socket.emit(result.type, result.data);
                 }
             });
+            //
+            // Chrome plugin ready to receive tasks
+            //
+            socket.on('chromeTasksRequest', function () {
+                gettodotasklist(0.1, 3).then(function (result) {
+                    socket.emit('chromeTasks', result);
+                });
+            });
+            socket.on('chromeTaskResults', function (results) {
+                console.log('Received task results from chrome plugin:\n--> %j', results);
+            });
+            //
+            // Scraper emiting data
+            //
             scrapeque.on('data', function (result) {
                 logger.info(__filename, ': socket.on:data');
                 if (!result) return;
                 if (result.type === 'task:update') getonetask(socket, result.data[0].task_id);
                 if (result.type === 'tasks') console.log('go do tasks stuff');
             });
+            //
+            // Webapplication socket comunication
+            //
             socket.on('deletetask', function (id) {
                 logger.info(__filename, ': socket.on:deletetask %d', id);
                 if (!id) return;
@@ -197,12 +209,12 @@ module.exports = function (io, scrapeque) {
                 if (!user) return;
                 scrape(socket, data, scrape_handler, user.id);
             });
-            /* REGEX feature development on pause
-            socket.on('update:regex', function (data) {
-                logger.info(__filename, ': socket.on:update:regex', data);
-                updateTaskRegex(socket, data.regex, data.id, user.id);
-            });
-            */
+            // REGEX feature development on pause
+            // socket.on('update:regex', function (data) {
+            //    logger.info(__filename, ': socket.on:update:regex', data);
+            //    updateTaskRegex(socket, data.regex, data.id, user.id);
+            // });
+            //
             socket.on('update:type', function (data) {
                 if (!user) return;
                 logger.info(__filename, ': socket.on:update:type', data);
