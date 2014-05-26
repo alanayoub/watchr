@@ -193,5 +193,33 @@ module.exports = {
                 values = [config.username, config.ip, config.success, config.user_uuid];
             return common_query(query, values);
         }
+    },
+    botnet: {
+        // Check if a non confirmed value already exists for a task
+        checkExists: function (config) {
+            var query = '\
+                SELECT * FROM watchr.botnet \
+                WHERE task_id = ? \
+                      AND confirmed IS NULL',
+            values = [config.task_id];
+            return common_query(query, values);
+        },
+        // Insert new initial value to be confirmed
+        insertInit: function (config) {
+            var query = '\
+                INSERT INTO watchr.botnet (value, valueon, valueby, task_id) \
+                VALUES (?, now(), ?, ?)',
+                values = [config.value, config.valueby, config.task_id];
+            return common_query(query, values);
+        },
+        // Confirm existing value
+        insertConfirm: function (config) {
+            var query = '\
+                UPDATE watchr.botnet SET value2=?, value2on=now(), value2by=?, confirmed=? \
+                WHERE task_id = ? \
+                AND confirmed IS NULL',
+                values = [config.value, config.valueby, config.confirmed, config.task_id];
+            return common_query(query, values);
+        }
     }
 };

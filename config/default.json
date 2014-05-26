@@ -38,6 +38,12 @@
         "phantom": {
             "check_for_match_times": 20,
             "wait_inbetween_checks": 500
+        },
+        "browserExtension": {
+            "update": {
+                "tasks_older_than_x_minutes": 5,
+                "limit_number_of_tasks": 3
+            }
         }
     }
 }

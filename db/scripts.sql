@@ -35,7 +35,21 @@ ORDER BY creation_date DESC;
 
 /* LOGIN ATTEMPT */
 INSERT INTO watchr.login_attempt (username, ip, browser, success) VALUES ('alan@dfs.com', '19.1.1.1', 'Interweb Explorer', 0);
-SELECT * FROM watchr.login_attempt;
+SELECT * FROM watchr.login_attempt ORDER BY timestamp DESC;
+
+/* BOTNET */
+SELECT * FROM watchr.botnet;
+/* Check if a value already exists (so we can confirm it) */
+SELECT * FROM watchr.botnet 
+    WHERE task_id = 57 
+    AND confirmed is null;
+/* If no value exists we insert one */ 
+INSERT INTO watchr.botnet (value, valueon, valueby, task_id)
+    VALUES ('testing', now(), 'Alan Ayoub', 57);
+/* If a value does exist we confirm it */
+UPDATE watchr.botnet SET value2='testing', value2on=now(), value2by='Some other dude', confirmed=1
+    WHERE task_id = 57
+    AND confirmed is null;
 
 /* RESULT */
 INSERT INTO watchr.result (task_id, value) VALUES ('4', 'somevalue');

@@ -17,6 +17,7 @@ var scrape = function () {
     })[0];
     if (!task) {
         socket.emit('chromeTaskResults', tasks);
+        socket.emit('chromeTasksRequest', {});
         return;
     };
     tryIframe().then(
@@ -66,7 +67,7 @@ var tryAsync = function (data) {
 };
 
 var extractResult = function () {
-    task.result = $(source).find(task.css).text();
+    task.value = $(source).find(task.css).text();
     task.status = 1;
     console.log('extractResult', $(source).find(task.css).text());
     scrape();

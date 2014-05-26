@@ -90,7 +90,7 @@ ENGINE = InnoDB;
 -- Table `watchr`.`botnet`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `watchr`.`botnet` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `value` VARCHAR(1024) NULL ,
   `valueon` TIMESTAMP NOT NULL ,
   `valueby` CHAR(100) NOT NULL ,

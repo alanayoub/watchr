@@ -3,7 +3,10 @@ var $ = require('jquery'),
     formatter = require('../../services/formatter'),
     scraper = require('../scraper/scraper'),
     ScrapeHandler = require('../scraper/scrape_handler'),
-    dbquery = require('../../db/query');
+    dbquery = require('../../db/query'),
+    config = require('../../config'),
+    olderThanBrowser = config.get('app:browserExtension:update:tasks_older_than_x_minutes'),
+    limitBrowser = config.get('app:browserExtension:update:limit_number_of_tasks')
 
 var deletetask = function (socket, id) {
     logger.info('deleteing task');
@@ -158,6 +161,36 @@ var scrape = function (socket, options, scrape_handler, userid) {
     );
 };
 
+var chromeResults = {
+    save: function (user, results) {
+        userid = user && user.uuid || 'notloggedin';
+        results.forEach(function (val, idx, arr) {
+            $.when(dbquery.botnet.checkExists({task_id: val.id}))
+                .then(function (result) {
+                    return result;
+                    console.log('checkExists', result.data.length);
+                })
+                .then(function (result) {
+                    if (!result.data.length) {
+                        dbquery.botnet.insertInit({
+                            value: val.value,
+                            valueby: userid,
+                            task_id: val.id
+                        });
+                    }
+                    else if (result.data[0].valueby !== userid) { // different user
+                        dbquery.botnet.insertConfirm({
+                            value: val.value,
+                            valueby: userid,
+                            task_id: val.id,
+                            confirmed: result.data[0].value === val.value ? 1 : 0
+                        });
+                    }
+                });
+        });
+    }
+}
+
 module.exports = function (io, scrapeque) {
     scrapeque.then(function (scrapeque) {
         io.sockets.on('connection', function (socket) {
@@ -175,12 +208,13 @@ module.exports = function (io, scrapeque) {
             // Chrome plugin ready to receive tasks
             //
             socket.on('chromeTasksRequest', function () {
-                gettodotasklist(0.1, 3).then(function (result) {
+                gettodotasklist(olderThanBrowser, limitBrowser).then(function (result) {
                     socket.emit('chromeTasks', result);
                 });
             });
             socket.on('chromeTaskResults', function (results) {
                 console.log('Received task results from chrome plugin:\n--> %j', results);
+                chromeResults.save(user, results);
             });
             //
             // Scraper emiting data
