@@ -191,6 +191,8 @@ var chromeResults = {
                             task_id: result.task_id,
                             value: result.value
                         });
+                        dbquery.task.updateTimestamp({id: result.task_id});
+                        logger.info(__filename, ': Update task timestamp');
                         // emit a 'scraper' change event
                         // then let listner decide if the current user should get changes
                     }
