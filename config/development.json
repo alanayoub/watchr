@@ -31,7 +31,7 @@
         "que": {
             "update": {
                 "interval": 10000,
-                "tasks_older_than_x_minutes": 60,
+                "tasks_older_than_x_minutes": 1440,
                 "limit_number_of_tasks": 2
             }
         },
@@ -42,7 +42,7 @@
         "browserExtension": {
             "update": {
                 "interval": 10000,
-                "tasks_older_than_x_minutes": 5,
+                "tasks_older_than_x_minutes": 30,
                 "limit_number_of_tasks": 3
             }
         }

@@ -6,7 +6,7 @@ var $ = require('jquery'),
     dbquery = require('../../db/query'),
     config = require('../../config'),
     olderThanBrowser = config.get('app:browserExtension:update:tasks_older_than_x_minutes'),
-    limitBrowser = config.get('app:browserExtension:update:limit_number_of_tasks')
+    limitBrowser = config.get('app:browserExtension:update:limit_number_of_tasks');
 
 var deletetask = function (socket, id) {
     logger.info('deleteing task');
@@ -171,20 +171,28 @@ var chromeResults = {
                     console.log('checkExists', result.data.length);
                 })
                 .then(function (result) {
+                    var obj = {
+                        value: val.value,
+                        valueby: userid,
+                        task_id: val.id
+                    };
                     if (!result.data.length) {
-                        dbquery.botnet.insertInit({
-                            value: val.value,
-                            valueby: userid,
-                            task_id: val.id
-                        });
+                        dbquery.botnet.insertInit(obj);
                     }
                     else if (result.data[0].valueby !== userid) { // different user
-                        dbquery.botnet.insertConfirm({
-                            value: val.value,
-                            valueby: userid,
-                            task_id: val.id,
-                            confirmed: result.data[0].value === val.value ? 1 : 0
+                        $.extend(obj, {confirmed: result.data[0].value === val.value ? 1 : 0});
+                        dbquery.botnet.insertConfirm(obj);
+                    }
+                    return obj;
+                })
+                .then(function (result) {
+                    if (result.confirmed) {
+                        dbquery.result.new({
+                            task_id: result.task_id,
+                            value: result.value
                         });
+                        // emit a 'scraper' change event
+                        // then let listner decide if the current user should get changes
                     }
                 });
         });

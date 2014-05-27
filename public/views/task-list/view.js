@@ -21,15 +21,12 @@ define(['jquery', 'socket', '/collections/task.js', 'backbone'], function ($, so
             };
             view.render();
             socket.on('task:update', function (data) {
-                console.log('socket: task:update', data);
                 view.collection.set(data[0], {remove: false});
             });
             socket.on('tasks', function (data) {
-                console.log('socket: tasks', data);
                 view.collection.set(data.result);
             });
             socket.on('taskdeleted', function (data) {
-                console.log('socket: taskdeleted', data);
                 if (data.error) return console.log('taskdeleted.error: ', data.error);
                 var model = view.collection.get(data.id);
                 view.collection.remove(model);

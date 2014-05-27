@@ -4,9 +4,17 @@ var socket = io.connect('http://localhost:3000'),
 
 socket.on('connect', function () {
     socket.emit('chromeTasksRequest', {});
+    console.log('emitting chromeTasksRequest');
     socket.on('chromeTasks', function (data) {
+        console.log('receiving chromeTasks');
         tasks = data;
-        scrape();
+        if (!data.length) {
+            setTimeout(function () {
+                socket.emit('chromeTasksRequest', {});
+                console.log('emitting chromeTasksRequest');
+            }, 10000);
+        }
+        else scrape();
     });
 });
 
@@ -17,7 +25,11 @@ var scrape = function () {
     })[0];
     if (!task) {
         socket.emit('chromeTaskResults', tasks);
-        socket.emit('chromeTasksRequest', {});
+        setTimeout(function () {
+            socket.emit('chromeTasksRequest', {});
+        }, 10000);
+        console.log('emitting chromeTasksResults');
+        console.log('emitting chromeTasksRequest');
         return;
     };
     tryIframe().then(
