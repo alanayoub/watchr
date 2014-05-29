@@ -6,7 +6,8 @@ var $ = require('jquery'),
     dbquery = require('../../db/query'),
     config = require('../../config'),
     olderThanBrowser = config.get('app:browserExtension:update:tasks_older_than_x_minutes'),
-    limitBrowser = config.get('app:browserExtension:update:limit_number_of_tasks');
+    limitBrowser = config.get('app:browserExtension:update:limit_number_of_tasks'),
+    intervalBrowser = config.get('app:browserExtension:update:interval');
 
 var deletetask = function (socket, id) {
     logger.info('deleteing task');
@@ -219,6 +220,7 @@ module.exports = function (io, scrapeque) {
             //
             socket.on('chromeTasksRequest', function () {
                 gettodotasklist(olderThanBrowser, limitBrowser).then(function (result) {
+                    result.interval = intervalBrowser;
                     socket.emit('chromeTasks', result);
                 });
             });

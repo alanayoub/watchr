@@ -41,8 +41,8 @@
         },
         "browserExtension": {
             "update": {
-                "interval": 10000,
-                "tasks_older_than_x_minutes": 30,
+                "interval": 3600000,
+                "tasks_older_than_x_minutes": 60,
                 "limit_number_of_tasks": 30
             }
         }
