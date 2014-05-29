@@ -5,18 +5,19 @@ var socket = io.connect('http://localhost:3000'),
 socket.on('connect', function () {
     socket.emit('chromeTasksRequest', {});
     console.log('emitting chromeTasksRequest');
-    socket.on('chromeTasks', function (data) {
-        console.log('receiving chromeTasks');
-        tasks = data;
-        interval = data.interval || 30000;
-        if (!data.length) {
-            setTimeout(function () {
-                socket.emit('chromeTasksRequest', {});
-                console.log('emitting chromeTasksRequest');
-            }, interval);
-        }
-        else scrape();
-    });
+});
+
+socket.on('chromeTasks', function (data) {
+    console.log('receiving chromeTasks');
+    tasks = data;
+    interval = data.interval || 30000;
+    if (!data.length) {
+        setTimeout(function () {
+            socket.emit('chromeTasksRequest', {});
+            console.log('emitting chromeTasksRequest');
+        }, interval);
+    }
+    else scrape();
 });
 
 var scrape = function () {
