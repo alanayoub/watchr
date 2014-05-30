@@ -49,17 +49,9 @@ ScrapeHandler.prototype.handle = function (config) {
                 
                 logger.info(__filename, ': Latest result :', result.data);
 
-                // If the results is the same as the last one update the timestamp on this last result 
-                if (result.data && result.data[0] && result.data[0].value === scrape_results) {
-                    logger.info(__filename, ': Result is the same, updating timestamp');
-                    module.emit('data', {type: 'task:update', data: result.data});
-                    dbquery.result.update({id: result.data[0].id, value: scrape_results});
-                }
-                // Insert the new result
-                else {
-                    logger.info(__filename, ': Insert new result');
-                    dbquery.result.new({task_id: task_id, value: scrape_results});
-                }
+                logger.info(__filename, ': Insert new result');
+                dbquery.result.new({task_id: task_id, value: scrape_results});
+                module.emit('data', {type: 'task:update', data: result.data});
 
                 $deferred.resolve();
             });
