@@ -9,21 +9,18 @@ define([
     var view;
     return Backbone.View.extend({
         initialize: function (options) {
-            console.log('initialize');
             view = this;
             view.id = options.resultId;
             view.formatModel = new FormatModel(view.id);
             view.template = Handlebars.templates['gadget/template'];
             socket.emit('result', {id: view.id});
             socket.on('task:update', function (data) {
-                console.log('socket: task:update', data);
                 var id = data[0].task_id;
                 if (id === view.id) {
                     socket.emit('result', {id: id});
                 }
             });
             socket.on('result', function (data) {
-                console.log('socket: result', data);
                 view.render(data);
             });
         },

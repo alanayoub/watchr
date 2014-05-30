@@ -12,7 +12,6 @@ require([
     var initialized, gadgetview;
     window.watchr = {rest: rest};
     rest.on('logged_out', function () {
-        console.log('logged out');
         require(['/views/login/view.js'], function (LoginView) {
             new LoginView({el: '.W-page-container'});
         });
@@ -49,7 +48,6 @@ require([
         //publicSocket.on('test', function (data) {
         //    console.log('test', data);
         //});
-        console.log('public');
     });
     socket.on('taskdeleted', function (data) {
         if (data.id !== watchr.currentgadgetid) return;
