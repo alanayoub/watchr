@@ -1,3 +1,4 @@
+@import "styles/variables.scss";
 input {
     background: $coreColor02;
     border: 1px solid w-darken($coreColor02, 10%);
@@ -7,11 +8,16 @@ input[type=submit] {
     background: $coreColor03;
     border: $coreColor03;
     text-transform: uppercase;
-    min-width: 50px;
+    width: 55px;
     line-height: 20px;
     color: #fff;
     padding: 0 15px;
 }
 input[disabled] {
     background: #ccc;
+}
+
+input.w-loading {
+    background: #ccc url('/images/anim_16.gif') no-repeat 50% 50%;
+    color: #ccc;
 }

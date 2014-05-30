@@ -9,16 +9,23 @@ define(['jquery', 'socket', 'backbone'], function ($, socket) {
         render: function () {
             var view = this;
             view.$el.html(view.template());
+            view.$el.add = view.$el.find('input[value=Add]');
             view.$el.find('.w-form').submit(function (event) {
-                $(event.target).find('input[value=Add]').attr('disabled', 'disabled');
+                view.$el.add
+                    .attr('value', '&nbsp;')
+                    .prop('disabled', true)
+                    .addClass('w-loading');
                 var data = $(this).serializeArray().reduce(function (acc, val) {
                     if (!val.name || !val.value) return acc;
                     return (acc[val.name] = val.value) && acc;
                 }, {});
                 socket.emit('search', data);
                 socket.on('searchsuccess', function () {
-                    $(event.target).find('input[value=Add]').removeAttr('disabled');
-                    // TODO: should probably clear the form here too
+                    view.$el.add
+                        .attr('value', 'ADD')
+                        .prop('disabled', false)
+                        .removeClass('w-loading');
+                    view.$el.find('input:not([type=submit])').val('');
                 });
                 event.preventDefault();
             });
