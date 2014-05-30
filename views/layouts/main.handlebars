@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="description" content="Watchr">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Watcher</title>
     <link href="/.gen/styles/main.css" type="text/css" rel="stylesheet" media="screen, print">
 </head>
@@ -15,8 +16,8 @@
         waitSeconds: 6,
         paths: {
             jquery: '/lib/jquery/jquery',
-            flot: '/lib/flot/jquery.flot',
-            flottime: '/lib/flot/jquery.flot.time',
+            'jquery.flot': '/lib/flot/jquery.flot',
+            'jquery.flot.time': '/lib/flot/jquery.flot.time',
             backbone: '/lib/backbone/backbone',
             underscore: '/lib/underscore/underscore',
             handlebars: '/lib/handlebars/handlebars.runtime',
@@ -30,12 +31,21 @@
             sockets: '/.gen/scripts/socket.io'
         },
         shim: {
-            backbone: {
-                deps: ['text', 'underscore', 'jquery', 'handlebars', 'helpers', 'templates', 'sockets', 'flot', 'flottime'],
-                exports: 'Backbone'
+            jquery: {
+                exports: '$'
+            },
+            'jquery.flot': {
+                deps: ['jquery'], exports: '$.plot'
+            },
+            'jquery.flot.time': {
+                deps: ['jquery.flot']
             },
             templates: {
                 deps: ['handlebars'], exports: 'templates'
+            },
+            backbone: {
+                deps: ['text', 'underscore', 'jquery', 'handlebars', 'helpers', 'templates', 'sockets'],
+                exports: 'Backbone'
             }
         }
     });

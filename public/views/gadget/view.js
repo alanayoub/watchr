@@ -1,13 +1,11 @@
 'use strict';
 define([
-    'jquery',
     'socket',
     '/views/format/view.js',
     '/models/formatoptions.js',
-    'flot',
-    'flottime',
-    'backbone'
-], function ($, socket, FormatView, FormatModel) {
+    'jquery.flot',
+    'jquery.flot.time'
+], function (socket, FormatView, FormatModel) {
     var view;
     return Backbone.View.extend({
         initialize: function (options) {
