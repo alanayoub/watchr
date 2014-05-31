@@ -59,18 +59,6 @@ var getalltasks = function (socket, userid) {
     });
 };
 
-var getonetask = function (socket, taskId, userId) {
-    dbquery.task.getDisplayTasks({task_id: taskId, user_id: userId}).then(function (result) {
-        if (result.error) {
-            logger.error(__filename, 'Error getting user task %j', result.error);
-            throw result.error;
-        }
-        if (result.data) {
-            socket.emit('task:update', result.data);
-        }
-    });
-};
-
 var updateTaskType = function (socket, type, taskId, userId) {
     logger.warn(__filename, 'USERID: ', userId);
     if (!userId) {
@@ -147,7 +135,7 @@ var scrape = function (socket, options, scrape_handler, userid) {
     scraper(options).then(
         function (result) {
             logger.info(__filename, ': Scrape Success :', result);
-            socket.emit('searchsuccess');
+            socket.emit('searchResult', {success: true});
             scrape_handler.handle({
                 results: result,
                 selector: options.selector,
@@ -158,6 +146,7 @@ var scrape = function (socket, options, scrape_handler, userid) {
         }, 
         function (error) {
             logger.error(__filename, ': Scrape :', error);
+            socket.emit('searchResult', {success: false});
         }
     );
 };
@@ -209,7 +198,12 @@ module.exports = function (io, scrapeque) {
             var scrape_handler = (new ScrapeHandler()).on('data', function (result) {
                 logger.info(__filename, ': data : ', result);
                 if (result.type === 'task:new') {
-                    getonetask(socket, result.data.id, user.id);
+                    dbquery.task.getDisplayTasks({
+                        task_id: result.data.id,
+                        user_id: user.id
+                    }).then(function (result) {
+                        if (result.data) socket.emit('task:update', result.data);
+                    });
                 }
                 if (result.type === 'task:update') {
                     socket.emit(result.type, result.data);
@@ -234,7 +228,14 @@ module.exports = function (io, scrapeque) {
             scrapeque.on('data', function (result) {
                 logger.info(__filename, ': socket.on:data');
                 if (!result) return;
-                if (result.type === 'task:update') getonetask(socket, result.data[0].task_id, user.id);
+                if (result.type === 'task:update') {
+                    dbquery.task.getDisplayTasks({
+                        task_id: result.data[0].task_id,
+                        user_id: user.id
+                    }).then(function (result) {
+                        if (result.data) socket.emit('task:update', result.data);
+                    });
+                }
                 if (result.type === 'tasks') console.log('go do tasks stuff');
             });
             //

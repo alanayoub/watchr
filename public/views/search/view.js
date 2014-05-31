@@ -20,7 +20,7 @@ define(['jquery', 'socket', 'backbone'], function ($, socket) {
                     return (acc[val.name] = val.value) && acc;
                 }, {});
                 socket.emit('search', data);
-                socket.on('searchsuccess', function () {
+                socket.on('searchResult', function (result) {
                     view.$el.add
                         .attr('value', 'ADD')
                         .prop('disabled', false)

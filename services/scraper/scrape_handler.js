@@ -25,6 +25,7 @@ ScrapeHandler.prototype.handle = function (config) {
 
         if (task_results.error) {
             logger.error(__filename, ': %j', task_results.error);
+            module.emit('data', {type: 'task:update', data: task_results.error});
             $deferred.reject(task_results.error);
             throw task_results.error;
         }
@@ -71,7 +72,10 @@ ScrapeHandler.prototype.handle = function (config) {
                 logger.info(__filename, ': New Task inserted %j', task_result);
                 dbquery.result.new({task_id: task_result.data.insertId, value: scrape_results}).then(function (result) {
                     logger.info(__filename, ': New Result inserted %j', result);
-                    module.emit('data', {type: 'task:new', data: {id: task_result.data.insertId}});
+                    module.emit('data', {
+                        type: 'task:new',
+                        data: {id: task_result.data.insertId}
+                    });
                     $deferred.resolve(result);
                 });
             });
