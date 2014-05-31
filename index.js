@@ -9,7 +9,7 @@ var config             = require('./config'),
     auth               = require('./middleware/auth.js'),
     sockets            = require('./services/sockets'),
     scrapeque          = require('./services/que/scrapeque')(),
-    listeners          = require('./services/sockets/listeners'),
+    listeners          = require('./services/sockets'),
     RedisStore         = require('connect-redis')(express),
     session_store      = new RedisStore({
         host: config.get('redis:host'),
@@ -72,8 +72,4 @@ var $ = require('jquery'),
     }));
 
 listeners(io, scrapeque);
-
-//sockets(server, session_options).then(function (io, user) {
-//    listeners(io, user, scrapeque);
-//});
 

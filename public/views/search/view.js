@@ -25,7 +25,7 @@ define(['jquery', 'socket', 'backbone'], function ($, socket) {
                         .attr('value', 'ADD')
                         .prop('disabled', false)
                         .removeClass('w-loading');
-                    view.$el.find('input:not([type=submit])').val('');
+                    if (result.success) view.$el.find('input:not([type=submit])').val('');
                 });
                 event.preventDefault();
             });
