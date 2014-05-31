@@ -31,6 +31,9 @@ define(['jquery', 'socket', '/collections/task.js', 'backbone'], function ($, so
                 var model = view.collection.get(data.id);
                 view.collection.remove(model);
             });
+            socket.on('svr:task:new', function (data) {
+                watchr.router.navigate('g/' + data.id, {trigger: true});
+            });
             view.collection.on('change add remove', function () {
                 view.render();
             });
