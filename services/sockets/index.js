@@ -152,13 +152,13 @@ var scrape = function (socket, options, scrape_handler, userid) {
 };
 
 var chromeResults = {
-    save: function (user, results) {
+    save: function (socket, user, results) {
         userid = user && user.uuid || 'notloggedin';
         results.forEach(function (val, idx, arr) {
             $.when(dbquery.botnet.checkExists({task_id: val.id}))
                 .then(function (result) {
-                    return result;
                     console.log('checkExists', result.data.length);
+                    return result;
                 })
                 .then(function (result) {
                     var obj = {
@@ -180,6 +180,8 @@ var chromeResults = {
                         dbquery.result.new({
                             task_id: result.task_id,
                             value: result.value
+                        }).then(function () {
+                            getResults(socket, result.task_id);
                         });
                         dbquery.task.updateTimestamp({id: result.task_id});
                         logger.info(__filename, ': Update task timestamp');
@@ -195,6 +197,7 @@ module.exports = function (io, scrapeque) {
     scrapeque.then(function (scrapeque) {
         io.sockets.on('connection', function (socket) {
             var user = io.user;
+            // Scrape handler for search
             var scrape_handler = (new ScrapeHandler()).on('data', function (result) {
                 logger.info(__filename, ': data : ', result);
                 if (result.type === 'task:new') {
@@ -223,7 +226,7 @@ module.exports = function (io, scrapeque) {
             });
             socket.on('chromeTaskResults', function (results) {
                 console.log('Received task results from chrome plugin:\n--> %j', results);
-                chromeResults.save(user, results);
+                chromeResults.save(socket, user, results);
             });
             //
             // Scraper emiting data
@@ -236,7 +239,10 @@ module.exports = function (io, scrapeque) {
                         task_id: result.data[0].task_id,
                         user_id: user.id
                     }).then(function (result) {
-                        if (result.data) socket.emit('task:update', result.data);
+                        if (result.data && result.data.length) {
+                            socket.emit('svr:scrape:task', result.data);
+                        //    getResults(socket, result.data.id);
+                        }
                     });
                 }
                 if (result.type === 'tasks') console.log('go do tasks stuff');

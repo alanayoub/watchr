@@ -21,9 +21,11 @@ define(['jquery', 'socket', '/collections/task.js', 'backbone'], function ($, so
             };
             view.render();
             socket.on('task:update', function (data) {
+                console.log('task:update', data);
                 view.collection.set(data[0], {remove: false});
             });
             socket.on('tasks', function (data) {
+                console.log('tasks', data);
                 view.collection.set(data.result);
             });
             socket.on('taskdeleted', function (data) {
@@ -32,7 +34,12 @@ define(['jquery', 'socket', '/collections/task.js', 'backbone'], function ($, so
                 view.collection.remove(model);
             });
             socket.on('svr:task:new', function (data) {
+                console.log('svr:task:new', data);
                 watchr.router.navigate('g/' + data.id, {trigger: true});
+            });
+            socket.on('svr:scrape:task', function (data) {
+                console.log('svr:task:task', data);
+                view.collection.set(data, {remove: false});
             });
             view.collection.on('change add remove', function () {
                 view.render();
