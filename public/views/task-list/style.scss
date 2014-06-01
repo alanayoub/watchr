@@ -1,3 +1,5 @@
+@import "styles/mixins.scss";
+@import "styles/variables.scss";
 .W-task-list {
     @include w-right-shadow;
     .w-listitem {
@@ -13,7 +15,7 @@
         }
         .w-delete {
             display: none;
-            background: #f00;
+            background: #b92222;
             color: #fff;
             width: 12px;
             height: 12px;
@@ -21,8 +23,8 @@
             position: absolute;
             text-align: center;
             vertical-align: middle;
-            top: 10px;
-            right: 10px;
+            top: 4px;
+            right: 4px;
             font-size: 10px;
             font-weight: bold;
             border-radius: 3px;
@@ -30,6 +32,15 @@
         }
         &:hover .w-delete {
             display: block;
+        }
+        &.w-failed {
+            background: #fee;
+        }
+        .w-failed-notification {
+            background: #b92222;
+            color: #fff;
+            margin: -10px -10px 10px -10px;
+            padding-left: 5px;
         }
     }
     .w-url {

@@ -1,6 +1,11 @@
 <div class="W-task-list-container W-task-list">
     {{#each tasks}}
-    <div class="w-listitem" data-id="{{task_id}}">
+    <div class="w-listitem{{#if failed}} w-failed{{/if}}" data-id="{{task_id}}">
+        {{#if failed}}
+        <div class="w-failed-notification">
+            FAILED
+        </div>
+        {{/if}}
         <div class="w-title">{{title}}</div>
         <div class="w-latest">{{value}}</div>
         <div class="w-url"><a href="{{url}}" target="_blank">{{url}}</a></div>

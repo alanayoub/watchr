@@ -41,12 +41,13 @@ module.exports = {
                              watchr.task.creation_date, \
                              watchr.task.title, \
                              watchr.task.type, \
+                             watchr.task.failed, \
                              watchr.result.* \
                       FROM   watchr.result \
                              LEFT JOIN watchr.task \
                                     ON watchr.task.id=watchr.result.task_id \
                       WHERE (watchr.task.user_id = ?) \
-                             AND (watchr.task.failed != 1 OR watchr.task.failed IS NULL) \
+                             /*AND (watchr.task.failed != 1 OR watchr.task.failed IS NULL)*/ \
                              AND (watchr.task.id LIKE ?) \
                              AND (watchr.task.active = 1)) AS tmp \
                 WHERE id IN (SELECT MAX(id) \

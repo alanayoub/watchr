@@ -235,6 +235,7 @@ module.exports = function (io, scrapeque) {
                 logger.info(__filename, ': socket.on:data');
                 if (!result) return;
                 if (result.type === 'task:update') {
+                    if (!user.id) debugger;
                     dbquery.task.getDisplayTasks({
                         task_id: result.data[0].task_id,
                         user_id: user.id

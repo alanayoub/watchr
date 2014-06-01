@@ -18,7 +18,7 @@ define(['jquery', '/collections/task.js', 'backbone'], function ($, TaskCollecti
             view.template = Handlebars.templates['task-list/template'];
             view.collection = new TaskCollection();
             view.collection.comparator = function (model) {
-                return -(new Date(model.get('asof')).getTime());
+                //return -(new Date(model.get('asof')).getTime());
             };
             view.render();
             socket.on('task:update', function (data) {
