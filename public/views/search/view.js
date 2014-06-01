@@ -13,7 +13,7 @@ define(['jquery', 'backbone'], function ($) {
             view.$el.add = view.$el.find('input[value=Add]');
             view.$el.find('.w-form').submit(function (event) {
                 view.$el.add
-                    .attr('value', '&nbsp;')
+                    .attr('value', ' ')
                     .prop('disabled', true)
                     .addClass('w-loading');
                 var data = $(this).serializeArray().reduce(function (acc, val) {
