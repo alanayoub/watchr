@@ -1,15 +1,15 @@
 'use strict';
-define(['jquery', 'socket', 'backbone'], function ($, socket) {
+define(['jquery', 'backbone'], function ($) {
     return Backbone.View.extend({
         events: {
             'change select': function (event) {
                 var view = this;
-                socket.emit('update:type', {id: view.getId(), type: $(event.target).val()});
+                watchr.socket.emit('update:type', {id: view.getId(), type: $(event.target).val()});
             },
             'submit form': function (event) {
                 var view = this;
                 event.preventDefault();
-                socket.emit('update:regex', {id: view.getId(), regex: event.target.regex.value});
+                watchr.socket.emit('update:regex', {id: view.getId(), regex: event.target.regex.value});
             },
             'keyup input': function () {
                 this.setFormState();

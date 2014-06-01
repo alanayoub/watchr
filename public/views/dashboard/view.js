@@ -4,12 +4,12 @@ define([
     '/views/search/view.js',
     '/views/task-list/view.js',
     '/views/gadget-list/view.js',
-    'socket',
     'backbone'
-], function ($, SearchView, TaskListView, GadgetListView, socket) {
+], function ($, SearchView, TaskListView, GadgetListView) {
     return Backbone.View.extend({
         initialize: function () {
-            var view = this;
+            var view = this,
+                socket = watchr.socket;
             view.template = Handlebars.templates['dashboard/template'];
             view.render();
             socket.emit('tasks');

@@ -1,5 +1,5 @@
 'use strict';
-define(['jquery', 'socket', '/collections/task.js', 'backbone'], function ($, socket, TaskCollection) {
+define(['jquery', '/collections/task.js', 'backbone'], function ($, TaskCollection) {
     return Backbone.View.extend({
         events: {
             'click .w-listitem': function (event) {
@@ -9,11 +9,12 @@ define(['jquery', 'socket', '/collections/task.js', 'backbone'], function ($, so
             'click .w-delete': function (event) {
                 event.stopPropagation();
                 var id = $(event.target).closest('.w-listitem').data('id');
-                socket.emit('deletetask', id);
+                watchr.socket.emit('deletetask', id);
             }
         },
         initialize: function () {
-            var view = this;
+            var view = this,
+                socket = watchr.socket;
             view.template = Handlebars.templates['task-list/template'];
             view.collection = new TaskCollection();
             view.collection.comparator = function (model) {
@@ -39,6 +40,9 @@ define(['jquery', 'socket', '/collections/task.js', 'backbone'], function ($, so
             });
             socket.on('svr:scrape:task', function (data) {
                 console.log('svr:task:task', data);
+                if (data[0].task_id === +Backbone.history.fragment.split('/')[1]) {
+                    socket.emit('result', {id: data[0].task_id});
+                }
                 view.collection.set(data, {remove: false});
             });
             view.collection.on('change add remove', function () {

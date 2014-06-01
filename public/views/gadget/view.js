@@ -1,15 +1,14 @@
 'use strict';
 define([
-    'socket',
     '/views/format/view.js',
     '/models/formatoptions.js',
     'jquery.flot',
     'jquery.flot.time'
-], function (socket, FormatView, FormatModel) {
-    var view;
+], function (FormatView, FormatModel) {
     return Backbone.View.extend({
         initialize: function (options) {
-            view = this;
+            var view = this,
+                socket = watchr.socket;
             view.id = options.resultId;
             view.formatModel = new FormatModel(view.id);
             view.template = Handlebars.templates['gadget/template'];
@@ -75,6 +74,7 @@ define([
             }
         },
         destroy: function () {
+            var socket = watchr.socket;
             socket.removeAllListeners('task:update');
             socket.removeAllListeners('result');
         }

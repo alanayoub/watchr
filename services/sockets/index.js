@@ -216,7 +216,7 @@ module.exports = function (io, scrapeque) {
                 }
             });
             //
-            // Chrome plugin ready to receive tasks
+            // Chrome plugin
             //
             socket.on('chromeTasksRequest', function () {
                 gettodotasklist(olderThanBrowser, limitBrowser).then(function (result) {
@@ -229,7 +229,7 @@ module.exports = function (io, scrapeque) {
                 chromeResults.save(socket, user, results);
             });
             //
-            // Scraper emiting data
+            // Scraper
             //
             scrapeque.on('data', function (result) {
                 logger.info(__filename, ': socket.on:data');
@@ -248,7 +248,7 @@ module.exports = function (io, scrapeque) {
                 if (result.type === 'tasks') console.log('go do tasks stuff');
             });
             //
-            // Webapplication socket comunication
+            // Webapplication
             //
             socket.on('deletetask', function (id) {
                 logger.info(__filename, ': socket.on:deletetask %d', id);

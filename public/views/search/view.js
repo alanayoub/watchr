@@ -1,5 +1,5 @@
 'use strict';
-define(['jquery', 'socket', 'backbone'], function ($, socket) {
+define(['jquery', 'backbone'], function ($) {
     return Backbone.View.extend({
         initialize: function () {
             var view = this;
@@ -7,7 +7,8 @@ define(['jquery', 'socket', 'backbone'], function ($, socket) {
             view.render();
         },
         render: function () {
-            var view = this;
+            var view = this, 
+                socket = watchr.socket;
             view.$el.html(view.template());
             view.$el.add = view.$el.find('input[value=Add]');
             view.$el.find('.w-form').submit(function (event) {

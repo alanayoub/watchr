@@ -10,7 +10,7 @@ require([
     'errors'
 ], function ($, rest, socket, DashboardView, MastheadView, GadgetView, GadgetListView) {
     var initialized, gadgetview;
-    window.watchr = {rest: rest};
+    window.watchr = {rest: rest, socket: socket};
     rest.on('logged_out', function () {
         require(['/views/login/view.js'], function (LoginView) {
             new LoginView({el: '.W-page-container'});
