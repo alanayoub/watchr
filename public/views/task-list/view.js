@@ -39,11 +39,11 @@ define(['jquery', '/collections/task.js', 'backbone'], function ($, TaskCollecti
                 watchr.router.navigate('g/' + data.id, {trigger: true});
             });
             socket.on('svr:scrape:task', function (data) {
-                console.log('svr:task:task', data);
+                console.log('svr:scrape:task', data);
                 if (data[0].task_id === +Backbone.history.fragment.split('/')[1]) {
                     socket.emit('result', {id: data[0].task_id});
                 }
-                view.collection.set(data, {remove: false});
+                view.collection.set(data[0], {remove: false});
             });
             view.collection.on('change add remove', function () {
                 view.render();
