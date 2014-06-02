@@ -123,7 +123,8 @@ var getResults = function (socket, taskId) {
             meta: {
                 title: task.title,
                 url: task.url,
-                regex: task.regex
+                //regex: task.regex,
+                failed: task.failed
             },
             format: data.type || 'String'
         });

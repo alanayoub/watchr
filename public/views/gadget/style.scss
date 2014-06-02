@@ -1,19 +1,23 @@
 .W-gadget {
     position: absolute;
-    top: 20px;
-    left: 20px;
-    right: 20px;
-    bottom: 20px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 20px;
+    border-top: 3px solid transparent;
     header {
-        margin-bottom: 20px;
         h1 {
             margin-bottom: 0;
         }
         .w-format {
             position: absolute;
-            right: 0;
+            right: 20px;
             top: 34px;
         }
+    }
+    &.w-failed {
+        border-top-color: #b92222;
     }
     .w-meta {
         color: $secondaryLink;
@@ -24,10 +28,10 @@
     }
     .w-flot {
         position: absolute;
-        top: 75px;
-        bottom: 0;
-        left: 0;
-        right: 0;
+        top: 95px;
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
     }
     .W-gadget-string {
         li:first-child {

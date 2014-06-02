@@ -59,7 +59,7 @@ module.exports = {
         },
         getOneTask: function (config) {
             var query = '\
-                SELECT title, url, regex, css, xpath, latest_scrape, type \
+                SELECT title, url, regex, css, xpath, latest_scrape, type, failed \
                 FROM watchr.task \
                 WHERE id = ? \
                 ORDER BY creation_date DESC',

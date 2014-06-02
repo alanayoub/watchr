@@ -1,3 +1,4 @@
+@import 'variables';
 $masthead-height: 40px;
 $search-height: 41px;
 $fixed-height: $search-height + $masthead-height;
@@ -35,5 +36,4 @@ $fixed-height: $search-height + $masthead-height;
     top: 80px;
     right: 0;
     bottom: 0;
-    padding: 20px;
 }

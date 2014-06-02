@@ -30,7 +30,6 @@ define([
                 id: view.id,
                 selected: result.format || 'String',
                 regex: result.meta.regex
-
             });
             view.formatView = new FormatView({model: view.formatModel.toJSON()});
             view.$el.html(Handlebars.templates['gadget/' + result.format.toLowerCase()](result));
