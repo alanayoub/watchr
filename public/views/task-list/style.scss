@@ -36,7 +36,7 @@
         &.w-failed {
             background: #fee;
             color: #555;
-            a {
+            a, .w-url {
                 color: #da8c8c;
                 border-bottom: #da8c8c;
             }
