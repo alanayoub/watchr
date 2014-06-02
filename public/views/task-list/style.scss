@@ -35,6 +35,11 @@
         }
         &.w-failed {
             background: #fee;
+            color: #555;
+            a {
+                color: #da8c8c;
+                border-bottom: #da8c8c;
+            }
         }
         .w-failed-notification {
             background: #b92222;
