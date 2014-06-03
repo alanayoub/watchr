@@ -2,10 +2,10 @@
 define([
     '/views/format/view.js',
     '/models/formatoptions.js',
+    '/views/settings/view.js',
     'jquery.flot',
-    'jquery.flot.time',
-    '/util/jquery/jquery.inlinesvg.js'
-], function (FormatView, FormatModel) {
+    'jquery.flot.time'
+], function (FormatView, FormatModel, SettingsView) {
     return Backbone.View.extend({
         initialize: function (options) {
             var view = this,
@@ -33,9 +33,10 @@ define([
                 regex: result.meta.regex
             });
             view.formatView = new FormatView({model: view.formatModel.toJSON()});
+            view.settingsView = new SettingsView({model: {}});
             view.$el.html(Handlebars.templates['gadget/' + result.format.toLowerCase()](result));
             view.$el.find('.w-format').append(view.formatView.el);
-            view.$el.find('.svg').inlinesvg();
+            view.$el.find('.JS-settings').append(view.settingsView.el);
             if (result.format === 'Number') {
                 $.plot($(".w-flot"), [result.set], {
 //                yaxis: { min: 0 },
