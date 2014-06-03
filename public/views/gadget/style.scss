@@ -1,3 +1,4 @@
+@import 'styles/variables';
 .W-gadget {
     position: absolute;
     top: 0;
@@ -9,16 +10,23 @@
     header {
         .w-settings {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: -2px;
+            right: 0;
+            width: 45px;
+            background: #29323c;
+            border-bottom-left-radius: 15px;
+            [class*=W-icon-] {
+                margin: 5px 10px;
+                float: right;
+            }
         }
         h1 {
             margin-bottom: 0;
         }
         .w-format {
             position: absolute;
-            right: 41px;
-            top: 8px;
+            right: 55px;
+            top: 3px;
         }
     }
     &.w-failed {
