@@ -1,0 +1,16 @@
+.W-settings {
+    position: absolute;
+    top: -2px;
+    right: 0;
+    width: 45px;
+    background: #29323c;
+    border-bottom-left-radius: 15px;
+    [class*=W-icon-] {
+        margin: 5px 10px;
+        float: right;
+    }
+    &:hover {
+        border-bottom: 1px solid #29323c;
+        border-left: 1px solid #29323c;
+    }
+}

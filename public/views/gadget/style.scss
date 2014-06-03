@@ -8,18 +8,6 @@
     padding: 20px;
     border-top: 3px solid transparent;
     header {
-        .w-settings {
-            position: absolute;
-            top: -2px;
-            right: 0;
-            width: 45px;
-            background: #29323c;
-            border-bottom-left-radius: 15px;
-            [class*=W-icon-] {
-                margin: 5px 10px;
-                float: right;
-            }
-        }
         h1 {
             margin-bottom: 0;
         }
