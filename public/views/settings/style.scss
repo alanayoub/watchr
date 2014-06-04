@@ -6,11 +6,11 @@
     height: 30px;
     background: #29323c;
     border-bottom-left-radius: 15px;
-    transition: width .25s ease-in-out;
+    transition: width .25s ease-in-out, background-color .25s;
     [class*=W-icon-] {
         margin: 5px 10px;
         position: absolute;
-        background: #29323c;
+        background-color: #29323c;
         right: 1px;
     }
     .W-icon-cogs,
@@ -19,7 +19,7 @@
         transition: opacity .25s ease-in-out;
     }
     .W-icon-arrow_expand {
-        opacity: 1;
+        transition: background-color .25s ease-in-out;
     }
     .w-content {
         display: none;
@@ -35,15 +35,13 @@
         width: 400px;
         height: 150px;
         z-index: 1;
+        background-color: #ccc;
         .w-content {
             display: block;
         }
         [class*=W-icon-] {
             opacity: 0;
-        }
-        &:hover {
-            border-bottom: none;
-            border-left: none;
+            background-color: #ccc;
         }
     }
 }
