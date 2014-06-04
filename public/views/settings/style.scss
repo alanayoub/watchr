@@ -6,25 +6,25 @@
     height: 30px;
     background: #29323c;
     border-bottom-left-radius: 15px;
+    transition: width .25s ease-in-out;
     [class*=W-icon-] {
         margin: 5px 10px;
         position: absolute;
         background: #29323c;
-        right: 0;
+        right: 1px;
     }
-    .W-icon-cogs {
+    .W-icon-cogs,
+    .W-icon-arrow_expand {
         opacity: 1;
         transition: opacity .25s ease-in-out;
     }
-    .W-icon-arrow_left-down {
+    .W-icon-arrow_expand {
         opacity: 1;
     }
     .w-content {
         display: none;
     }
     &:hover {
-        border-bottom: 1px solid #29323c;
-        border-left: 1px solid #29323c;
         &:hover {
             .W-icon-cogs {
                 opacity: 0;
@@ -37,6 +37,9 @@
         z-index: 1;
         .w-content {
             display: block;
+        }
+        [class*=W-icon-] {
+            opacity: 0;
         }
         &:hover {
             border-bottom: none;
