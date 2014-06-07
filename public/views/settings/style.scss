@@ -55,6 +55,9 @@
                 background: #b92222!important;
             }
         }
+        .w-result {
+            color: #ccc;
+        }
     }
     &.w-open {
         width: 450px;
@@ -62,6 +65,11 @@
         z-index: 1;
         background-color: #eee;
         border: 1px solid #ddd;
+        .w-result {
+            padding: 10px;
+            margin: 10px 0 30px 0;
+            background: #fff;
+        }
         .w-content {
             display: block;
             padding: 10px;
@@ -85,6 +93,9 @@
             background-color: #ccc;
         }
         .w-buttons {
+            position: absolute;
+            right: 10px;
+            bottom: 0;
             margin: 10px 0;
             float: right;
             input {

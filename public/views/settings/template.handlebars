@@ -15,6 +15,13 @@
             <span>Selector</span>
             <input type="text" value=".Price">
         </label>
+        <div class="w-result">
+            {{#if failed}}
+            Scrapping failed
+            {{else}}
+            {{latest_result}}
+            {{/if}}
+        </div>
         <div class="w-buttons">
             <input type="submit" value="Test">
             <input type="submit" value="Save" disabled>

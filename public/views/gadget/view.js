@@ -26,14 +26,15 @@ define([
             });
         },
         render: function (result) {
-            var view = this;
+            var view = this,
+                latest_result = result.set.data[0].value || result.set.data[0][1]; // string or array
             view.formatModel = new FormatModel({
                 id: view.id,
                 selected: result.format || 'String',
                 regex: result.meta.regex
             });
             view.formatView = new FormatView({model: view.formatModel.toJSON()});
-            view.settingsView = new SettingsView({model: result.meta});
+            view.settingsView = new SettingsView({model: _.extend({latest_result: latest_result}, result.meta)});
             view.$el.html(Handlebars.templates['gadget/' + result.format.toLowerCase()](result));
             view.$el.find('.w-format').append(view.formatView.el);
             view.$el.find('.JS-settings').append(view.settingsView.el);
