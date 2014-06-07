@@ -13,7 +13,8 @@
         background-color: #29323c;
         right: 1px;
     }
-    input[type=text] {
+    input[type=text],
+    input[type=url] {
         border: 1px solid #aaa;
         background: #fff;
         padding-left: 3px;
