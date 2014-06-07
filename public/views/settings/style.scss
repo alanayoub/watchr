@@ -13,6 +13,16 @@
         background-color: #29323c;
         right: 1px;
     }
+    input[type=text] {
+        border: 1px solid #aaa;
+        background: #fff;
+        padding-left: 3px;
+        width: 313px;
+        margin-left: -3px;
+    }
+    label {
+        display: block;
+    }
     .W-icon-cogs,
     .W-icon-arrow_expand {
         opacity: 1;
@@ -31,17 +41,56 @@
             }
         }
     }
+    &.w-failed {
+        background-color: #b92222;
+        [class*=W-icon-] {
+            background-color: #b92222;
+        }
+        .w-selector, .w-url {
+            input {
+                border: 1px solid #b92222!important;
+            }
+            span {
+                background: #b92222!important;
+            }
+        }
+    }
     &.w-open {
-        width: 400px;
-        height: 150px;
+        width: 450px;
+        height: auto;
         z-index: 1;
-        background-color: #ccc;
+        background-color: #eee;
+        border: 1px solid #ddd;
         .w-content {
             display: block;
+            padding: 10px;
+            header {
+                font-size: 16px;
+                margin-bottom: 10px;
+            }
+            span {
+                background: #aaa;
+                line-height: 22px;
+                min-width: 45px;
+                display: inline-block;
+                position: relative;
+                top: -1px;
+                padding: 0 8px;
+                color: #fff;
+            }
         }
         [class*=W-icon-] {
             opacity: 0;
             background-color: #ccc;
+        }
+        .w-buttons {
+            margin: 10px 0;
+            float: right;
+            input {
+                display: inline-block;
+                margin: 0;
+                margin-left: 5px;
+            }
         }
     }
 }

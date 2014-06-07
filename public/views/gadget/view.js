@@ -33,7 +33,7 @@ define([
                 regex: result.meta.regex
             });
             view.formatView = new FormatView({model: view.formatModel.toJSON()});
-            view.settingsView = new SettingsView({model: {}});
+            view.settingsView = new SettingsView({model: result.meta});
             view.$el.html(Handlebars.templates['gadget/' + result.format.toLowerCase()](result));
             view.$el.find('.w-format').append(view.formatView.el);
             view.$el.find('.JS-settings').append(view.settingsView.el);

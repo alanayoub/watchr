@@ -1,7 +1,23 @@
-<div class="W-settings">
+<div class="W-settings {{#if failed}} w-failed{{/if}}">
     <img src="/images/arrow_expand.svg" class="svg W-icon-arrow_expand" alt="Settings" />
     <img src="/images/icon_cogs.svg" class="svg W-icon-cogs" alt="Settings" />
     <div class="w-content">
-        Stuff goes here
+        <header>Settings</header>
+        <label class="w-name">
+            <span>Name</span>
+            <input type="text" value="{{title}}">
+        </label>
+        <label class="w-url">
+            <span>URL</span>
+            <input type="text" value="{{url}}">
+        </label>
+        <label class="w-selector">
+            <span>Selector</span>
+            <input type="text" value=".Price">
+        </label>
+        <div class="w-buttons">
+            <input type="submit" value="Test">
+            <input type="submit" value="Save" disabled>
+        </div>
     </div>
 </div>
