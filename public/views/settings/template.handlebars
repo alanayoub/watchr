@@ -2,29 +2,31 @@
     <img src="/images/arrow_expand.svg" class="svg W-icon-arrow_expand" alt="Settings" />
     <img src="/images/icon_cogs.svg" class="svg W-icon-cogs" alt="Settings" />
     <div class="w-content">
-        <header>Settings</header>
-        <label class="w-name">
-            <span>Name</span>
-            <input type="text" value="{{title}}">
-        </label>
-        <label class="w-url">
-            <span>URL</span>
-            <input type="url" value="{{url}}">
-        </label>
-        <label class="w-selector">
-            <span>Selector</span>
-            <input type="text" value=".Price">
-        </label>
-        <div class="w-result">
-            {{#if failed}}
-            Scrapping failed
-            {{else}}
-            {{latest_result}}
-            {{/if}}
-        </div>
-        <div class="w-buttons">
-            <input type="submit" value="Test">
-            <input type="submit" value="Save" disabled>
-        </div>
+        <form>
+            <header>Settings</header>
+            <label class="w-title">
+                <span>Name</span>
+                <input type="text" name="title" value="{{title}}">
+            </label>
+            <label class="w-url">
+                <span>URL</span>
+                <input type="url" name="url" value="{{url}}">
+            </label>
+            <label class="w-selector">
+                <span>Selector</span>
+                <input type="text" name="selector" value="{{css}}">
+            </label>
+            <div class="w-result">
+                {{#if failed}}
+                Scrapping failed
+                {{else}}
+                {{latest_result}}
+                {{/if}}
+            </div>
+            <div class="w-buttons">
+                <input type="submit" value="Test" disabled>
+                <input type="submit" value="Save" disabled>
+            </div>
+        </form>
     </div>
 </div>

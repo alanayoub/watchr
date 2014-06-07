@@ -123,6 +123,7 @@ var getResults = function (socket, taskId) {
             meta: {
                 title: task.title,
                 url: task.url,
+                css: task.css,
                 //regex: task.regex,
                 failed: task.failed
             },
@@ -281,6 +282,21 @@ module.exports = function (io, scrapeque) {
             socket.on('result', function (data) {
                 logger.info(__filename, ': socket.on:result', data);
                 getResults(socket, data.id);
+            });
+            socket.on('cli:settings:save', function (data) {
+                if (!(data.title && data.css && data.url && data.id)) {
+                    // return error to client
+                    return;
+                };
+                dbquery.task.updateDetails({
+                    css: data.css,
+                    url: data.url,
+                    title: data.title,
+                    id: data.id,
+                    user_id: user.id
+                }).then(function (result) {
+                    getResults(socket, data.id);
+                });
             });
             socket.on('disconnect', function () {
                 logger.info(__filename, 'DISCONNECTED');

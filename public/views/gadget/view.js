@@ -34,7 +34,8 @@ define([
                 regex: result.meta.regex
             });
             view.formatView = new FormatView({model: view.formatModel.toJSON()});
-            view.settingsView = new SettingsView({model: _.extend({latest_result: latest_result}, result.meta)});
+            view.settingsModel = new Backbone.Model(_.extend({latest_result: latest_result, id: view.id}, result.meta));
+            view.settingsView = new SettingsView({model: view.settingsModel});
             view.$el.html(Handlebars.templates['gadget/' + result.format.toLowerCase()](result));
             view.$el.find('.w-format').append(view.formatView.el);
             view.$el.find('.JS-settings').append(view.settingsView.el);

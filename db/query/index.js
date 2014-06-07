@@ -125,6 +125,15 @@ module.exports = {
                 WHERE id = ?',
                 values = [config.value, config.id];
             return common_query(query, values);
+        },
+        updateDetails: function (config) {
+            var query = '\
+                UPDATE watchr.task \
+                SET title = ?, css = ?, url = ? \
+                WHERE id = ?, \
+                      AND user_id = ?',
+                values = [config.title, config.css, config.url, config.id, config.user_id];
+            return common_query(query, values);
         }
     },
     result: {
