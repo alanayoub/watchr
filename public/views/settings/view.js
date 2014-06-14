@@ -21,6 +21,7 @@ define([
             watchr.socket.on('svr:scrape:test', function (data) {
                 if (data.error) {
                     // TODO: Glow fade error message
+                    view.$el.find('.W-settings').removeClass('w-test-success');
                 }
                 else {
                     view.$el.find('.w-result').text(data.result);
