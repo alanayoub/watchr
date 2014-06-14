@@ -39,6 +39,7 @@ define([
                 event.preventDefault();
                 var $form = view.$el.$form;
                 view.$el.$save.attr('disabled', 'disabled');
+                view.model.set($form.serializeArrayFlat());
                 socket.emit('cli:settings:save', view.model.toJSON());
             });
         }

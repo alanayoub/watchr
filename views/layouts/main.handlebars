@@ -18,6 +18,7 @@
             jquery: '/lib/jquery/jquery',
             'jquery.flot': '/lib/flot/jquery.flot',
             'jquery.flot.time': '/lib/flot/jquery.flot.time',
+            jqueryarrayflat: '/scripts/lib/jquery.serializearrayflat',
             backbone: '/lib/backbone/backbone',
             underscore: '/lib/underscore/underscore',
             handlebars: '/lib/handlebars/handlebars.runtime',
@@ -44,7 +45,7 @@
                 deps: ['handlebars'], exports: 'templates'
             },
             backbone: {
-                deps: ['text', 'underscore', 'jquery', 'handlebars', 'helpers', 'templates', 'sockets'],
+                deps: ['text', 'underscore', 'jquery', 'handlebars', 'helpers', 'templates', 'sockets', 'jqueryarrayflat'],
                 exports: 'Backbone'
             }
         }

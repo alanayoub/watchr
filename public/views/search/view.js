@@ -16,10 +16,7 @@ define(['jquery', 'backbone'], function ($) {
                     .attr('value', ' ')
                     .prop('disabled', true)
                     .addClass('w-loading');
-                var data = $(this).serializeArray().reduce(function (acc, val) {
-                    if (!val.name || !val.value) return acc;
-                    return (acc[val.name] = val.value) && acc;
-                }, {});
+                var data = $(this).serializeArrayFlat();
                 socket.emit('search', data);
                 socket.on('searchResult', function (result) {
                     view.$el.add

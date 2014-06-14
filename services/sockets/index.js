@@ -237,7 +237,7 @@ module.exports = function (io, scrapeque) {
                 logger.info(__filename, ': socket.on:data');
                 if (!result) return;
                 if (result.type === 'task:update') {
-                    if (!user.id) debugger;
+                    if (!user && !user.id) return;
                     dbquery.task.getDisplayTasks({
                         task_id: result.data[0].task_id,
                         user_id: user.id
@@ -284,7 +284,7 @@ module.exports = function (io, scrapeque) {
                 getResults(socket, data.id);
             });
             socket.on('cli:settings:save', function (data) {
-                if (!(data.title && data.css && data.url && data.id)) {
+                if (!(data.title && data.css && data.url && data.id && user.id)) {
                     // return error to client
                     return;
                 };
@@ -295,7 +295,13 @@ module.exports = function (io, scrapeque) {
                     id: data.id,
                     user_id: user.id
                 }).then(function (result) {
-                    getResults(socket, data.id);
+                    if (result.error) {
+                        logger.error(__filename, 'Error updating details for task %d', data.id);
+                        return;
+                    }
+                    if (result.data) {
+                        getResults(socket, data.id, user.id);
+                    }
                 });
             });
             socket.on('disconnect', function () {
