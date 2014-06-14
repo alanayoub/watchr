@@ -132,11 +132,15 @@ var getResults = function (socket, taskId) {
     });
 };
 
-var scrape = function (socket, options, scrape_handler, userid) {
+var scrape = function (socket, options, scrape_handler, userid, save) {
     logger.info(__filename, ': Scrape :', options);
     scraper(options).then(
         function (result) {
             logger.info(__filename, ': Scrape Success :', result);
+            if (save === false) {
+                socket.emit('svr:scrape:test', {result: result});
+                return
+            };
             socket.emit('searchResult', {success: true});
             scrape_handler.handle({
                 results: result,
@@ -149,6 +153,7 @@ var scrape = function (socket, options, scrape_handler, userid) {
         function (error) {
             logger.error(__filename, ': Scrape :', error);
             socket.emit('searchResult', {success: false});
+            if (save === false) socket.emit('svr:scrape:test', {error: true});
         }
     );
 };
@@ -282,6 +287,15 @@ module.exports = function (io, scrapeque) {
             socket.on('result', function (data) {
                 logger.info(__filename, ': socket.on:result', data);
                 getResults(socket, data.id);
+            });
+            socket.on('cli:scrape:test', function (data) {
+                if (!(data.css && data.url && user.id)) {
+                    // return error to client
+                    return;
+                };
+                // TODO: make all references for CSS the same, some are selector
+                data.selector = data.css;
+                scrape(socket, data, scrape_handler, user.id, false);
             });
             socket.on('cli:settings:save', function (data) {
                 if (!(data.title && data.css && data.url && data.id && user.id)) {

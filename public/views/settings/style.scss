@@ -47,6 +47,8 @@
         [class*=W-icon-] {
             background-color: #b92222;
         }
+    }
+    &.w-failed:not(.w-test-success) {
         .w-selector, .w-url {
             input {
                 border: 1px solid #b92222!important;
