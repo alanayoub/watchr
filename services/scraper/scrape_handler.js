@@ -17,9 +17,8 @@ ScrapeHandler.prototype.handle = function (config) {
         scrape_results = config.results, 
         $deferred = $.Deferred();
 
-    dbquery.task.exists({selector: config.selector, url: config.url}).then(function (task_results) {
+    dbquery.task.exists({css: config.css, url: config.url, user_id: config.user_id}).then(function (task_results) {
 
-        var task_id;
         logger.info(__filename, ': Checking if task exists');
         logger.info(__filename, ': Task results : %j', task_results);
 
@@ -30,11 +29,11 @@ ScrapeHandler.prototype.handle = function (config) {
             throw task_results.error;
         }
 
-        // Task already exists
-        if (task_results.data.length) {
-            logger.info(__filename, ': Task exists');
+        var task_id = config.id || (task_results.data.length && task_results.data[0].id);
 
-            task_id = task_results.data[0].id;
+        // Task already exists
+        if (task_id) {
+            logger.info(__filename, ': Task exists');
             
             dbquery.task.updateTimestamp({id: task_id});
             logger.info(__filename, ': Update task timestamp');
@@ -60,7 +59,7 @@ ScrapeHandler.prototype.handle = function (config) {
         // Task doesnt exist
         else if (config.user_id) {
             logger.info(__filename, ': Task doesn\'t exist :');
-            var options = {id: config.user_id, url: config.url, css: config.selector, title: config.title};
+            var options = {id: config.user_id, url: config.url, css: config.css, title: config.title};
 
             // Insert new task
             dbquery.task.new(options).then(function (task_result) {

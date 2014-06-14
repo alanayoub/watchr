@@ -22,11 +22,13 @@ define([
                 if (data.error) {
                     // TODO: Glow fade error message
                     view.$el.find('.W-settings').removeClass('w-test-success');
+                    view.model.set({result: false, testSuccess: false});
                 }
                 else {
                     view.$el.find('.w-result').text(data.result);
                     view.$el.find('.W-settings').addClass('w-test-success');
                     view.$el.find('input[name=test]').attr('disabled', 'disabled');
+                    view.model.set({result: data.result, testSuccess: true});
                 }
             })
             view.template = Handlebars.templates['settings/template'];
@@ -44,12 +46,17 @@ define([
             $test = view.$el.find('input[name=test]');
             $form = view.$el.find('form');
             view.$el.on('change keyup', 'input, select, textarea', function () {
-                var oldModel = view.$el.savedFormTestModel || JSON.parse(JSON.stringify(view.model)),
+                var oriModel = JSON.parse(JSON.stringify(view.model)),
+                    oldModel = view.$el.savedFormTestModel || oriModel,
                     newModel = $form.serializeArrayFlat();
                 // enable test if url or css fields change
                 oldModel.url !== newModel.url || oldModel.css !== newModel.css
                     ? $test.removeAttr('disabled')
                     : $test.attr('disabled', 'disabled');
+                // set nameonly flag if only the name field has changed
+                oriModel.url !== newModel.url || oriModel.css !== newModel.css
+                    ? view.model.set({nameonly: false})
+                    : view.model.set({nameonly: true});
                 // enable submit if any field changes
                 $form.serialize() !== view.$el.savedFormString
                     ? $save.removeAttr('disabled')
@@ -65,6 +72,7 @@ define([
                 else {
                     $save.attr('disabled', 'disabled');
                     view.model.set($form.serializeArrayFlat());
+                    console.log('model', view.model.toJSON());
                     socket.emit('cli:settings:save', view.model.toJSON());
                 }
             });

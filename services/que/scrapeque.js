@@ -32,7 +32,13 @@ module.exports = function () {
     var createjobs = function (tasks) {
         logger.info(__filename, 'Create jobs');
         tasks.forEach(function (val) {
-            var options = {title: 'Scrape: ' + val.url, selector: val.css, url: val.url, id: val.id};
+            var options = {
+                title: 'Scrape: ' + val.url,
+                css: val.css,
+                url: val.url,
+                id: val.id,
+                user_id: val.user_id
+            };
             q.job.add('scrape', options);
         });
     };
@@ -43,8 +49,9 @@ module.exports = function () {
                 logger.info(__filename, 'result', result);
                 scrape_handler.handle({
                     results: result,
-                    selector: options.selector,
-                    url: options.url
+                    css: options.css,
+                    url: options.url,
+                    user_id: options.user_id
                 }).then(success);
             },
             function (error) {

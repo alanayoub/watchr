@@ -27,8 +27,9 @@ module.exports = {
                 FROM watchr.task \
                 WHERE css = ? \
                       AND url = ? \
+                      AND user_id = ? \
                 ORDER BY id LIMIT 1',
-                values = [config.selector, config.url];
+                values = [config.css, config.url, config.user_id];
             return common_query(query, values);
         },
         /**

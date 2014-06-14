@@ -144,8 +144,9 @@ var scrape = function (socket, options, scrape_handler, userid, save) {
             socket.emit('searchResult', {success: true});
             scrape_handler.handle({
                 results: result,
-                selector: options.selector,
+                css: options.css,
                 url: options.url,
+                id: options.id,
                 title: options.title,
                 user_id: userid
             });
@@ -219,7 +220,16 @@ module.exports = function (io, scrapeque) {
                     });
                 }
                 if (result.type === 'task:update') {
-                    socket.emit(result.type, result.data);
+                    //socket.emit(result.type, result.data);
+                    dbquery.task.getDisplayTasks({
+                        task_id: result.data[0].task_id,
+                        user_id: user.id
+                    }).then(function (result) {
+                        if (result.data && result.data.length) {
+                            socket.emit('svr:scrape:task', result.data);
+                        //    getResults(socket, result.data.id);
+                        }
+                    });
                 }
             });
             //
@@ -293,29 +303,38 @@ module.exports = function (io, scrapeque) {
                     // return error to client
                     return;
                 };
-                // TODO: make all references for CSS the same, some are selector
-                data.selector = data.css;
                 scrape(socket, data, scrape_handler, user.id, false);
             });
+            // Put data into task
+            // If failed, and url or css fields change remove failed flag
+            // Do scrape (if result exists from browser scrape wont rescrape)
             socket.on('cli:settings:save', function (data) {
+                var updateDetails,
+                    updateFailed,
+                    tasks;
                 if (!(data.title && data.css && data.url && data.id && user.id)) {
                     // return error to client
                     return;
                 };
-                dbquery.task.updateDetails({
+                updateDetails = dbquery.task.updateDetails({
                     css: data.css,
                     url: data.url,
                     title: data.title,
                     id: data.id,
                     user_id: user.id
-                }).then(function (result) {
-                    if (result.error) {
-                        logger.error(__filename, 'Error updating details for task %d', data.id);
+                });
+                updateFailed = dbquery.task.updateFailed({
+                    value: 0,
+                    id: data.id
+                });
+                tasks = [updateDetails];
+                if (!data.nameonly) tasks.push(updateFailed);
+                $.when(tasks).then(function () {
+                    if (data.nameonly) {
+                        getResults(socket, data.id, user.id);
                         return;
                     }
-                    if (result.data) {
-                        getResults(socket, data.id, user.id);
-                    }
+                    scrape(socket, data, scrape_handler, user.id);
                 });
             });
             socket.on('disconnect', function () {

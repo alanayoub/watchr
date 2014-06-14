@@ -18,7 +18,11 @@ module.exports = function (options) {
      * TODO: Create or source a phantom pool
      */
     var $deferred = $.Deferred();
-    getphantom().then(function (error, ph) {
+    if (options.result) { // short circut
+        $deferred.resolve(options.result);
+    }
+    if (!options.result) getphantom().then(function (error, ph) {
+        if (options.result) return;
         logger.info(__filename, 'Scrape request received');
         var user_agent = random_ua.generate();
         logger.info(__filename, 'Generated UserAgent: %s', user_agent);
@@ -96,7 +100,7 @@ module.exports = function (options) {
                         page.injectJs('public/lib/jquery/jquery.js', function () {
                             page.evaluate(
                                 function (options) {
-                                    if (options.selector) {return $(options.selector).text();}
+                                    if (options.css) {return $(options.css).text();}
                                     else
                                     if (options.xpath) {
                                         return document.evaluate(
