@@ -120,12 +120,6 @@ var getResults = function (socket, taskId) {
             }, []);
         }
 
-        socket.emit('Hello', {
-            that: 'only',
-            '/p': 'will get'
-        });
-        socket.emit('p', {test: 'testy'});
-
         socket.emit('result', {
             set: {
                 data: data
