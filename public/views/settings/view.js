@@ -10,6 +10,7 @@ define([
                 var $settings = this.$el.find('.W-settings');
                 if ($settings.hasClass('w-open')) return;
                 $settings.addClass('w-open');
+                $settings.removeClass('w-test-failed'); // if it exists, to prevent fade animation
                 $(document).on('click.close.settings', function () {
                     $settings.removeClass('w-open');
                     $(document).off('click.close.settings');
@@ -19,7 +20,7 @@ define([
         initialize: function () {
             var view = this;
             watchr.socket.on('svr:scrape:test', function (data) {
-                view.$el.find('input[name=test]').removeAttr('disabled').removeClass('w-loading');
+                view.$el.find('input[type=submit]').removeAttr('disabled').removeClass('w-loading');
                 if (data.error) {
                     // TODO: Glow fade error message
                     view.$el.find('.w-result').text('FAILED: ' + data.message);
@@ -68,9 +69,9 @@ define([
             view.$el.savedFormString = view.$el.find('form').serialize();
             view.$el.find('form [type=submit]').off('click.form').on('click.form', function (event) {
                 event.preventDefault();
-                $(this).addClass('w-loading').attr('disabled', 'disabled');
+                $(this).addClass('w-loading');
+                $form.find('input[type=submit]').attr('disabled', 'disabled');
                 if ($(this).attr('name') === 'test') {
-                    console.log('emit scrape test');
                     view.$el.savedFormTestModel = $form.serializeArrayFlat();
                     socket.emit('cli:scrape:test', $form.serializeArrayFlat());
                 }
