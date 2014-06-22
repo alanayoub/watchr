@@ -19,15 +19,18 @@ define([
         initialize: function () {
             var view = this;
             watchr.socket.on('svr:scrape:test', function (data) {
+                view.$el.find('input[name=test]').removeAttr('disabled').removeClass('w-loading');
                 if (data.error) {
                     // TODO: Glow fade error message
+                    view.$el.find('.w-result').text('FAILED: ' + data.message);
                     view.$el.find('.W-settings').removeClass('w-test-success');
+                    view.$el.find('.W-settings').addClass('w-test-failed');
                     view.model.set({result: false, testSuccess: false});
                 }
                 else {
                     view.$el.find('.w-result').text(data.result);
                     view.$el.find('.W-settings').addClass('w-test-success');
-                    view.$el.find('input[name=test]').attr('disabled', 'disabled');
+                    view.$el.find('.W-settings').removeClass('w-test-failed');
                     view.model.set({result: data.result, testSuccess: true});
                 }
             })
@@ -65,15 +68,15 @@ define([
             view.$el.savedFormString = view.$el.find('form').serialize();
             view.$el.find('form [type=submit]').off('click.form').on('click.form', function (event) {
                 event.preventDefault();
+                $(this).addClass('w-loading').attr('disabled', 'disabled');
                 if ($(this).attr('name') === 'test') {
+                    console.log('emit scrape test');
                     view.$el.savedFormTestModel = $form.serializeArrayFlat();
                     socket.emit('cli:scrape:test', $form.serializeArrayFlat());
                 }
                 else {
-                    $save.attr('disabled', 'disabled');
                     view.model.set($form.serializeArrayFlat());
                     view.$el.savedFormString = $form.serialize();
-                    console.log('model', view.model.toJSON());
                     socket.emit('cli:settings:save', view.model.toJSON());
                 }
             });

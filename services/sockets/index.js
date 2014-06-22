@@ -158,7 +158,9 @@ var scrape = function (socket, options, scrape_handler, userid, save) {
         function (error) {
             logger.error(__filename, ': Scrape :', error);
             socket.emit('searchResult', {success: false});
-            if (save === false) socket.emit('svr:scrape:test', {error: true});
+            if (save === false) {
+                socket.emit('svr:scrape:test', {error: true, message: error});
+            }
         }
     );
 };

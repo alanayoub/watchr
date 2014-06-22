@@ -1,3 +1,4 @@
+@import 'styles/mixins';
 .W-settings {
     position: absolute;
     top: -2px;
@@ -61,6 +62,11 @@
             color: #ccc;
         }
     }
+    &.w-test-failed {
+        .w-result {
+            @include W-animate(W-error-fade, 1s, ease);
+        }
+    }
     &.w-open {
         width: 450px;
         height: auto;
@@ -108,3 +114,4 @@
         }
     }
 }
+

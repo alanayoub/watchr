@@ -1,8 +1,31 @@
 @mixin w-right-shadow {
     box-shadow: inset -5px 0 10px -5px rgba(0, 0, 0, 0.2);
 }
+
 @mixin ellipsis {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
 }
+
+@mixin W-keyframes($name) {
+    @-webkit-keyframes #{$name} {
+        @content;
+    }
+    @-moz-keyframes #{$name} {
+        @content;
+    }
+    @-ms-keyframes #{$name} {
+        @content;
+    }
+    @keyframes #{$name} {
+        @content;
+    }
+}
+
+@mixin W-animate($animation, $delay, $duration) {
+    -webkit-animation: $animation $delay $duration;
+    -moz-animation: $animation $delay $duration;
+    animation: $animation $delay $duration;
+}
+
