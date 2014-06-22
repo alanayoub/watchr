@@ -110,6 +110,16 @@ var getResults = function (socket, taskId) {
         var task = task.data[0],
             data = formatter(result.data, task.type, task.regex);
 
+        // Remove repeated results when displaying as string
+        if (!data.type || data.type === 'String') {
+            data = data.reduce(function (acc, val, idx) {
+                if (acc.length && acc.value === val.value) return acc;
+                acc.value = val.value;
+                acc.push(val);
+                return acc;
+            }, []);
+        }
+
         socket.emit('Hello', {
             that: 'only',
             '/p': 'will get'
