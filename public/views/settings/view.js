@@ -72,6 +72,7 @@ define([
                 else {
                     $save.attr('disabled', 'disabled');
                     view.model.set($form.serializeArrayFlat());
+                    view.$el.savedFormString = $form.serialize();
                     console.log('model', view.model.toJSON());
                     socket.emit('cli:settings:save', view.model.toJSON());
                 }
