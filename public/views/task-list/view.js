@@ -23,7 +23,7 @@ define(['jquery', '/collections/task.js', 'backbone'], function ($, TaskCollecti
             view.render();
             socket.on('task:update', function (data) {
                 console.log('task:update', data);
-                view.collection.set(data[0], {remove: false});
+                view.collection.unshift(data[0]);
             });
             socket.on('tasks', function (data) {
                 console.log('tasks', data);
@@ -37,14 +37,14 @@ define(['jquery', '/collections/task.js', 'backbone'], function ($, TaskCollecti
             socket.on('svr:task:new', function (data) {
                 console.log('svr:task:new', data);
                 watchr.router.navigate('g/' + data[0].task_id, {trigger: true});
-                view.collection.set(data[0], {remove: false});
+                view.collection.unshift(data[0]);
             });
             socket.on('svr:scrape:task', function (data) {
                 console.log('svr:scrape:task', data);
                 if (data[0].task_id === +Backbone.history.fragment.split('/')[1]) {
                     socket.emit('result', {id: data[0].task_id});
                 }
-                view.collection.set(data[0], {remove: false});
+                view.collection.unshift(data[0]);
             });
             view.collection.on('change add remove', function () {
                 view.render();
