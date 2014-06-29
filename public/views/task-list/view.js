@@ -36,7 +36,8 @@ define(['jquery', '/collections/task.js', 'backbone'], function ($, TaskCollecti
             });
             socket.on('svr:task:new', function (data) {
                 console.log('svr:task:new', data);
-                watchr.router.navigate('g/' + data.id, {trigger: true});
+                watchr.router.navigate('g/' + data[0].task_id, {trigger: true});
+                view.collection.set(data[0], {remove: false});
             });
             socket.on('svr:scrape:task', function (data) {
                 console.log('svr:scrape:task', data);

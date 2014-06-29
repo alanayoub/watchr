@@ -220,8 +220,8 @@ module.exports = function (io, scrapeque) {
                         user_id: user.id
                     }).then(function (result) {
                         if (result.data) {
-                            socket.emit('task:update', result.data);
-                            socket.emit('svr:task:new', {id: result.data[0].task_id});
+                        //    socket.emit('task:update', result.data);
+                            socket.emit('svr:task:new', result.data);
                         }
                     });
                 }
