@@ -112,6 +112,7 @@ module.exports = function (options) {
                                     if (error) {
                                         logger.error(__filename, 'page.evaluate: %s', error);
                                         ph.watchr.scrapping--;
+                                        $deferred.reject('There was an error scraping %j', error);
                                         page.close();
                                         return;
                                     }

@@ -338,6 +338,7 @@ module.exports = function (io, scrapeque) {
                 $.when(tasks).then(function () {
                     if (data.nameonly) {
                         getResults(socket, data.id, user.id);
+                        getalltasks(socket, user.id);
                         return;
                     }
                     scrape(socket, data, scrape_handler, user.id);
