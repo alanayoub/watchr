@@ -20,7 +20,10 @@ module.exports = function () {
     var newinstance = function (callback) {
         phantom.create(function (error, ph) {
             var id;
-            if (error) return logger.error('Error creating Phantom instance %j', error);
+            if (error) {
+                callback(error, ph);
+                return logger.error('Error creating Phantom instance %j', error);
+            }
             id = instances.push(ph);
             instance = instances[id-1];
             instance.watchr = {

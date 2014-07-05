@@ -7,22 +7,19 @@ var $ = require('jquery'),
     stall = config.get('app:phantom:wait_inbetween_checks'),
     times = config.get('app:phantom:check_for_match_times');
 
+    var cssRegex = new RegExp('^(([\:\.\~\#\-\*\_\[][^0-9])|^[a-z])([a-z0-9\s\<\>\[\]\"\'\:\.\+\~\#\-\_\=\(\)\^\$\|])*', 'i');
+
 module.exports = function (options) {
     logger.info(__filename, 'options: ', options);
-    /**
-     * TODO: Need to make sure the headers are more random. Find out what else I can do to prevent requests looking similar
-     * TODO: Pass headers through from client
-     * TODO: Create phantom class that creates a phantom instance with the following methods
-     *      ph.fetch({selector: ''}, url): url/xpath and selectors and return results
-     *      ph.create_page: creates a new page. Need to figure out which is better, using the same page or creating a new onw
-     * TODO: Create or source a phantom pool
-     */
-    var $deferred = $.Deferred();
+    var $deferred = $.Deferred(), cssIsValid = cssRegex.test(options.css);
     if (options.result) { // short circut
         $deferred.resolve(options.result);
     }
-    if (!options.result) getphantom().then(function (error, ph) {
-        if (options.result) return;
+    if (!cssIsValid) {
+        logger.warn(__filename, 'CSS Invalid');
+        $deferred.reject('CSS invalid');
+    }
+    if (!options.result && cssIsValid) getphantom().then(function (error, ph) {
         logger.info(__filename, 'Scrape request received');
         var user_agent = random_ua.generate();
         logger.info(__filename, 'Generated UserAgent: %s', user_agent);
