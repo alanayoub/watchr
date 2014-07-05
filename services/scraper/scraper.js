@@ -18,11 +18,19 @@ module.exports = function (options) {
     }
     if (!cssIsValid) {
         logger.warn(__filename, 'CSS Invalid');
-        $deferred.reject('CSS invalid');
+        $deferred.reject({
+            error: true,
+            type: 'phantom',
+            message: 'CSS invalid'
+        });
     }
     if (!urlIsValid) {
         logger.warn(__filename, 'URL Invalid');
-        $deferred.reject('URL invalid');
+        $deferred.reject({
+            error: true,
+            type: 'phantom',
+            message: 'URL invalid'
+        });
     }
     if (!options.result && cssIsValid && urlIsValid) getphantom().then(function (error, ph) {
         logger.info(__filename, 'Scrape request received');
@@ -114,7 +122,11 @@ module.exports = function (options) {
                                     if (error) {
                                         logger.error(__filename, 'page.evaluate: %s', error);
                                         ph.watchr.scrapping--;
-                                        $deferred.reject('There was an error scraping %j', error);
+                                        $deferred.reject({
+                                            error: true,
+                                            type: 'phantom',
+                                            message: error
+                                        });
                                         page.close();
                                         return;
                                     }
@@ -128,7 +140,11 @@ module.exports = function (options) {
                                     }
                                     if (tries === 0) {
                                         logger.info(__filename, 'ran out of tries, closing page');
-                                        $deferred.reject('The selector didn\'t return any result after 10 seconds');
+                                        $deferred.reject({
+                                            error: true,
+                                            type: 'phantom',
+                                            message: 'The selector didn\'t return any result after 10 seconds'
+                                        });
                                         page.close();
                                     }
                                     if (tries > 0 && !result) check(tries);
