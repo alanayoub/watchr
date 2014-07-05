@@ -24,6 +24,9 @@ define(['jquery', 'backbone'], function ($) {
                         .prop('disabled', false)
                         .removeClass('w-loading');
                     if (result.success) view.$el.find('input:not([type=submit])').val('');
+                    else {
+                        console.log('search failed!');
+                    }
                 });
                 event.preventDefault();
             });
