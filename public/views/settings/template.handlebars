@@ -6,15 +6,15 @@
             <header>Settings</header>
             <label class="w-title">
                 <span>Name</span>
-                <input type="text" name="title" value="{{title}}">
+                <input type="text" name="title" value="{{title}}" required>
             </label>
             <label class="w-url">
                 <span>URL</span>
-                <input type="url" name="url" value="{{url}}">
+                <input type="url" name="url" value="{{url}}" title="You need to supply a valid URL to scrape" required>
             </label>
             <label class="w-selector">
                 <span>Selector</span>
-                <input type="text" name="css" value="{{css}}">
+                <input type="text" name="css" value="{{css}}" title="You need to supply a CSS selector" required>
             </label>
             <div class="w-result">
                 {{#if failed}}
