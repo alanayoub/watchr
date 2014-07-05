@@ -23,6 +23,7 @@ var config             = require('./config'),
     server;
 
 require('./setup_passport');
+require('./services/validator');
 
 app = express();
 app.configure('development', 'production', function () {

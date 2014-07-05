@@ -31,7 +31,8 @@
     "redis": "~0.10.0",
     "socket.io": "~0.9.16",
     "passport.socketio": "~2.2.0",
-    "passport-google": "~0.3.0"
+    "passport-google": "~0.3.0",
+    "validator": "~3.16.0"
   },
   "devDependencies": {
     "nodemon": "*",

@@ -1,5 +1,6 @@
 var $ = require('jquery'),
     colors = require('colors'),
+    validator = require('validator'),
     config  = require('../../config'),
     random_ua = require('random-ua'),
     logger = require('./../logger'),
@@ -7,11 +8,11 @@ var $ = require('jquery'),
     stall = config.get('app:phantom:wait_inbetween_checks'),
     times = config.get('app:phantom:check_for_match_times');
 
-    var cssRegex = new RegExp('^(([\:\.\~\#\-\*\_\[][^0-9])|^[a-z])([a-z0-9\s\<\>\[\]\"\'\:\.\+\~\#\-\_\=\(\)\^\$\|])*', 'i');
-
 module.exports = function (options) {
     logger.info(__filename, 'options: ', options);
-    var $deferred = $.Deferred(), cssIsValid = cssRegex.test(options.css);
+    var $deferred = $.Deferred(),
+        cssIsValid = validator.isCSSSelector(options.css),
+        urlIsValid = validator.isURL(options.url);
     if (options.result) { // short circut
         $deferred.resolve(options.result);
     }
@@ -19,7 +20,11 @@ module.exports = function (options) {
         logger.warn(__filename, 'CSS Invalid');
         $deferred.reject('CSS invalid');
     }
-    if (!options.result && cssIsValid) getphantom().then(function (error, ph) {
+    if (!urlIsValid) {
+        logger.warn(__filename, 'URL Invalid');
+        $deferred.reject('URL invalid');
+    }
+    if (!options.result && cssIsValid && urlIsValid) getphantom().then(function (error, ph) {
         logger.info(__filename, 'Scrape request received');
         var user_agent = random_ua.generate();
         logger.info(__filename, 'Generated UserAgent: %s', user_agent);
