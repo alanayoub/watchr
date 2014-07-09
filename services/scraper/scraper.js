@@ -39,6 +39,11 @@ module.exports = function (options) {
         ph.watchr.scrapping++;
         if (error) {
             logger.error(__filename, 'Error getting phantom instance: %s', error);
+            $deferred.reject({
+                error: error,
+                type: 'phantom',
+                message: 'Error getting phantom instance'
+            });
             return
         }
         ph.createPage(function (error, page) {
@@ -58,7 +63,9 @@ module.exports = function (options) {
                 if (trace && trace.length) {
                     msgStack.push('TRACE:');
                     trace.forEach(function (t) {
-                        msgStack.push(' -> ' + t.file + ': ' + t.line + (t.function ? ' (in function "' + t.function + '")' : ''));
+                        msgStack.push(
+                            ' -> ' + t.file + ': ' + t.line + (t.function ? ' (in function ' + t.function + ')' : '')
+                        );
                     });
                 }
                 logger.info(__filename, 'Error from webpage: %j', msgStack.join('\n'));
@@ -87,14 +94,16 @@ module.exports = function (options) {
                 logger.info(__filename, 'Page.onClosing. URL: %s', closing_page.url);
             };
             page.open(options.url, function (error, status) {
-                if (error) {
+                if (error || status !== 'success') {
                     logger.error(__filename, 'page.open: ', error);
+                    logger.error(__filename, 'page.open: ', status);
+                    $deferred.reject({
+                        error: error,
+                        status: status,
+                        type: 'phantom',
+                        message: 'Error opening page'
+                    });
                     ph.watchr.scrapping--;
-                    page.close();
-                    return
-                }
-                if (status !== 'success') {
-                    logger.error(__filename, 'page.open status: ', status);
                     page.close();
                     return
                 }
@@ -121,12 +130,12 @@ module.exports = function (options) {
                                 function (error, result) {
                                     if (error) {
                                         logger.error(__filename, 'page.evaluate: %s', error);
-                                        ph.watchr.scrapping--;
                                         $deferred.reject({
                                             error: true,
                                             type: 'phantom',
                                             message: error
                                         });
+                                        ph.watchr.scrapping--;
                                         page.close();
                                         return;
                                     }

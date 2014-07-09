@@ -67,7 +67,7 @@ var $ = require('jquery'),
         fail: function (data, message, critical, accept) {
             logger.error(__filename, 'Auth failed');
             logger.info(__filename, 'Failed login data', data);
-            accept(null, true);
+            accept(null, false);
         }
     }));
 

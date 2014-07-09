@@ -247,5 +247,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-mysql-dump');
-    grunt.registerTask('dev', ['bower', 'handlebars', 'compass', 'copy:sockets', 'copy:cookbooks', 'watch']);
+    grunt.registerTask('dev', ['db_dump', 'bower', 'handlebars', 'compass', 'copy:sockets', 'copy:cookbooks', 'watch']);
 };

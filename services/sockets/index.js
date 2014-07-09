@@ -133,6 +133,8 @@ var getResults = function (socket, taskId) {
             },
             format: data.type || 'String'
         });
+    }, function (error) {
+        logger.error('ERROR', error);
     });
 };
 

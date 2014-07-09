@@ -1,7 +1,10 @@
 var $ = require('jquery'),
     phantom = require('node-phantom'),
     logger = require('../logger'),
-    instances = [], max_scrapes_per_instance = 3, instanceid = 0;
+    config = require('../../config'),
+    instances = [],
+    max_scrapes_per_instance = config.get('app:phantom:max_scrapes_per_instance'),
+    instanceid = 0;
 module.exports = function () {
     logger.info('new phantom instance request received');
     var $deferred = $.Deferred(),

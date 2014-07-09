@@ -1,13 +1,16 @@
 var $ = require('jquery'),
     pool = require('../../pool'),
+    config = require('../../config'),
     logger = require('../../services/logger');
 var common_query = function (query, values) {
-    var $deferred = $.Deferred();
+    var $deferred = $.Deferred(),
+        regex = new RegExp('database', 'g');
     pool.getConnection(function (error, connection) {
         if (error) {
             logger.error('getting connection error', error);
             throw error;
         }
+        query = query.replace(regex, config.get('mysql:database'));
         connection.query(query, values, function (error, result) {
             connection.release();
             if (error) $deferred.reject({error: error, message: ''});
@@ -24,7 +27,7 @@ module.exports = {
         exists: function (config) {
             var query = '\
                 SELECT id \
-                FROM watchr.task \
+                FROM database.task \
                 WHERE css = ? \
                       AND url = ? \
                       AND user_id = ? \
@@ -38,21 +41,21 @@ module.exports = {
         getDisplayTasks: function (config) {
             var query = '\
                 SELECT * \
-                FROM (SELECT watchr.task.url, \
-                             watchr.task.creation_date, \
-                             watchr.task.title, \
-                             watchr.task.type, \
-                             watchr.task.failed, \
-                             watchr.result.* \
-                      FROM   watchr.result \
-                             LEFT JOIN watchr.task \
-                                    ON watchr.task.id=watchr.result.task_id \
-                      WHERE (watchr.task.user_id = ?) \
-                             /*AND (watchr.task.failed != 1 OR watchr.task.failed IS NULL)*/ \
-                             AND (watchr.task.id LIKE ?) \
-                             AND (watchr.task.active = 1)) AS tmp \
+                FROM (SELECT database.task.url, \
+                             database.task.creation_date, \
+                             database.task.title, \
+                             database.task.type, \
+                             database.task.failed, \
+                             database.result.* \
+                      FROM   database.result \
+                             LEFT JOIN database.task \
+                                    ON database.task.id=database.result.task_id \
+                      WHERE (database.task.user_id = ?) \
+                             /*AND (database.task.failed != 1 OR database.task.failed IS NULL)*/ \
+                             AND (database.task.id LIKE ?) \
+                             AND (database.task.active = 1)) AS tmp \
                 WHERE id IN (SELECT MAX(id) \
-                             FROM watchr.result \
+                             FROM database.result \
                              GROUP BY task_id)\
                 ORDER BY creation_date DESC;',
                 values = [config.user_id, config.task_id || '%'];
@@ -61,7 +64,7 @@ module.exports = {
         getOneTask: function (config) {
             var query = '\
                 SELECT title, url, regex, css, xpath, latest_scrape, type, failed \
-                FROM watchr.task \
+                FROM database.task \
                 WHERE id = ? \
                 ORDER BY creation_date DESC',
                 values = [config.id];
@@ -70,9 +73,9 @@ module.exports = {
         getScrapeTasks: function (config) {
             var query = '\
                 SELECT * \
-                FROM watchr.task \
+                FROM database.task \
                 WHERE active = 1 \
-                      AND (watchr.task.failed IS NULL OR watchr.task.failed !=1) \
+                      AND (database.task.failed IS NULL OR database.task.failed !=1) \
                       AND latest_scrape < DATE_SUB(NOW(), INTERVAL ? MINUTE) \
                 ORDER BY latest_scrape \
                 ASC LIMIT ?',
@@ -81,14 +84,14 @@ module.exports = {
         },
         new: function (config) {
             var query = '\
-                INSERT INTO watchr.task (user_id, title, url, css, latest_scrape) \
+                INSERT INTO database.task (user_id, title, url, css, latest_scrape) \
                 VALUES (?, ?, ?, ?, now())',
                 values = [config.id, config.title, config.url, config.css];
             return common_query(query, values);
         },
         updateTimestamp: function (config) {
             var query = '\
-                UPDATE watchr.task \
+                UPDATE database.task \
                 SET latest_scrape=now() \
                 WHERE id = ?',
                 values = [config.id];
@@ -96,7 +99,7 @@ module.exports = {
         },
         updateType: function (config) {
             var query = '\
-                UPDATE watchr.task \
+                UPDATE database.task \
                 SET type = ? \
                 WHERE id = ? \
                       AND user_id = ?',
@@ -105,7 +108,7 @@ module.exports = {
         },
         updateRegex: function (config) {
             var query = '\
-                UPDATE watchr.task \
+                UPDATE database.task \
                 SET regex = ? \
                 WHERE id = ?',
                 values = [config.value, config.id];
@@ -113,7 +116,7 @@ module.exports = {
         },
         updateFailed: function (config) {
             var query = '\
-                UPDATE watchr.task \
+                UPDATE database.task \
                 SET failed = ? \
                 WHERE id = ?',
                 values = [config.value, config.id];
@@ -121,7 +124,7 @@ module.exports = {
         },
         updateActive: function (config) {
             var query = '\
-                UPDATE watchr.task \
+                UPDATE database.task \
                 SET active = ? \
                 WHERE id = ?',
                 values = [config.value, config.id];
@@ -129,7 +132,7 @@ module.exports = {
         },
         updateDetails: function (config) {
             var query = '\
-                UPDATE watchr.task \
+                UPDATE database.task \
                 SET title = ?, css = ?, url = ? \
                 WHERE id = ? \
                       AND user_id = ?',
@@ -144,7 +147,7 @@ module.exports = {
         get: function (config) {
             var query = '\
                 SELECT * \
-                FROM watchr.result \
+                FROM database.result \
                 WHERE task_id = ? \
                 ORDER BY asof DESC \
                 LIMIT ?',
@@ -153,14 +156,14 @@ module.exports = {
         },
         new: function (config) {
             var query = '\
-                INSERT INTO watchr.result (task_id, value) \
+                INSERT INTO database.result (task_id, value) \
                 VALUES (?, ?)',
                 values = [config.task_id, config.value];
             return common_query(query, values);
         },
         update: function (config) {
             var query = '\
-                UPDATE watchr.result \
+                UPDATE database.result \
                 SET asof=now() \
                 WHERE id = ? \
                       AND value = ?',
@@ -172,7 +175,7 @@ module.exports = {
         get: function (config) {
             var query = '\
                 SELECT * \
-                FROM watchr.user \
+                FROM database.user \
                 WHERE uuid = ?',
                 values = [config.uuid];
             return common_query(query, values);
@@ -180,7 +183,7 @@ module.exports = {
         authenticate: function (config) {
             var query = '\
                 SELECT * \
-                FROM watchr.user \
+                FROM database.user \
                 WHERE username = ? \
                       AND password = ? \
                       AND confirmed = 1 \
@@ -190,7 +193,7 @@ module.exports = {
         },
         newGoogleUser: function (config) {
             var query = '\
-                INSERT INTO watchr.user (username, password, salt, creation_date, uuid, active, confirmed) \
+                INSERT INTO database.user (username, password, salt, creation_date, uuid, active, confirmed) \
                 VALUES (?, "Google", "somerandomsalt", now(), ?, 1, 1)',
                 values = [config.username, config.uuid];
             return common_query(query, values);
@@ -199,7 +202,7 @@ module.exports = {
     login_attempt: {
         new: function (config) {
             var query = '\
-                INSERT INTO watchr.login_attempt (username, ip, success, user_uuid)\
+                INSERT INTO database.login_attempt (username, ip, success, user_uuid)\
                 VALUES (?, ?, ?, ?)',
                 values = [config.username, config.ip, config.success, config.user_uuid];
             return common_query(query, values);
@@ -209,7 +212,7 @@ module.exports = {
         // Check if a non confirmed value already exists for a task
         checkExists: function (config) {
             var query = '\
-                SELECT * FROM watchr.botnet \
+                SELECT * FROM database.botnet \
                 WHERE task_id = ? \
                       AND confirmed IS NULL',
             values = [config.task_id];
@@ -218,7 +221,7 @@ module.exports = {
         // Insert new initial value to be confirmed
         insertInit: function (config) {
             var query = '\
-                INSERT INTO watchr.botnet (value, valueon, valueby, task_id) \
+                INSERT INTO database.botnet (value, valueon, valueby, task_id) \
                 VALUES (?, now(), ?, ?)',
                 values = [config.value, config.valueby, config.task_id];
             return common_query(query, values);
@@ -226,7 +229,7 @@ module.exports = {
         // Confirm existing value
         insertConfirm: function (config) {
             var query = '\
-                UPDATE watchr.botnet SET value2=?, value2on=now(), value2by=?, confirmed=? \
+                UPDATE database.botnet SET value2=?, value2on=now(), value2by=?, confirmed=? \
                 WHERE task_id = ? \
                 AND confirmed IS NULL',
                 values = [config.value, config.valueby, config.confirmed, config.task_id];
