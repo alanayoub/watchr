@@ -1,6 +1,6 @@
 require('./login');
 require('./logout');
-require('./search');
+//require('./search');
 require('./user');
 require('./task');
 require('./main');

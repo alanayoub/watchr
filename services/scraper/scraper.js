@@ -97,14 +97,18 @@ module.exports = function (options) {
                 if (error || status !== 'success') {
                     logger.error(__filename, 'page.open: ', error);
                     logger.error(__filename, 'page.open: ', status);
-                    $deferred.reject({
-                        error: error,
-                        status: status,
-                        type: 'phantom',
-                        message: 'Error opening page'
-                    });
-                    ph.watchr.scrapping--;
-                    page.close();
+                    var checkInternet = require('../internet')();
+                    var reject = function (internet) {
+                        $deferred.reject({
+                            error: error,
+                            status: status,
+                            type: !internet ? 'dnserror' : 'phantom',
+                            message: !internet ? 'Internet Connection not available' : 'Error opening page'
+                        });
+                        ph.watchr.scrapping--;
+                        page.close();
+                    }
+                    checkInternet.then ? checkInternet.then(reject) : reject(checkInternet);
                     return
                 }
                 /**

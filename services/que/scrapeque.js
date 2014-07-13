@@ -56,6 +56,7 @@ module.exports = function () {
             },
             function (error) {
                 logger.error(__filename, 'error', error);
+                if (error.type === 'dnserror') return; // no internet
                 dbquery.task.updateFailed({id: options.id, value: 1}).then(function (result) {
                     logger.warn('set job %d to failed', options.id);
                     q.job.del(options.id);

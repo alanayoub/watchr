@@ -10,7 +10,7 @@
         "db": 0
     },
     "mysql": {
-        "database": "watchr",
+        "database": "test_db",
         "host": "localhost",
         "user": "root",
         "password": "sdfaslkjsdlkjklsdfjkljskldTfjsdklafuser",
@@ -31,7 +31,7 @@
         "que": {
             "update": {
                 "interval": 10000,
-                "tasks_older_than_x_minutes": 5000,
+                "tasks_older_than_x_minutes": 1,
                 "limit_number_of_tasks": 2
             }
         },
