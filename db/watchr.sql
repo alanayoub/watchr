@@ -8,6 +8,8 @@ USE `watchr` ;
 -- -----------------------------------------------------
 -- Table `watchr`.`user`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `watchr`.`user` ;
+
 CREATE  TABLE IF NOT EXISTS `watchr`.`user` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `username` VARCHAR(254) NOT NULL ,
@@ -27,6 +29,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `watchr`.`login_attempt`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `watchr`.`login_attempt` ;
+
 CREATE  TABLE IF NOT EXISTS `watchr`.`login_attempt` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `ip` VARCHAR(45) NULL ,
@@ -43,6 +47,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `watchr`.`task`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `watchr`.`task` ;
+
 CREATE  TABLE IF NOT EXISTS `watchr`.`task` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `user_id` INT NOT NULL ,
@@ -70,6 +76,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `watchr`.`result`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `watchr`.`result` ;
+
 CREATE  TABLE IF NOT EXISTS `watchr`.`result` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `value` VARCHAR(1024) NULL ,
@@ -89,6 +97,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `watchr`.`botnet`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `watchr`.`botnet` ;
+
 CREATE  TABLE IF NOT EXISTS `watchr`.`botnet` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `value` VARCHAR(1024) NULL ,
@@ -117,3 +127,4 @@ CREATE USER `alan` IDENTIFIED BY 'sdfaslkj&sdlkjklsdfjklj"$skldTfjsdklaf';
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+

@@ -31,8 +31,8 @@
         "que": {
             "update": {
                 "interval": 10000,
-                "tasks_older_than_x_minutes": 1,
-                "limit_number_of_tasks": 2
+                "tasks_older_than_x_minutes": 0.1,
+                "limit_number_of_tasks": 10
             }
         },
         "phantom": {
