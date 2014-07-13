@@ -7,10 +7,11 @@ We are currently using the free tier aws box.
 1. vagrant up --provider=aws
 2. Make sure aws security group ssh ip is correct
 3. vagrant provision (resync folders and provision)
-4. update database with latest .sql file in ./db/backups. mysql watchr < [name].sql
+4. vagrant ssh
+5. cd /vagrant
+6. update database with latest .sql file in ./db/backups. mysql -u -p watchr < [name].sql
 
-cd /vagrant
-npm start
+node start
 
 -------
 
