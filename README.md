@@ -5,8 +5,9 @@ Create a Vagrant box if one doesnt already exist in /aws/box (view readme in /bo
 We are currently using the free tier aws box.
 
 1. vagrant up --provider=aws
-2. vagrant provision (resync folders and provision)
-3. update database with latest .sql file in ./db/backups. mysql watchr < [name].sql
+2. Make sure aws security group ssh ip is correct
+3. vagrant provision (resync folders and provision)
+4. update database with latest .sql file in ./db/backups. mysql watchr < [name].sql
 
 cd /vagrant
 npm start
