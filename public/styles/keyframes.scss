@@ -1,0 +1,7 @@
+@import 'styles/mixins';
+@include W-keyframes(W-error-fade) {
+    0% {background: #fff;}
+    10% {background: #b92222;}
+    100% {background: #fff;}
+}
+
