@@ -1,6 +1,7 @@
 var passport = require('passport'),
     dbquery = require('./db/query'),
     logger = require('./services/logger'),
+    config  = require('./config'),
     LocalStrategy = require('passport-local').Strategy,
     GoogleStrategy = require('passport-google').Strategy,
     pool = require('./pool');
@@ -23,8 +24,8 @@ passport.use(new LocalStrategy(
 ));
 
 passport.use(new GoogleStrategy({
-        returnURL: 'http://localhost:3000/auth/google/return',
-        realm: 'http://localhost:3000'
+        returnURL: config.get('app:domain') + '/auth/google/return',
+        realm: config.get('app:domain')
     },
     function (identifier, profile, done) {
         logger.info(__filename, 'Google strategy');

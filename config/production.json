@@ -21,17 +21,18 @@
             "filename": "logs/run.log",
             "level": "silly",
             "maxsize": 1048576,
-            "maxFiles": 3
+            "maxFiles": 5
         },
         "console": {
-            "level": "silly"
+            "level": "warn"
         }
     },
     "app": {
+        "domain": "54.88.17.98:3000",
         "que": {
             "update": {
                 "interval": 10000,
-                "tasks_older_than_x_minutes": 5,
+                "tasks_older_than_x_minutes": 300,
                 "limit_number_of_tasks": 2
             }
         },

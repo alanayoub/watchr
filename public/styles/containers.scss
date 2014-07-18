@@ -24,15 +24,14 @@ $fixed-height: $search-height + $masthead-height;
     top: $fixed-height;
     background: $defaultBackground;
     border-right: 1px solid $borderLines;
-    min-width: 325px;
-    max-width: 20%;
+    width: 20%;
     height: calc(100% - 81px);
     overflow: auto;
 }
 
 .W-gadget-list-container {
     position: absolute;
-    left: 325px;
+    left: 20%;
     top: 80px;
     right: 0;
     bottom: 0;

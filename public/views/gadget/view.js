@@ -39,6 +39,7 @@ define([
             view.$el.html(Handlebars.templates['gadget/' + result.format.toLowerCase()](result));
             view.$el.find('.w-format').append(view.formatView.el);
             view.$el.find('.JS-settings').append(view.settingsView.el);
+            view.$tooltip = view.$el.find('.w-tooltip');
             if (result.format === 'Number') {
                 $.plot($('.w-flot'), [result.set], {
 //                yaxis: { min: 0 },
@@ -77,11 +78,18 @@ define([
                     if (item) {
                         var x = item.datapoint[0].toFixed(2),
                             y = item.datapoint[1].toFixed(2),
+                            width,
+                            height,
+                            tooltipOffset = 5,
                             offset = $(this).closest('.W-gadget-list-container').offset();
-                console.log(JSON.stringify(offset));
-                console.log(item.pageY, item.pageX);
-                        $('.w-tooltip').html(y)
-                            .css({top: (item.pageY - offset.top) + 5, left: (item.pageX - offset.left) + 5})
+                        view.$tooltip.html(y);
+                        width = view.$tooltip.outerWidth();
+                        height = view.$tooltip.outerHeight();
+                        view.$tooltip 
+                            .css({
+                                top: (item.pageY - offset.top) - height - tooltipOffset,
+                                left: (item.pageX - offset.left) - width - tooltipOffset
+                            })
                             .fadeIn(200);
                     } else {
                         $('.w-tooltip').hide();

@@ -174,7 +174,7 @@ var chromeResults = {
         results.forEach(function (val, idx, arr) {
             $.when(dbquery.botnet.checkExists({task_id: val.id}))
                 .then(function (result) {
-                    console.log('checkExists', result.data.length);
+                    logger.info('checkExists', result.data.length);
                     return result;
                 })
                 .then(function (result) {
@@ -251,7 +251,7 @@ module.exports = function (io, scrapeque) {
                 });
             });
             socket.on('chromeTaskResults', function (results) {
-                console.log('Received task results from chrome plugin:\n--> %j', results);
+                logger.info('Received task results from chrome plugin:\n--> %j', results);
                 chromeResults.save(socket, user, results);
             });
             //
@@ -272,7 +272,7 @@ module.exports = function (io, scrapeque) {
                         }
                     });
                 }
-                if (result.type === 'tasks') console.log('go do tasks stuff');
+                if (result.type === 'tasks') logger.info('go do tasks stuff');
             });
             //
             // Webapplication

@@ -10,7 +10,7 @@
         "db": 0
     },
     "mysql": {
-        "database": "test_db",
+        "database": "watchr",
         "host": "localhost",
         "user": "root",
         "password": "sdfaslkjsdlkjklsdfjkljskldTfjsdklafuser",
@@ -21,18 +21,19 @@
             "filename": "logs/run.log",
             "level": "silly",
             "maxsize": 1048576,
-            "maxFiles": 3
+            "maxFiles": 5
         },
         "console": {
             "level": "silly"
         }
     },
     "app": {
+        "domain": "localhost:3000",
         "que": {
             "update": {
                 "interval": 10000,
-                "tasks_older_than_x_minutes": 0.1,
-                "limit_number_of_tasks": 10
+                "tasks_older_than_x_minutes": 60,
+                "limit_number_of_tasks": 2
             }
         },
         "phantom": {
