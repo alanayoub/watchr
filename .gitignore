@@ -1,8 +1,6 @@
 .idea
 .gen/
 renders/
-bower_components/
-node_modules/
 public/lib/
 logs
 *~
