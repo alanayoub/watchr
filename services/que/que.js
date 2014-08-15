@@ -67,3 +67,4 @@ var Que = module.exports = function () {
 }
 
 util.inherits(Que, events.EventEmitter);
+

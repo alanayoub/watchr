@@ -1,12 +1,18 @@
 <div class="W-gadget W-gadget-number{{#if meta.failed}} w-failed{{/if}}">
     <header>
+        <div class="w-stats">
+            <span>Latest: <strong>{{currency}}{{latest}}</strong></span>
+            <span>Diff: <strong>{{currency}}{{diff}}</strong></span>
+        </div>
         <div class="JS-settings"></div>
-        <div class="W-title">
-            <h1>{{meta.title}}</h1>
-            <div class="w-meta"><a href="{{meta.url}}" target="_blank">{{meta.url}}</a></div>
+        <div class="w-title-text">
+            <h1>{{title}}</h1>
+            <div class="w-meta"><a href="{{url}}" target="_blank">{{url}}</a></div>
         </div>
         <div class="w-format"></div>
     </header>
-    <div class="w-flot"></div>
-    <div class="w-tooltip"></div>
+    <div class="w-data-container">
+        <div class="w-flot"></div>
+        <div class="w-tooltip"></div>
+    </div>
 </div>

@@ -1,13 +1,20 @@
-<div class="W-gadget W-gadget-string{{#if meta.failed}} w-failed{{/if}}">
+<div class="W-gadget W-gadget-string{{#if failed}} w-failed{{/if}}">
     <header>
+        <div class="w-stats">
+            <span>Stuff</span>
+        </div>
         <div class="JS-settings"></div>
-        <h1>{{meta.title}}</h1>
-        <div class="w-meta"><a href="{{meta.url}}" target="_blank">{{meta.url}}</a></div>
+        <div class="w-title-text">
+            <h1>{{title}}</h1>
+            <div class="w-meta"><a href="{{url}}" target="_blank">{{url}}</a></div>
+        </div>
         <div class="w-format"></div>
     </header>
-    <ul>
-        {{#each set.data}}
-        <li>{{date asof}}: <strong>{{value}}</strong></li>
-        {{/each}}
-    </ul>
+    <div class="w-data-container">
+        <ul>
+            {{#each data}}
+            <li>{{date asof}}: <strong>{{value}}</strong></li>
+            {{/each}}
+        </ul>
+    </div>
 </div>

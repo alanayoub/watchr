@@ -8,7 +8,7 @@
   },
   "private": true,
   "scripts": {
-    "start": "node ."
+    "start": "nodemon ."
   },
   "description": "does stuff",
   "main": "index",

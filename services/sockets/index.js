@@ -108,7 +108,8 @@ var getResults = function (socket, taskId) {
         }
         if (!result.data || !task.data[0]) return;
         var task = task.data[0],
-            data = formatter(result.data, task.type, task.regex);
+            data = formatter(result.data, task.type, task.regex),
+            currency = result.data[0].value.replace(/[^£$]/g, '');
 
         // Remove repeated results when displaying as string
         if (!data.type || data.type === 'String') {
@@ -128,6 +129,7 @@ var getResults = function (socket, taskId) {
                 title: task.title,
                 url: task.url,
                 css: task.css,
+                currency: currency,
                 //regex: task.regex,
                 failed: task.failed
             },

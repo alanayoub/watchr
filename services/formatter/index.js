@@ -9,7 +9,7 @@ module.exports = function (data, type, regex) {
             if (!acc.type) acc.type = 'Number';
             val.asof = Date.parse(val.asof);
             var newval = regex
-                ? val.value.replace(new RegExp(regex), "$1")
+                ? val.value.replace(new RegExp(regex), '$1')
                 : val.value.replace(/[^0-9\.]/g, ''); // default Number regex
             acc.push([val.asof, newval]);
             return acc;
