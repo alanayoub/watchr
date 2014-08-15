@@ -21,7 +21,6 @@ define([
                 }
             });
             socket.on('result', function (data) {
-                console.log('result', data);
                 view.render(data);
             });
         },

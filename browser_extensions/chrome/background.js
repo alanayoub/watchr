@@ -1,6 +1,6 @@
 var socket = io.connect('http://localhost:3000'),
     frame = document.getElementsByTagName('iframe')[0],
-    tasks, task, source, interval;
+    tasks, task, source, interval, timeout;
 
 socket.on('connect', function () {
     socket.emit('chromeTasksRequest', {});
@@ -12,7 +12,8 @@ socket.on('chromeTasks', function (data) {
     tasks = data;
     interval = data.interval || 30000;
     if (!data.length) {
-        setTimeout(function () {
+        clearTimeout(timeout);
+        timeout = setTimeout(function () {
             socket.emit('chromeTasksRequest', {});
             console.log('emitting chromeTasksRequest');
         }, interval);
@@ -29,9 +30,9 @@ var scrape = function () {
         socket.emit('chromeTaskResults', tasks);
         setTimeout(function () {
             socket.emit('chromeTasksRequest', {});
+            console.log('emitting chromeTasksRequest');
         }, interval);
         console.log('emitting chromeTasksResults');
-        console.log('emitting chromeTasksRequest');
         return;
     };
     tryIframe().then(
