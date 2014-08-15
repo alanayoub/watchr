@@ -1,0 +1,14 @@
+{
+  "name": "ms_dotnet2",
+  "homepage": "https://github.com/juliandunn/ms_dotnet2",
+  "version": "1.0.0",
+  "_release": "1.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.0",
+    "commit": "6991e7f67a0f58b74e2766ba107ee16f111b7976"
+  },
+  "_source": "git@github.com:juliandunn/ms_dotnet2.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:juliandunn/ms_dotnet2.git"
+}

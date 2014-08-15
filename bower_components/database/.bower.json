@@ -1,0 +1,14 @@
+{
+  "name": "database",
+  "homepage": "https://github.com/opscode-cookbooks/database",
+  "version": "2.0.0",
+  "_release": "2.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v2.0.0",
+    "commit": "5e7c2e0aab14ccd2c80619310f7786425e411fd8"
+  },
+  "_source": "git@github.com:opscode-cookbooks/database.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:opscode-cookbooks/database.git"
+}

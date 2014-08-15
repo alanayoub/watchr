@@ -1,0 +1,15 @@
+{
+  "name": "backbone.iobind",
+  "homepage": "https://github.com/logicalparadox/backbone.iobind",
+  "version": "0.4.7",
+  "_release": "0.4.7",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.4.7",
+    "commit": "54eb58994c57c4ed31ae86140e97d314eec4fff6"
+  },
+  "_source": "git://github.com/logicalparadox/backbone.iobind.git",
+  "_target": "~0.4.7",
+  "_originalSource": "backbone.iobind",
+  "_direct": true
+}

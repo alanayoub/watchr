@@ -1,0 +1,14 @@
+{
+  "name": "yum",
+  "homepage": "https://github.com/opscode-cookbooks/yum",
+  "version": "3.1.4",
+  "_release": "3.1.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "v3.1.4",
+    "commit": "5106146e031cde0933059ccd1aa5b5af52b82b96"
+  },
+  "_source": "git@github.com:opscode-cookbooks/yum.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:opscode-cookbooks/yum.git"
+}

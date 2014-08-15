@@ -1,0 +1,14 @@
+{
+  "name": "git",
+  "homepage": "https://github.com/jssjr/git",
+  "version": "4.0.0",
+  "_release": "4.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v4.0.0",
+    "commit": "d51fe89d800ea4505c4bdfe290fa025cc7658f78"
+  },
+  "_source": "git@github.com:jssjr/git.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:jssjr/git.git"
+}

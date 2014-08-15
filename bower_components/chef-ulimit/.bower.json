@@ -1,0 +1,14 @@
+{
+  "name": "chef-ulimit",
+  "homepage": "https://github.com/bmhatfield/chef-ulimit",
+  "version": "0.3.2",
+  "_release": "0.3.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.3.2",
+    "commit": "9bd1dec9f15b2d378181a70bc8905a03f60bd471"
+  },
+  "_source": "git@github.com:bmhatfield/chef-ulimit.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:bmhatfield/chef-ulimit.git"
+}

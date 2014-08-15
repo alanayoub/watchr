@@ -1,0 +1,14 @@
+{
+  "name": "chocolatey",
+  "homepage": "https://github.com/chocolatey/chocolatey-cookbook",
+  "version": "0.1.0",
+  "_release": "0.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.1.0",
+    "commit": "9914b5ed98568fd938b4f5385c31d7b2e551391f"
+  },
+  "_source": "git@github.com:chocolatey/chocolatey-cookbook.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:chocolatey/chocolatey-cookbook.git"
+}

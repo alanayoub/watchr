@@ -1,0 +1,14 @@
+{
+  "name": "mysql",
+  "homepage": "https://github.com/opscode-cookbooks/mysql",
+  "version": "4.1.2",
+  "_release": "4.1.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v4.1.2",
+    "commit": "5937a28c41f23d7483569014fb1fb2f635707e33"
+  },
+  "_source": "git@github.com:opscode-cookbooks/mysql.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:opscode-cookbooks/mysql.git"
+}

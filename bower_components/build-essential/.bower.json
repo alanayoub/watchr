@@ -1,0 +1,14 @@
+{
+  "name": "build-essential",
+  "homepage": "https://github.com/opscode-cookbooks/build-essential",
+  "version": "2.0.0",
+  "_release": "2.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v2.0.0",
+    "commit": "3ba1e086e46cdc89f5799de6932fbb15b889b63a"
+  },
+  "_source": "git@github.com:opscode-cookbooks/build-essential.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:opscode-cookbooks/build-essential.git"
+}

@@ -1,0 +1,14 @@
+{
+  "name": "apt",
+  "homepage": "https://github.com/opscode-cookbooks/apt",
+  "version": "2.3.8",
+  "_release": "2.3.8",
+  "_resolution": {
+    "type": "version",
+    "tag": "v2.3.8",
+    "commit": "d611146a9530396c057fdf5944f8d16c01cb35a3"
+  },
+  "_source": "git@github.com:opscode-cookbooks/apt.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:opscode-cookbooks/apt.git"
+}

@@ -1,0 +1,14 @@
+{
+  "name": "redisio",
+  "homepage": "https://github.com/brianbianco/redisio",
+  "version": "1.7.1",
+  "_release": "1.7.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.7.1",
+    "commit": "2b7fc068417fb95758b07bc4f6e3c4a450419812"
+  },
+  "_source": "git@github.com:brianbianco/redisio.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:brianbianco/redisio.git"
+}

@@ -1,0 +1,14 @@
+{
+  "name": "powershell",
+  "homepage": "https://github.com/opscode-cookbooks/powershell",
+  "version": "3.0.0",
+  "_release": "3.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v3.0.0",
+    "commit": "b8a9e8bebe24f0a2e49ab28bcdbe3b54cfbe3bcf"
+  },
+  "_source": "git@github.com:opscode-cookbooks/powershell.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:opscode-cookbooks/powershell.git"
+}

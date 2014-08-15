@@ -1,0 +1,14 @@
+{
+  "name": "homebrew",
+  "homepage": "https://github.com/opscode-cookbooks/homebrew",
+  "version": "1.5.4",
+  "_release": "1.5.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.5.4",
+    "commit": "ac029f697c4a4e9a8a3552735e348edf01ecb3f1"
+  },
+  "_source": "git@github.com:opscode-cookbooks/homebrew.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:opscode-cookbooks/homebrew.git"
+}

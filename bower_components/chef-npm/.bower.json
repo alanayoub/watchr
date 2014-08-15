@@ -1,0 +1,13 @@
+{
+  "name": "chef-npm",
+  "homepage": "https://github.com/balbeko/chef-npm",
+  "_release": "83d8f655b4",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "83d8f655b41e6d646dc3ca8a81355e96a36cde69"
+  },
+  "_source": "git@github.com:balbeko/chef-npm.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:balbeko/chef-npm.git"
+}

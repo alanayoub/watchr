@@ -1,0 +1,14 @@
+{
+  "name": "dmg",
+  "homepage": "https://github.com/opscode-cookbooks/dmg",
+  "version": "2.2.0",
+  "_release": "2.2.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v2.2.0",
+    "commit": "91f9cbe7e277ec174723a7bbf025dbab65de6bbb"
+  },
+  "_source": "git@github.com:opscode-cookbooks/dmg.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:opscode-cookbooks/dmg.git"
+}

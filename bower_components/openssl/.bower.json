@@ -1,0 +1,14 @@
+{
+  "name": "openssl",
+  "homepage": "https://github.com/opscode-cookbooks/openssl",
+  "version": "1.1.0",
+  "_release": "1.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.1.0",
+    "commit": "2b20e1480d3fbdc02371be1f25e8adc406bb59e1"
+  },
+  "_source": "git@github.com:opscode-cookbooks/openssl.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:opscode-cookbooks/openssl.git"
+}

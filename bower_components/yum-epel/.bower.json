@@ -1,0 +1,14 @@
+{
+  "name": "yum-epel",
+  "homepage": "https://github.com/opscode-cookbooks/yum-epel",
+  "version": "0.3.4",
+  "_release": "0.3.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.3.4",
+    "commit": "b542aea037a7395ceb6f10b878b7dc48bc330446"
+  },
+  "_source": "git@github.com:opscode-cookbooks/yum-epel.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:opscode-cookbooks/yum-epel.git"
+}

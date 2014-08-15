@@ -1,0 +1,14 @@
+{
+  "name": "nodejs-cookbook",
+  "homepage": "https://github.com/mdxp/nodejs-cookbook",
+  "version": "1.3.0",
+  "_release": "1.3.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.3.0",
+    "commit": "e05dd6737bdfd12f3356ac36f9502ab95170035a"
+  },
+  "_source": "git@github.com:mdxp/nodejs-cookbook.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:mdxp/nodejs-cookbook.git"
+}

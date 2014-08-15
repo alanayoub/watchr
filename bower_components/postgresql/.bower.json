@@ -1,0 +1,14 @@
+{
+  "name": "postgresql",
+  "homepage": "https://github.com/hw-cookbooks/postgresql",
+  "version": "3.3.4",
+  "_release": "3.3.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "v3.3.4",
+    "commit": "5800238828b443725442fe510ec4f5308ed9ce8b"
+  },
+  "_source": "git@github.com:hw-cookbooks/postgresql.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:hw-cookbooks/postgresql.git"
+}

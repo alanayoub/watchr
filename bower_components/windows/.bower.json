@@ -1,0 +1,14 @@
+{
+  "name": "windows",
+  "homepage": "https://github.com/opscode-cookbooks/windows",
+  "version": "1.30.0",
+  "_release": "1.30.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.30.0",
+    "commit": "89fb97440de998340e49073b3d2178a1ee9aaaa2"
+  },
+  "_source": "git@github.com:opscode-cookbooks/windows.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:opscode-cookbooks/windows.git"
+}

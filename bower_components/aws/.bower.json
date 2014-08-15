@@ -1,0 +1,14 @@
+{
+  "name": "aws",
+  "homepage": "https://github.com/opscode-cookbooks/aws",
+  "version": "2.1.0",
+  "_release": "2.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v2.1.0",
+    "commit": "744e0b2e91ceaa531d3d6a97d433bc6aef0075c4"
+  },
+  "_source": "git@github.com:opscode-cookbooks/aws.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:opscode-cookbooks/aws.git"
+}

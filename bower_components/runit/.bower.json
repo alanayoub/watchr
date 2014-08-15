@@ -1,0 +1,14 @@
+{
+  "name": "runit",
+  "homepage": "https://github.com/hw-cookbooks/runit",
+  "version": "1.5.10",
+  "_release": "1.5.10",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.5.10",
+    "commit": "ffe194d89e9897ac01f874fce539fc22ad02ed9c"
+  },
+  "_source": "git@github.com:hw-cookbooks/runit.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:hw-cookbooks/runit.git"
+}

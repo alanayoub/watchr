@@ -1,0 +1,14 @@
+{
+  "name": "xfs",
+  "homepage": "https://github.com/opscode-cookbooks/xfs",
+  "version": "1.1.0",
+  "_release": "1.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.1.0",
+    "commit": "89f0cb2eb29a4556570efe35165fa95d7a24418e"
+  },
+  "_source": "git@github.com:opscode-cookbooks/xfs.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:opscode-cookbooks/xfs.git"
+}

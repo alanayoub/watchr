@@ -1,0 +1,13 @@
+{
+  "name": "ms_dotnet4",
+  "homepage": "https://github.com/webtrends/Cookbooks",
+  "_release": "c61ece996d",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "c61ece996d7084597f8704d0272e19706494f89a"
+  },
+  "_source": "git@github.com:webtrends/Cookbooks.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:webtrends/Cookbooks.git"
+}
