@@ -2,6 +2,8 @@
 .gen/
 renders/
 public/lib/
+/.sass-cache/
+/.vagrant/
 logs
 *~
 *.swo
