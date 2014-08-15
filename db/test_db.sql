@@ -1,0 +1,120 @@
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
+
+CREATE SCHEMA IF NOT EXISTS `test_db` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
+USE `test_db` ;
+
+-- -----------------------------------------------------
+-- Table `test_db`.`user`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `test_db`.`user` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `username` VARCHAR(254) NOT NULL ,
+  `password` CHAR(128) NOT NULL ,
+  `salt` CHAR(32) NOT NULL ,
+  `creation_date` VARCHAR(45) NOT NULL DEFAULT 'now()' ,
+  `confirmed` TINYINT(1) NOT NULL DEFAULT 0 ,
+  `active` TINYINT(1) NOT NULL DEFAULT 0 ,
+  `uuid` CHAR(100) NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `iduser_UNIQUE` (`id` ASC) ,
+  UNIQUE INDEX `email_UNIQUE` (`username` ASC) ,
+  UNIQUE INDEX `uuid_UNIQUE` (`uuid` ASC) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `test_db`.`login_attempt`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `test_db`.`login_attempt` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `ip` VARCHAR(45) NULL ,
+  `browser` VARCHAR(45) NULL ,
+  `success` TINYINT(1) NOT NULL ,
+  `timestamp` TIMESTAMP NOT NULL DEFAULT now() ,
+  `username` VARCHAR(254) NULL ,
+  `user_uuid` CHAR(100) NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `test_db`.`task`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `test_db`.`task` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `user_id` INT NOT NULL ,
+  `url` VARCHAR(2083) NOT NULL ,
+  `css` VARCHAR(255) NULL ,
+  `regex` VARCHAR(100) NULL ,
+  `xpath` VARCHAR(255) NULL ,
+  `creation_date` TIMESTAMP NOT NULL DEFAULT now() ,
+  `active` TINYINT(1) NOT NULL DEFAULT 1 ,
+  `latest_scrape` TIMESTAMP NULL ,
+  `title` VARCHAR(100) NULL ,
+  `type` VARCHAR(6) NULL ,
+  `failed` TINYINT(1) NULL ,
+  PRIMARY KEY (`id`, `user_id`) ,
+  UNIQUE INDEX `task_UNIQUE` (`id` ASC) ,
+  INDEX `fk_task_user1` (`user_id` ASC) ,
+  CONSTRAINT `fk_task_user1`
+    FOREIGN KEY (`user_id` )
+    REFERENCES `test_db`.`user` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `test_db`.`result`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `test_db`.`result` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `value` VARCHAR(1024) NULL ,
+  `asof` TIMESTAMP NULL DEFAULT now() ,
+  `task_id` INT NOT NULL ,
+  PRIMARY KEY (`id`, `task_id`) ,
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) ,
+  INDEX `fk_results_task1` (`task_id` ASC) ,
+  CONSTRAINT `fk_results_task1`
+    FOREIGN KEY (`task_id` )
+    REFERENCES `test_db`.`task` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `test_db`.`botnet`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `test_db`.`botnet` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `value` VARCHAR(1024) NULL ,
+  `valueon` TIMESTAMP NOT NULL ,
+  `valueby` CHAR(100) NOT NULL ,
+  `value2` VARCHAR(1024) NULL ,
+  `value2on` TIMESTAMP NULL ,
+  `value2by` CHAR(100) NULL ,
+  `confirmed` TINYINT(1) NULL ,
+  `task_id` INT NOT NULL ,
+  `task_user_id` INT NOT NULL ,
+  PRIMARY KEY (`id`, `task_id`, `task_user_id`) ,
+  UNIQUE INDEX `idbotnet_UNIQUE` (`id` ASC) ,
+  INDEX `fk_botnet_task1` (`task_id` ASC, `task_user_id` ASC) ,
+  CONSTRAINT `fk_botnet_task1`
+    FOREIGN KEY (`task_id` , `task_user_id` )
+    REFERENCES `test_db`.`task` (`id` , `user_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+CREATE USER `alan` IDENTIFIED BY 'sdfaslkj&sdlkjklsdfjklj"$skldTfjsdklaf';
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
