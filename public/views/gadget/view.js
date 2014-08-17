@@ -27,6 +27,7 @@ define([
         },
         render: function (result) {
             var view = this,
+                data = result.set.data,
                 latest_result = result.set.data[0].value || result.set.data[0][1]; // string or array
             view.currency_symbol = result.meta.currency,
             view.formatModel = new FormatModel({
@@ -38,10 +39,12 @@ define([
                 title: result.meta.title,
                 url: result.meta.url,
                 currency: result.meta.currency,
-                diff: view.diff(result.set.data),
-                latest: Number(result.set.data[0][1]).toLocaleString('en'),
+                diff: view.diff(data),
+                first: util.format_currency(data[data.length - 1][1]),
+                latest: Number(data[0][1]).toLocaleString('en'),
+                time: moment.duration(data[0][0] - data[data.length - 1][0], 'ms').humanize(),
                 failed: result.meta.failed,
-                data: result.set.data
+                data: data
             };
             view.plot_options = {
                 colors: ['#30A0EB'],
