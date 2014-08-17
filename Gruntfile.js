@@ -195,7 +195,7 @@ module.exports = function (grunt) {
                         cwd: './bower_components/windows',
                         expand: true
                     }
-                ] 
+                ]
             }
         },
         handlebars: {
@@ -219,7 +219,6 @@ module.exports = function (grunt) {
                     user: config.get('mysql:user'),
                     pass: config.get('mysql:password'),
                     host: config.get('mysql:host'),
-                    user: config.get('mysql:user'),
                     backup_to: "./db/backups/local" + Date.now()  + ".sql"
                 }
             }
