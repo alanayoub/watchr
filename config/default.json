@@ -24,21 +24,22 @@
             "maxFiles": 3
         },
         "console": {
-            "level": "error"
+            "level": "silly"
         }
     },
     "app": {
+        "domain": "localhost:3000",
         "que": {
             "update": {
                 "interval": 10000,
-                "tasks_older_than_x_minutes": 5,
+                "tasks_older_than_x_minutes": 60,
                 "limit_number_of_tasks": 2
             }
         },
         "phantom": {
             "check_for_match_times": 20,
             "wait_inbetween_checks": 500,
-            "max_scrapes_per_instance": 3
+            "max_scrapes_per_instance": 10
         },
         "browserExtension": {
             "update": {

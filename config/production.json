@@ -28,7 +28,7 @@
         }
     },
     "app": {
-        "domain": "54.88.17.98:3000",
+        "domain": "watchr.co:3000",
         "que": {
             "update": {
                 "interval": 10000,
@@ -38,12 +38,13 @@
         },
         "phantom": {
             "check_for_match_times": 20,
-            "wait_inbetween_checks": 500
+            "wait_inbetween_checks": 500,
+            "max_scrapes_per_instance": 10
         },
         "browserExtension": {
             "update": {
                 "interval": 3600000,
-                "tasks_older_than_x_minutes": 5,
+                "tasks_older_than_x_minutes": 100,
                 "limit_number_of_tasks": 3
             }
         }

@@ -38,7 +38,8 @@
         },
         "phantom": {
             "check_for_match_times": 20,
-            "wait_inbetween_checks": 500
+            "wait_inbetween_checks": 500,
+            "max_scrapes_per_instance": 10
         },
         "browserExtension": {
             "update": {
