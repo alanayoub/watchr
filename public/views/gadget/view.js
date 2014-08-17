@@ -1,11 +1,12 @@
-'use strict';
 define([
     '/views/format/view.js',
     '/models/formatoptions.js',
     '/views/settings/view.js',
+    '/util/index.js',
     'jquery.flot',
     'jquery.flot.time'
-], function (FormatView, FormatModel, SettingsView) {
+], function (FormatView, FormatModel, SettingsView, util) {
+    'use strict';
     return Backbone.View.extend({
         initialize: function (options) {
             var view = this,
@@ -27,6 +28,7 @@ define([
         render: function (result) {
             var view = this,
                 latest_result = result.set.data[0].value || result.set.data[0][1]; // string or array
+            view.currency_symbol = result.meta.currency,
             view.formatModel = new FormatModel({
                 id: view.id,
                 selected: result.format || 'String',
@@ -51,18 +53,21 @@ define([
                 yaxis: {
                     tickColor: '#F9F9F9',
                     tickFormatter: function (v, axis) {
-                        return result.meta.currency + Number(v).toLocaleString('en');
+                        return view.currency_symbol + util.format_currency(v);
                     }
                 },
                 series: {
                     points: {
                         show: true,
-                        radius: 3,
+                        radius: 1,
                         lineWidth: 1
                     },
                     lines: {
                         lineWidth: 1,
-                        show: true
+                        show: true,
+                        fill: true,
+                        fillColor: '#e7f4fd',
+                        zero: false
                     },
                     shadowSize: null
                 },
@@ -89,7 +94,7 @@ define([
         },
         diff: function (array) {
             var first = array[0][1], last = array[array.length - 1][1];
-            return last - first;
+            return util.format_currency(first - last);
         },
         destroy: function () {
             var socket = watchr.socket;
@@ -106,11 +111,11 @@ define([
                         width,
                         height,
                         tooltipOffset = 5,
-                        offset = $(this).closest('.W-gadget-list-container').offset();
-                    view.$tooltip.html(y);
+                        offset = $(this).closest('.W-gadget-list-container .w-data-container').offset();
+                    view.$tooltip.html(view.currency_symbol + util.format_currency(y));
                     width = view.$tooltip.outerWidth();
                     height = view.$tooltip.outerHeight();
-                    view.$tooltip 
+                    view.$tooltip
                         .css({
                             top: (item.pageY - offset.top) - height - tooltipOffset,
                             left: (item.pageX - offset.left) - width - tooltipOffset
@@ -118,10 +123,8 @@ define([
                         .fadeIn(200);
                 } else {
                     $('.w-tooltip').hide();
-                } 
-
+                }
             });
-
         }
     });
 });

@@ -43,7 +43,7 @@ app.configure('development', 'production', function () {
 });
 
 server = http.createServer(app).listen(config.get('express:port'), function () {
-    logger.info('Express server listening on port ' + config.get('express:port'))
+    logger.info('Express server listening on port ' + config.get('express:port'));
 });
 
 require('./routes');
