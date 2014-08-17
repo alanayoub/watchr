@@ -219,7 +219,7 @@ module.exports = function (grunt) {
                     user: config.get('mysql:user'),
                     pass: config.get('mysql:password'),
                     host: config.get('mysql:host'),
-                    backup_to: "./db/backups/" + (process.env || 'local') + Date.now()  + ".sql"
+                    backup_to: "./db/backups/local" + Date.now() + ".sql"
                 }
             }
         },

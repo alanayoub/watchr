@@ -1,0 +1,28 @@
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/styles\/forms\.scss}line{font-family:\000032}}
+input {
+  background: #e7f4fd;
+  border: 1px solid w-darken(#e7f4fd, 10%);
+  line-height: 18px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/styles\/forms\.scss}line{font-family:\000037}}
+input[type=submit] {
+  background: #3996d3;
+  border: #3996d3;
+  text-transform: uppercase;
+  min-width: 55px;
+  line-height: 20px;
+  color: #fff;
+  padding: 0 15px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/styles\/forms\.scss}line{font-family:\0000316}}
+input[disabled] {
+  background: #ccc;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/styles\/forms\.scss}line{font-family:\0000320}}
+input.w-loading {
+  background: #cccccc url("/images/anim_16.gif") no-repeat 50% 50%;
+  color: #ccc;
+}

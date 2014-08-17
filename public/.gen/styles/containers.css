@@ -1,0 +1,37 @@
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/styles\/containers\.scss}line{font-family:\000036}}
+.W-masthead-container {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/styles\/containers\.scss}line{font-family:\0000313}}
+.W-search-container {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  top: 40px;
+  background: #fff;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/styles\/containers\.scss}line{font-family:\0000322}}
+.W-task-list-container {
+  position: fixed;
+  top: 81px;
+  background: #f7f7f7;
+  border-right: 1px solid #dae3e9;
+  width: 20%;
+  height: calc(100% - 81px);
+  overflow: auto;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/styles\/containers\.scss}line{font-family:\0000332}}
+.W-gadget-list-container {
+  position: absolute;
+  left: 20%;
+  top: 80px;
+  right: 0;
+  bottom: 0;
+}

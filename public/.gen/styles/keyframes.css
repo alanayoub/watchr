@@ -1,0 +1,67 @@
+@-webkit-keyframes W-error-fade {
+  /* line 3, ../../styles/keyframes.scss */
+  0% {
+    background: #fff;
+  }
+
+  /* line 4, ../../styles/keyframes.scss */
+  10% {
+    background: #b92222;
+  }
+
+  /* line 5, ../../styles/keyframes.scss */
+  100% {
+    background: #fff;
+  }
+}
+
+@-moz-keyframes W-error-fade {
+  /* line 3, ../../styles/keyframes.scss */
+  0% {
+    background: #fff;
+  }
+
+  /* line 4, ../../styles/keyframes.scss */
+  10% {
+    background: #b92222;
+  }
+
+  /* line 5, ../../styles/keyframes.scss */
+  100% {
+    background: #fff;
+  }
+}
+
+@-ms-keyframes W-error-fade {
+  /* line 3, ../../styles/keyframes.scss */
+  0% {
+    background: #fff;
+  }
+
+  /* line 4, ../../styles/keyframes.scss */
+  10% {
+    background: #b92222;
+  }
+
+  /* line 5, ../../styles/keyframes.scss */
+  100% {
+    background: #fff;
+  }
+}
+
+@keyframes W-error-fade {
+  /* line 3, ../../styles/keyframes.scss */
+  0% {
+    background: #fff;
+  }
+
+  /* line 4, ../../styles/keyframes.scss */
+  10% {
+    background: #b92222;
+  }
+
+  /* line 5, ../../styles/keyframes.scss */
+  100% {
+    background: #fff;
+  }
+}

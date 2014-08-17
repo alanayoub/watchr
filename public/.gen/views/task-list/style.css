@@ -1,0 +1,69 @@
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/task-list\/style\.scss}line{font-family:\000033}}
+.W-task-list {
+  box-shadow: inset -5px 0 10px -5px rgba(0, 0, 0, 0.2);
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/task-list\/style\.scss}line{font-family:\000035}}
+.W-task-list .w-listitem {
+  background: #fff;
+  padding: 10px;
+  border-bottom: 1px solid #dae3e9;
+  position: relative;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/task-list\/style\.scss}line{font-family:\0000310}}
+.W-task-list .w-listitem:hover {
+  background: #f1f1f1;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/task-list\/style\.scss}line{font-family:\0000313}}
+.W-task-list .w-listitem.w-updated {
+  background: #fee;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/task-list\/style\.scss}line{font-family:\0000316}}
+.W-task-list .w-listitem .w-delete {
+  display: none;
+  background: #b92222;
+  color: #fff;
+  width: 12px;
+  height: 12px;
+  line-height: 12px;
+  position: absolute;
+  text-align: center;
+  vertical-align: middle;
+  top: 4px;
+  right: 4px;
+  font-size: 10px;
+  font-weight: bold;
+  border-radius: 3px;
+  cursor: pointer;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/task-list\/style\.scss}line{font-family:\0000333}}
+.W-task-list .w-listitem:hover .w-delete {
+  display: block;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/task-list\/style\.scss}line{font-family:\0000336}}
+.W-task-list .w-listitem.w-failed {
+  background: #fee;
+  color: #555;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/task-list\/style\.scss}line{font-family:\0000339}}
+.W-task-list .w-listitem.w-failed a, .W-task-list .w-listitem.w-failed .w-url {
+  color: #da8c8c;
+  border-bottom: #da8c8c;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/task-list\/style\.scss}line{font-family:\0000344}}
+.W-task-list .w-listitem .w-failed-notification {
+  background: #b92222;
+  color: #fff;
+  margin: -10px -10px 10px -10px;
+  padding-left: 5px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/task-list\/style\.scss}line{font-family:\0000351}}
+.W-task-list .w-url {
+  color: #00bd1f;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/task-list\/style\.scss}line{font-family:\0000355}}
+.W-task-list .w-title {
+  font-weight: bold;
+}

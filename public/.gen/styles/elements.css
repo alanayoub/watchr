@@ -1,0 +1,16 @@
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/styles\/elements\.scss}line{font-family:\000032}}
+body {
+  background: #fff;
+  margin: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/styles\/elements\.scss}line{font-family:\000037}}
+h1 {
+  margin: 0 0 10px 0;
+  font-weight: 300;
+  font-size: 30px;
+  line-height: 40px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

@@ -1,0 +1,129 @@
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/settings\/style\.scss}line{font-family:\000032}}
+.W-settings {
+  position: absolute;
+  top: -2px;
+  right: 0;
+  width: 45px;
+  height: 30px;
+  background: #29323c;
+  border-bottom-left-radius: 15px;
+  transition: width .25s ease-in-out, background-color .25s;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/settings\/style\.scss}line{font-family:\0000311}}
+.W-settings [class*=W-icon-] {
+  margin: 5px 10px;
+  position: absolute;
+  background-color: #29323c;
+  right: 1px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/settings\/style\.scss}line{font-family:\0000318}}
+.W-settings input[type=text],
+.W-settings input[type=url] {
+  border: 1px solid #aaa;
+  background: #fff;
+  padding-left: 3px;
+  width: 363px;
+  margin-left: -3px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/settings\/style\.scss}line{font-family:\0000325}}
+.W-settings label {
+  display: block;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/settings\/style\.scss}line{font-family:\0000329}}
+.W-settings .W-icon-cogs,
+.W-settings .W-icon-arrow_expand {
+  opacity: 1;
+  transition: opacity .25s ease-in-out;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/settings\/style\.scss}line{font-family:\0000333}}
+.W-settings .W-icon-arrow_expand {
+  transition: background-color .25s ease-in-out;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/settings\/style\.scss}line{font-family:\0000336}}
+.W-settings .w-content {
+  display: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/settings\/style\.scss}line{font-family:\0000341}}
+.W-settings:hover:hover .W-icon-cogs {
+  opacity: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/settings\/style\.scss}line{font-family:\0000346}}
+.W-settings.w-failed {
+  background-color: #b92222;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/settings\/style\.scss}line{font-family:\0000348}}
+.W-settings.w-failed [class*=W-icon-] {
+  background-color: #b92222;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/settings\/style\.scss}line{font-family:\0000354}}
+.W-settings.w-failed:not(.w-test-success) .w-selector input, .W-settings.w-failed:not(.w-test-success) .w-url input {
+  border: 1px solid #b92222 !important;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/settings\/style\.scss}line{font-family:\0000357}}
+.W-settings.w-failed:not(.w-test-success) .w-selector span, .W-settings.w-failed:not(.w-test-success) .w-url span {
+  background: #b92222 !important;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/settings\/style\.scss}line{font-family:\0000361}}
+.W-settings.w-failed:not(.w-test-success) .w-result {
+  color: #ccc;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/settings\/style\.scss}line{font-family:\0000366}}
+.W-settings.w-test-failed .w-result {
+  -webkit-animation: W-error-fade 1s ease;
+  -moz-animation: W-error-fade 1s ease;
+  animation: W-error-fade 1s ease;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/settings\/style\.scss}line{font-family:\0000370}}
+.W-settings.w-open {
+  width: 450px;
+  height: auto;
+  z-index: 1;
+  background-color: #eee;
+  border: 1px solid #ddd;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/settings\/style\.scss}line{font-family:\0000376}}
+.W-settings.w-open .w-result {
+  padding: 10px;
+  margin: 10px 0 30px 0;
+  background: #fff;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/settings\/style\.scss}line{font-family:\0000381}}
+.W-settings.w-open .w-content {
+  display: block;
+  padding: 10px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/settings\/style\.scss}line{font-family:\0000384}}
+.W-settings.w-open .w-content header {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/settings\/style\.scss}line{font-family:\0000388}}
+.W-settings.w-open .w-content span {
+  background: #aaa;
+  line-height: 22px;
+  min-width: 45px;
+  display: inline-block;
+  position: relative;
+  top: -1px;
+  padding: 0 8px;
+  color: #fff;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/settings\/style\.scss}line{font-family:\0000399}}
+.W-settings.w-open [class*=W-icon-] {
+  opacity: 0;
+  background-color: #ccc;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/settings\/style\.scss}line{font-family:\00003103}}
+.W-settings.w-open .w-buttons {
+  position: absolute;
+  right: 10px;
+  bottom: 0;
+  margin: 10px 0;
+  float: right;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/alan\/code\/watchr\/public\/views\/settings\/style\.scss}line{font-family:\00003109}}
+.W-settings.w-open .w-buttons input {
+  display: inline-block;
+  margin: 0;
+  margin-left: 5px;
+}
