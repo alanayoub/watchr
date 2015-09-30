@@ -16,7 +16,6 @@ define(['jquery', '/models/user.js', 'backbone'], function ($, UserModel) {
                     document.location.reload();
                 });
             });
-
         }
     });
 });
